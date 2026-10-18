@@ -172,7 +172,7 @@ function approvalCard(a) {
   const decide = async (approve) => {
     const r = await api("/api/console/approvals/decide", { method: "POST", body: { approval_id: a.approval_id, approve } });
     if (!r.ok) { toast(r.error); return; }
-    done(r.status, viewerOf().name, approve ? (r.executed && r.executed.result) || "Done." : "Nothing was done.");
+    done(approve ? "approved" : "rejected", viewerOf().name, approve ? (r.executed && r.executed.result) || "Done." : "Nothing was done.");
   };
   if (a.status !== "pending") { done(a.status, a.decided_by || "someone", a.executed || ""); return card; }
   const args = Object.entries(a.args || {}).filter(([, v]) => typeof v !== "object").map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`).join(" · ");
@@ -219,6 +219,7 @@ function current() { const [id, qs] = location.hash.replace(/^#/, "").split("?")
 async function render() {
   const token = ++S.token, { id, params } = current();
   const p = S.pages.find((x) => x.id === id);
+  closeDrawer();
   const main = $("#main"); main.replaceChildren();
   if (!p) { if (S.pages.length) go("home"); return; }
   $("#page-title").textContent = p.title; document.title = `${p.title} - Company OS`;

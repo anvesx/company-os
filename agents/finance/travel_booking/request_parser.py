@@ -46,7 +46,7 @@ def _find_date(text):
 
 
 def _pax(text):
-    m = re.search(r"\b(\d+|" + "|".join(PAX_WORDS) + r")\s+(?:people|persons|passengers|travellers|travelers|pax|of us|seats)\b", text, re.I) \
+    m = re.search(r"\b(\d+|" + "|".join(PAX_WORDS) + r")\s+(?:people|persons?|passengers|travellers|travelers|pax|of us|seats)\b", text, re.I) \
         or re.search(r"\bfor\s+(\d+|" + "|".join(PAX_WORDS) + r")\b(?!\s*(?:nights?|days?))", text, re.I)
     if not m:
         raise RequestError("Say how many people are travelling, for example 'for 3 people'.")

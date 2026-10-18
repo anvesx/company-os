@@ -12,7 +12,7 @@
   function requestCard(el, ctx, r, reload) {
     const [tone, label] = STATUS[r.status] || ["calm", r.status];
     const q = r.request || {};
-    const head = el("h4", {}, (q.from_city || "") + " to " + (q.to_city || "") + ", " + (q.depart_on || "") + (q.return_on ? " back " + q.return_on : "") + ", " + (q.pax || "") + " people",
+    const head = !q.from_city ? el("h4", {}, q.raw || "Travel request", " ", el("span", { class: "chip " + tone }, label), r.requester_name ? el("span", { class: "travel-who" }, "for " + r.requester_name) : null) : el("h4", {}, (q.from_city || "") + " to " + (q.to_city || "") + ", " + (q.depart_on || "") + (q.return_on ? " back " + q.return_on : "") + ", " + (q.pax || "") + " people",
       " ", el("span", { class: "chip " + tone }, label), r.requester_name ? el("span", { class: "travel-who" }, "for " + r.requester_name) : null);
     const kids = [head];
     if (r.booking_ref) kids.push(el("p", {}, "Booking " + r.booking_ref + ", total " + inr(r.total_inr)));
