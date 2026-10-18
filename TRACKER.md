@@ -8,14 +8,13 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
-| Integration: one full run through the real brain pipeline, compaction hook in the agent loop, real-Sonnet samples, fixes found in Wave 2 | I1 | Started Oct 19 |
 
 ## Next
 
 | What | Ticket | Notes |
 |---|---|---|
-| Split into `core/` and `control_plane/` folders, with a boundary test | R2 | After I1 |
-| Browser check of each role | I2 | Wave 3 |
+| Browser check of each role | I2 | Next |
+| Finance trip card: the real-Sonnet sample was refused twice by our own checks; fix the prompt so it passes | (follow-up) | Found in I1 |
 | Control plane server, to run for real: a scheduler for timers, a webhook for new Fathom recordings, a job queue with retries, approvals and letters through Slack or email, hosting | (planned) | After the demo. Today the control-plane logic runs on a simulated clock with dummy data |
 | Approvals that expire after a set time (idea from Grok Bot) | (idea) | Not planned yet |
 | Brain inbox reads any document type: Excel and CSV, PDF (with OCR for scans), PowerPoint, Google exports, images. Each fact still links to its exact place (sheet and cell, page and line, slide) | (planned) | Owner's plan, Oct 19. Today: Fathom, Word, email, chat, live calls |
@@ -24,6 +23,8 @@ Last updated: Oct 19, 2026.
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Code split into `core/` (core harness) and `control_plane/`, with `contract/` between them. Boundary tests check both directions. 545 tests and all 10 exams pass | R2 |
+| Oct 19 | Integration: compaction runs before each model call; exams also run on a brain filled by the real pipeline, and all pass; 3 bugs fixed; real-Sonnet samples recorded (4 of 5 usable) | I1 |
 | Oct 19 | Research: Grok Bot inside vs Company OS. Direction sound; ideas to copy: approvals that expire, teach mode, limits on routines (`docs/research/grok-bot-internals-vs-company-os.md`) | (research) |
 | Oct 19 | Wave 2: Cleaner, Extractor, Linker and Playbook writer (the brain's four agents); CSM project brief; Growth deal brief; live call helper; finance v2 with real cheaper flights and hotels and round-trip booking; console shell with three people. 526 tests pass; all 10 exams pass | S1 to S7 |
 | Oct 19 | Wave 1 integration: full suite green (410 tests); exams pass for meeting prep, finance watch, spend advice and travel booking; names changed to Ammar, Akbar and Anthony; job title "R&D lead" renamed to CTO | (lead) |
