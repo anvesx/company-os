@@ -8,12 +8,13 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
+| Fix from the browser check: a Growth call was cited in the CSM project brief (role rule says CSM may not see deal discussions); three changed decisions missing their "Changed on" line; Home cost total shows $0 | (fix) | Running |
 
 ## Next
 
 | What | Ticket | Notes |
 |---|---|---|
-| Browser check of each role | I2 | Next |
+| Check the console at phone width (390 px) and in dark mode | (follow-up) | Not checked in I2 |
 | Finance trip card: the real-Sonnet sample was refused twice by our own checks; fix the prompt so it passes | (follow-up) | Found in I1 |
 | Control plane server, to run for real: a scheduler for timers, a webhook for new Fathom recordings, a job queue with retries, approvals and letters through Slack or email, hosting | (planned) | After the demo. Today the control-plane logic runs on a simulated clock with dummy data |
 | Approvals that expire after a set time (idea from Grok Bot) | (idea) | Not planned yet |
@@ -23,6 +24,7 @@ Last updated: Oct 19, 2026.
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Browser check of each role: all pages work for Ammar, Akbar and Anthony; forbidden pages refused (403); 4 bugs fixed; screenshots in `evaluation/browser_check/` | I2 |
 | Oct 19 | Code split into `core/` (core harness) and `control_plane/`, with `contract/` between them. Boundary tests check both directions. 545 tests and all 10 exams pass | R2 |
 | Oct 19 | Integration: compaction runs before each model call; exams also run on a brain filled by the real pipeline, and all pass; 3 bugs fixed; real-Sonnet samples recorded (4 of 5 usable) | I1 |
 | Oct 19 | Research: Grok Bot inside vs Company OS. Direction sound; ideas to copy: approvals that expire, teach mode, limits on routines (`docs/research/grok-bot-internals-vs-company-os.md`) | (research) |
