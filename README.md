@@ -52,7 +52,7 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 | `lifecycle_kit/` | The steps every agent run follows: record, understand, decide, check, act, remember |
 | `triggers/` | What starts a run: a timer, a calendar event, a new source, a person asking |
 | `people_surface/` | Private letters and approval requests to people |
-| `web_console/` | The web console for each role |
+| `web_console/` | An experimental web console for each role (see the note below) |
 | `evaluation/` | Replay exams that score each agent |
 | `experiments/` | Earlier agents kept for later (project risk, store watch, hiring forecast, delivery progress, client requests) |
 | `tests/` | All tests |
@@ -68,6 +68,8 @@ python3 -m evaluation.run_all_exams              # score every agent
 python3 run_demo.py                              # one simulated day
 python3 -m web_console.serve                     # then open http://localhost:8800
 ```
+
+**About the web console.** The web console is only for experiments. It lets us see the progress visually and try things out. It is not the final product, and it is not a decision about how people will use Company OS. The real way people reach the agents (for example Slack, email or another tool) is still open.
 
 ## Status
 
