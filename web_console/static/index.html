@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<script>try { if (localStorage.getItem("theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) { /* light */ }</script>
+<title>Company OS console</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="console.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
+<div class="shell">
+  <aside class="rail" id="rail" aria-label="Main menu">
+    <div class="brand"><svg class="brand-mark" viewBox="0 0 22 22" aria-hidden="true"><rect x="0" y="0" width="10" height="10" rx="3" fill="#6D5BD0"/><rect x="12" y="0" width="10" height="10" rx="3" fill="#D97706"/><rect x="0" y="12" width="10" height="10" rx="3" fill="#1F8A5B"/><rect x="12" y="12" width="10" height="10" rx="3" fill="#C2417A"/></svg>Company OS</div>
+    <nav id="nav" aria-label="Pages"></nav>
+    <div class="rail-controls" id="rail-controls"></div>
+    <div class="rail-foot">
+      <label class="switch" title="Switches the console to a dark palette"><input type="checkbox" id="dark" role="switch"><span class="track" aria-hidden="true"><span class="knob"></span></span><span>Dark mode</span></label>
+      <p class="settings-line"><span data-icon="settings"></span><span>Real Claude is off. It would use your Claude plan, so ask first.</span></p>
+      <p class="privacy-line">Everything here uses made-up people and data. HR sees team numbers only.</p>
+    </div>
+  </aside>
+  <div class="rail-scrim" id="rail-scrim"></div>
+
+  <div class="col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open the menu" aria-expanded="false" aria-controls="rail"></button>
+      <h1 class="page-title" id="page-title" tabindex="-1">Today</h1>
+      <div class="top-actions">
+        <span class="date-pill" id="date-pill" title="The date in this demo company"><span class="long"></span><span class="short"></span></span>
+        <button class="btn secondary" id="next-day" title="Moves the demo date forward one day and lets the timer and calendar start runs"><span class="long">Go to next day</span><span class="short">Next day</span></button>
+        <button class="viewer" id="viewer" aria-haspopup="true" aria-expanded="false" aria-label="Viewing as">
+          <span class="initials" id="viewer-initials"></span>
+          <span class="viewer-text"><span class="viewer-name" id="viewer-name"></span><span class="viewer-role" id="viewer-role"></span></span>
+          <span data-icon="chevron" class="chev-down"></span>
+        </button>
+        <label class="switch" title="Pauses every agent. New runs are refused until you switch them back on.">
+          <input type="checkbox" id="pause" role="switch">
+          <span class="track" aria-hidden="true"><span class="knob"></span></span>
+          <span id="pause-label">Agents on</span>
+        </label>
+        <button class="text-btn" id="reset" title="Wipes runs, letters and memory of this demo and sets the date back">Reset demo</button>
+      </div>
+    </header>
+    <div id="banner" class="banner" hidden><span data-icon="pause"></span><span>All agents are paused. New runs will be refused until you switch them back on.</span></div>
+    <main id="main" class="main" tabindex="-1"></main>
+  </div>
+</div>
+
+<div class="menu viewer-menu" id="viewer-menu" role="menu" aria-label="View as" hidden></div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" inert>
+  <div id="drawer-body"></div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script src="console.js"></script>
+</body>
+</html>
