@@ -17,7 +17,7 @@ The same flag is not sent again within 7 days.
 
 **What it writes:** one progress snapshot per project per run (`kind="progress_snapshot"`, JSON text) in the client's area. This is the project progress feed. `connectors/progress_views.py` shows it by role. Each flag is also saved as a case.
 
-**When it acts:** every day on a timer for each client (all its projects), and when a PR merges (trigger kind `event`, input `pr_id`; this run covers that PR's project). A CSM, project lead, CEO or R&D lead can also ask for a run. Every run makes one model call to write headlines.
+**When it acts:** every day on a timer for each client (all its projects), and when a PR merges (trigger kind `event`, input `pr_id`; this run covers that PR's project). A CSM, project lead, CEO or CTO can also ask for a run. Every run makes one model call to write headlines.
 
 **What it may never do:** message anyone outside DevX, read another client's data, or name or count developers. Before anything is saved or sent, a check confirms every number, date and id matches what the code found, and that no person is named.
 

@@ -34,7 +34,7 @@
         "display_name": "Sofia Martinez",
         "matched_calendar_invitee_email": "sofia.martinez@devx-demo.example"
       },
-      "text": "Sure, hum LIS se connect kar sakte hain. Aur kuch?",
+      "text": "Sure, hum aapke system se connect kar sakte hain. Aur kuch?",
       "timestamp": "00:00:21"
     },
     {
@@ -43,7 +43,7 @@
         "matched_calendar_invitee_email": "kunal.arora@swasth-labs.example"
       },
       "text": "Haan, ek sawaal hai. Patient ka data kahan stored hoga, India mein ya bahar?",
-      "timestamp": "00:00:33"
+      "timestamp": "00:00:30"
     },
     {
       "speaker": {
@@ -51,7 +51,7 @@
         "matched_calendar_invitee_email": "sofia.martinez@devx-demo.example"
       },
       "text": "Achha sawaal hai, main team se confirm karke batati hoon.",
-      "timestamp": "00:00:45"
+      "timestamp": "00:00:42"
     },
     {
       "speaker": {
@@ -59,7 +59,7 @@
         "matched_calendar_invitee_email": "kunal.arora@swasth-labs.example"
       },
       "text": "Thik hai. Timeline kya hoga approx?",
-      "timestamp": "00:00:57"
+      "timestamp": "00:00:54"
     },
     {
       "speaker": {
@@ -67,7 +67,7 @@
         "matched_calendar_invitee_email": "sofia.martinez@devx-demo.example"
       },
       "text": "Around chhe mahine, uh, phir dekhte hain.",
-      "timestamp": "00:01:07"
+      "timestamp": "00:01:04"
     }
   ]
 }

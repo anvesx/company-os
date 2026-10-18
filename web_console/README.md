@@ -21,7 +21,7 @@ The look, colours and rules are in `DESIGN.md`. Pages (left rail; a menu button 
 | Screen | What it does |
 |---|---|
 | Top bar | Demo date and **Go to next day**, the "Viewing as" person (picker), the agents on or paused switch, **Reset demo** |
-| Today | Greeting, **Ask finance** (for CEO, finance lead and R&D lead), things that need you (approvals), what your agents did (click for the run story), scenario tiles for your role, ask in words, a 5-step tour |
+| Today | Greeting, **Ask finance** (for CEO, finance lead and CTO), things that need you (approvals), what your agents did (click for the run story), scenario tiles for your role, ask in words, a 5-step tour |
 | Agents | One profile card per agent from the API (a new agent appears by itself, grey until it has a colour): what it watches, when it acts, who it tells, what it never does, today's status, **Run me now** |
 | Departments | Finance, Growth, CSMs, CTO. Finance also has the **Ask finance** box. Each situation has **Try it**; the CTO tab also shows cost, cache and guardrail decisions |
 | Inbox | Letters for the viewed person, newest first, filter by agent |
@@ -34,7 +34,7 @@ The look, colours and rules are in `DESIGN.md`. Pages (left rail; a menu button 
 | Role | Agents, Departments, Run forms |
 |---|---|
 | CEO | All agents, all department tabs, all areas |
-| R&D lead | Agents the policy allows, all areas, the CTO tab |
+| CTO | Agents the policy allows, all areas, the CTO tab |
 | CSM, project lead | Meeting prep, only their own clients |
 | Growth | Meeting prep, own clients |
 | Finance lead | Finance watch and spend advisor |
@@ -44,7 +44,7 @@ Approvals lists only what the person may decide. The CTO tab keeps one "See how 
 
 Running anything opens the right-hand drawer: a vertical timeline of the run in plain steps with guardrail verdict chips, then the letters produced and any approval to decide.
 
-The drawer also shows every letter the run wrote ("to Neha Iyer, flag") and, when `real_model_samples.json` exists, a "See the real Claude version" toggle (also on the agent cards). That file is recorded once with real Claude and is read as it is. If it is missing, nothing is shown.
+The drawer also shows every letter the run wrote ("to Akbar Ali, flag") and, when `real_model_samples.json` exists, a "See the real Claude version" toggle (also on the agent cards). That file is recorded once with real Claude and is read as it is. If it is missing, nothing is shown.
 
 People, bandwidth and allocation are not rebuilt here. DevX already has them at console.devxlabs.ai/employees.
 

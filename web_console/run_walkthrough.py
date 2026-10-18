@@ -45,7 +45,7 @@ def plain_reason(reason):
     m = re.match(r"caller has no access to area '(.+)'", r)
     if m:
         return (f"This person does not work on that client ({m.group(1)}), so they may not see its data. "
-                "Only people on a client's projects, the CEO and the R&D lead can.")
+                "Only people on a client's projects, the CEO and the CTO can.")
     if "unknown caller" in r:
         return "The system does not know this person."
     if "unknown agent" in r:

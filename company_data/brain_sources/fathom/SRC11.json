@@ -30,7 +30,7 @@
         "display_name": "Sheetal More",
         "matched_calendar_invitee_email": "sheetal.more@kiranakart.example"
       },
-      "text": "Nau mahine bahut lamba hai. Humein chhota first release chahiye, bas ordering, uske baad baaki.",
+      "text": "Yeh bahut lamba hai. Humein chhota first release chahiye, bas ordering, uske baad baaki.",
       "timestamp": "00:00:08"
     },
     {
@@ -39,7 +39,7 @@
         "matched_calendar_invitee_email": "vivek.chandra@kiranakart.example"
       },
       "text": "Haan, aur is plan mein sab ek saath hai. Hum worried hain ki timeline nikal jayegi.",
-      "timestamp": "00:00:22"
+      "timestamp": "00:00:21"
     },
     {
       "speaker": {
@@ -47,7 +47,7 @@
         "matched_calendar_invitee_email": "siddharth.rao@devx-demo.example"
       },
       "text": "Samajh raha hoon. Main team se puchta hoon.",
-      "timestamp": "00:00:36"
+      "timestamp": "00:00:35"
     },
     {
       "speaker": {
@@ -55,7 +55,7 @@
         "matched_calendar_invitee_email": "vivek.chandra@kiranakart.example"
       },
       "text": "Thik hai, lekin hum doosre vendors se bhi baat kar rahe hain.",
-      "timestamp": "00:00:46"
+      "timestamp": "00:00:45"
     }
   ]
 }

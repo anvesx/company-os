@@ -42,7 +42,7 @@
         "display_name": "Vikram Joshi",
         "matched_calendar_invitee_email": "vikram.joshi@devx-demo.example"
       },
-      "text": "Okay, offline wale ke liye sync ka alag design banana padega.",
+      "text": "Okay, uske liye alag design banana padega.",
       "timestamp": "00:00:25"
     },
     {
@@ -51,7 +51,7 @@
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
       "text": "Main dono ke liye change request bana deta hoon.",
-      "timestamp": "00:00:34"
+      "timestamp": "00:00:35"
     }
   ]
 }

@@ -26,7 +26,7 @@
         "display_name": "Meera Pillai",
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
-      "text": "Okay, booking flow demo is done. Any feedback?",
+      "text": "Okay, the demo of the flow is done. Any feedback?",
       "timestamp": "00:00:00"
     },
     {
@@ -35,7 +35,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Demo bahut achha tha. Ek cheez missing hai, patients ko insurance claim upload karna hoga, photo ke saath.",
-      "timestamp": "00:00:09"
+      "timestamp": "00:00:08"
     },
     {
       "speaker": {
@@ -43,7 +43,7 @@
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
       "text": "Yeh toh scope mein nahi tha, matlab change request banega.",
-      "timestamp": "00:00:25"
+      "timestamp": "00:00:24"
     },
     {
       "speaker": {
@@ -51,7 +51,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Hum jaante hain. Insurer ke saath ek aur integration bhi lagega.",
-      "timestamp": "00:00:37"
+      "timestamp": "00:00:36"
     },
     {
       "speaker": {
@@ -59,15 +59,15 @@
         "matched_calendar_invitee_email": "paul.fernandes@medbridge-clinics.example"
       },
       "text": "Aho, mala vatla ki claim cha form pan marathi madhe pahije, pan te nantar baghu ya.",
-      "timestamp": "00:00:49"
+      "timestamp": "00:00:48"
     },
     {
       "speaker": {
         "display_name": "Akbar Ali",
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
-      "text": "Main change request ka estimate kal tak bhej dunga.",
-      "timestamp": "00:01:01"
+      "text": "Main claim upload ke change request ka estimate kal tak bhej dunga.",
+      "timestamp": "00:01:00"
     },
     {
       "speaker": {
@@ -75,7 +75,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Thank you, that is fine.",
-      "timestamp": "00:01:10"
+      "timestamp": "00:01:12"
     }
   ]
 }

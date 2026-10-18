@@ -18,12 +18,12 @@ from company_memory import MemoryStore
 
 FATHOM = json.dumps({
     "recording_id": 4711, "title": "Patient Booking App sync", "created_at": "2026-10-02T10:30:00Z",
-    "calendar_invitees": [{"name": "Dr Rao", "email": "Rao@MedBridge.example"}, {"name": "Neha Iyer", "email": "neha@devx.example"}],
+    "calendar_invitees": [{"name": "Dr Rao", "email": "Rao@MedBridge.example"}, {"name": "Akbar Ali", "email": "akbar@devx.example"}],
     "transcript": [
         {"speaker": {"display_name": "Dr Rao", "matched_calendar_invitee_email": "rao@medbridge.example"},
          "text": "Reminders WhatsApp pe chahiye.", "timestamp": "00:00:05"},
-        {"speaker": {"display_name": "Neha Iyer", "matched_calendar_invitee_email": None}, "text": "Theek hai.", "timestamp": "00:01:10"}]})
-CHAT = "[02/10/26, 10:15] Dr Rao: Insurance claim upload\nchahiye\n[02/10/26, 10:16] Neha Iyer: Ok, noted\n"
+        {"speaker": {"display_name": "Akbar Ali", "matched_calendar_invitee_email": None}, "text": "Theek hai.", "timestamp": "00:01:10"}]})
+CHAT = "[02/10/26, 10:15] Dr Rao: Insurance claim upload\nchahiye\n[02/10/26, 10:16] Akbar Ali: Ok, noted\n"
 
 
 def make_docx(paragraphs, title="Scope note"):
@@ -42,7 +42,7 @@ def make_docx(paragraphs, title="Scope note"):
 def make_eml():
     msg = EmailMessage()
     msg["From"] = "Rhea Kulkarni <rhea.kulkarni@tailorbird.example>"
-    msg["To"] = "neha@devx.example"
+    msg["To"] = "akbar@devx.example"
     msg["Subject"] = "Offline billing"
     msg["Date"] = "Fri, 02 Oct 2026 11:00:00 +0530"
     msg["Message-ID"] = "<abc@tailorbird.example>"
@@ -62,7 +62,7 @@ def make_data():
         INSERT INTO calendar_events VALUES ('E1','Quarterly review with the Orbit team','C07'),('E2','DevX delivery review',NULL);
         INSERT INTO people VALUES ('X20','Anil','anil@carenest.example',0,'C07');
         INSERT INTO people VALUES ('X01','Rhea Kulkarni','rhea.kulkarni@tailorbird.example',0,'C01'),
-            ('X09','Dr Rao','rao@medbridge.example',0,'C04'),('P05','Neha Iyer','neha@devx.example',1,NULL);
+            ('X09','Dr Rao','rao@medbridge.example',0,'C04'),('P05','Akbar Ali','akbar@devx.example',1,NULL);
         INSERT INTO projects VALUES ('PR05','C04','Patient Booking App'),('PR01','C01','POS Rollout');
     """)
     return conn
@@ -72,7 +72,7 @@ class TestReaders(unittest.TestCase):
     def test_fathom(self):
         meta, lines = read_fathom_json(FATHOM)
         self.assertEqual((meta["title"], meta["occurred_at"], meta["origin_ref"]), ("Patient Booking App sync", "2026-10-02T10:30", "4711"))
-        self.assertEqual([(l["line_no"], l["speaker"], l["t_sec"]) for l in lines], [(1, "Dr Rao", 5), (2, "Neha Iyer", 70)])
+        self.assertEqual([(l["line_no"], l["speaker"], l["t_sec"]) for l in lines], [(1, "Dr Rao", 5), (2, "Akbar Ali", 70)])
         self.assertIn("rao@medbridge.example", {p["email"] for p in meta["participants"]})
 
     def test_docx(self):
@@ -91,7 +91,7 @@ class TestReaders(unittest.TestCase):
     def test_chat_joins_continuation_lines(self):
         meta, lines = read_chat(CHAT)
         self.assertEqual([l["text"] for l in lines], ["Insurance claim upload chahiye", "Ok, noted"])
-        self.assertEqual((meta["occurred_at"], [p["name"] for p in meta["participants"]]), ("2026-10-02T10:15", ["Dr Rao", "Neha Iyer"]))
+        self.assertEqual((meta["occurred_at"], [p["name"] for p in meta["participants"]]), ("2026-10-02T10:15", ["Dr Rao", "Akbar Ali"]))
 
     def test_plain(self):
         meta, lines = read_plain("Title line\n\nSecond line\n")
@@ -108,7 +108,7 @@ class TestRouter(unittest.TestCase):
         self.assertEqual(route(self.data, ["rhea.kulkarni@tailorbird.example"], "x"), ("C01", "contact"))
 
     def test_devx_only_plus_project_title(self):
-        who = [{"name": "Neha Iyer", "email": "neha@devx.example"}]
+        who = [{"name": "Akbar Ali", "email": "akbar@devx.example"}]
         self.assertEqual(route(self.data, who, "Weekly: Patient Booking App"), ("C04", "project_in_title"))
 
     def test_hint_wins_only_if_real(self):
@@ -141,20 +141,20 @@ class TestShouldIngest(unittest.TestCase):
         self.addCleanup(self.data.close)
 
     def test_cases(self):
-        yes = [(meeting("Sync", "neha@devx.example", "rao@medbridge.example"), "outside"),
-               (meeting("Sync", "neha@devx.example", speakers=["z@other.example"]), "outside"),
-               (meeting("CareNest kickoff", "neha@devx.example"), "names a client"),
-               (meeting("Patient Booking App standup", "neha@devx.example"), "names a client"),
-               (meeting("Team chat #Brain", "neha@devx.example"), "#brain")]
+        yes = [(meeting("Sync", "akbar@devx.example", "rao@medbridge.example"), "outside"),
+               (meeting("Sync", "akbar@devx.example", speakers=["z@other.example"]), "outside"),
+               (meeting("CareNest kickoff", "akbar@devx.example"), "names a client"),
+               (meeting("Patient Booking App standup", "akbar@devx.example"), "names a client"),
+               (meeting("Team chat #Brain", "akbar@devx.example"), "#brain")]
         for m, why in yes:
             ok, reason = should_ingest(m, self.data)
             self.assertTrue(ok, m["title"])
             self.assertIn(why, reason)
-        for m in (meeting("Weekly planning", "neha@devx.example", "dev@devx-demo.example"), meeting("Lunch"),
+        for m in (meeting("Weekly planning", "akbar@devx.example", "dev@devx-demo.example"), meeting("Lunch"),
                   meeting("Weekly planning", "NEHA@DEVXLABS.AI")):
             self.assertEqual(should_ingest(m, self.data)[0], False, m["title"])
         self.assertEqual(should_ingest(json.dumps(meeting("Sync", "a@b.example")), self.data)[0], True)
-        self.assertEqual(should_ingest(meeting("CareNest kickoff", "neha@devx-demo.example"))[0], False)  # no data: title rule off
+        self.assertEqual(should_ingest(meeting("CareNest kickoff", "akbar@devx-demo.example"))[0], False)  # no data: title rule off
 
     def test_receive_skips_internal_meetings(self):
         tmp = tempfile.TemporaryDirectory()
@@ -162,8 +162,8 @@ class TestShouldIngest(unittest.TestCase):
         mem = MemoryStore(os.path.join(tmp.name, "m.db"))
         self.addCleanup(mem.close)
         brain = BrainStore(mem)
-        internal = json.dumps({**meeting("Weekly planning", "neha@devx.example"), "recording_id": 1,
-                               "transcript": [{"speaker": {"display_name": "Neha"}, "text": "Plan the week", "timestamp": "00:00:02"}]})
+        internal = json.dumps({**meeting("Weekly planning", "akbar@devx.example"), "recording_id": 1,
+                               "transcript": [{"speaker": {"display_name": "Akbar"}, "text": "Plan the week", "timestamp": "00:00:02"}]})
         got = inbox.receive(brain, self.data, kind="fathom", content=internal)
         self.assertEqual((got["source_id"], got["routed_by"], got["lines"]), (None, "skipped", 0))
         self.assertIn("internal", got["skipped"])

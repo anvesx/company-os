@@ -30,7 +30,7 @@
         "display_name": "Meenal Kapadia",
         "matched_calendar_invitee_email": "meenal.kapadia@carenest-clinics.example"
       },
-      "text": "Price dekh ke lagta hai thoda mehenga hai, doosra vendor kam bol raha hai.",
+      "text": "Price dekh ke hum unhappy hain, doosra vendor kam bol raha hai.",
       "timestamp": "00:00:06"
     },
     {
@@ -38,8 +38,16 @@
         "display_name": "Anthony Fernandes",
         "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
       },
-      "text": "Hum ek paid pilot suggest karte hain, pehle teen clinics. Let's go with three clinics first, then the rollout.",
-      "timestamp": "00:00:18"
+      "text": "Hum ek paid pilot suggest karte hain.",
+      "timestamp": "00:00:19"
+    },
+    {
+      "speaker": {
+        "display_name": "Anthony Fernandes",
+        "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
+      },
+      "text": "Pehle teen clinics, let's go with three clinics first, then the rollout.",
+      "timestamp": "00:00:26"
     },
     {
       "speaker": {
@@ -47,7 +55,7 @@
         "matched_calendar_invitee_email": "sameer.bhatt@carenest-clinics.example"
       },
       "text": "Thik hai. Humein mobile pe online appointment booking chahiye, patients ke liye.",
-      "timestamp": "00:00:34"
+      "timestamp": "00:00:36"
     },
     {
       "speaker": {
@@ -62,8 +70,8 @@
         "display_name": "Sameer Bhatt",
         "matched_calendar_invitee_email": "sameer.bhatt@carenest-clinics.example"
       },
-      "text": "Aur hum DevX ko pasand karte hain, we are happy with the demo.",
-      "timestamp": "00:00:57"
+      "text": "Aur hum DevX ko pasand karte hain, hum pilot plan se happy hain.",
+      "timestamp": "00:00:56"
     },
     {
       "speaker": {
@@ -71,7 +79,7 @@
         "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
       },
       "text": "Great. Main updated plan kal bhejta hoon.",
-      "timestamp": "00:01:07"
+      "timestamp": "00:01:04"
     }
   ]
 }

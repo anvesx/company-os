@@ -31,7 +31,7 @@ CARDS = {
             "One person logged over 55 hours a week for 3 weeks in a row (a flag only).",
             "A SOW change the client has not accepted adds more hours than are left.",
         ],
-        "acts": "Every day on a timer, for each client. A CSM, project lead, CEO or R&D lead can also ask. If nothing is wrong, it stays quiet.",
+        "acts": "Every day on a timer, for each client. A CSM, project lead, CEO or CTO can also ask. If nothing is wrong, it stays quiet.",
         "tells": "The project's CSM, in one private message. A flag that names one person goes only to that project's CSM.",
         "never": [
             "Build a people, bandwidth or allocation report. DevX's existing console (console.devxlabs.ai/employees) does that.",
@@ -102,7 +102,7 @@ CARDS = {
             "A scope item changed 4 or more times after client meetings (rework).",
             "30% or more of the calendar used while the merged share is far behind.",
         ],
-        "acts": "Every day on a timer for each client, and when a code change is merged. A CSM, project lead, CEO or R&D lead can also ask.",
+        "acts": "Every day on a timer for each client, and when a code change is merged. A CSM, project lead, CEO or CTO can also ask.",
         "tells": "The project's CSM, in one private message. It also saves a progress snapshot per project into company memory.",
         "never": [
             "Measure or rank individual developers. No counts or lines per person.",
@@ -137,7 +137,7 @@ CARDS = {
             "Business seats on flights under 2.5 hours, when economy was cheaper that day.",
             "Two trips by one team to one city within a week, and hotels above the city rate.",
         ],
-        "acts": "When the CEO, the finance lead or the R&D lead asks, from the Ask finance box or the Finance page. It does not run on a timer.",
+        "acts": "When the CEO, the finance lead or the CTO asks, from the Ask finance box or the Finance page. It does not run on a timer.",
         "tells": "Only the person who asked, in one private letter. The letter starts with the trip totals, then the biggest savings and two or three policy suggestions.",
         "never": [
             "Show one person's salary or name a person. Team totals only.",
@@ -155,7 +155,7 @@ PLANNED = [{
 }]
 
 ROLE_LABELS = {
-    "ceo": "CEO", "rnd_lead": "R&D lead (CTO view)", "growth": "Growth", "csm": "CSM (project manager)",
+    "ceo": "CEO", "rnd_lead": "CTO", "growth": "Growth", "csm": "CSM (project manager)",
     "finance_lead": "Finance lead", "project_lead": "Project lead", "engineer": "Engineer", "designer": "Designer",
     "hr": "HR", "system": "System timer",
 }

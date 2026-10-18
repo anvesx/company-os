@@ -10,7 +10,7 @@ CSMs are DevX's project managers. They manage projects and the people on them.
 - One person logged more than 55 hours a week for 3 weeks in a row. This is only a flag.
 - Optional: a SOW change the client has not accepted adds more hours than are left.
 
-**When it acts:** every day on a timer, for each client. A CSM, project lead, CEO or R&D lead can also ask for a run.
+**When it acts:** every day on a timer, for each client. A CSM, project lead, CEO or CTO can also ask for a run.
 If nothing is wrong, the run ends quietly with no model call.
 
 **Who it tells:** one private message per CSM, with the evidence in numbers, why it matters and a suggested next step.

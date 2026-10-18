@@ -42,7 +42,7 @@
         "display_name": "Meera Pillai",
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
-      "text": "Great. Next hum launch ki date finalize karte hain.",
+      "text": "Great. Next kya hum launch ki date finalize karein?",
       "timestamp": "00:00:23"
     },
     {
@@ -50,8 +50,8 @@
         "display_name": "Paul Fernandes",
         "matched_calendar_invitee_email": "paul.fernandes@medbridge-clinics.example"
       },
-      "text": "Hum chahte hain ki pilot clinic ka launch six November ko ho.",
-      "timestamp": "00:00:31"
+      "text": "Hum chahte hain ki pehle clinic ka launch six November ko ho.",
+      "timestamp": "00:00:33"
     },
     {
       "speaker": {
@@ -59,7 +59,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Aur haan, Hindi screens abhi bhi baaki hain, woh to chahiye hi.",
-      "timestamp": "00:00:41"
+      "timestamp": "00:00:45"
     },
     {
       "speaker": {
@@ -67,7 +67,7 @@
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
       "text": "Hindi ke liye translations aap bhejoge?",
-      "timestamp": "00:00:52"
+      "timestamp": "00:00:56"
     },
     {
       "speaker": {
@@ -75,7 +75,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Haan, hum bhej denge.",
-      "timestamp": "00:00:59"
+      "timestamp": "00:01:03"
     },
     {
       "speaker": {
@@ -83,7 +83,7 @@
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
       "text": "Achha, ek aur cheez, insurance claim wala flow kaisa chal raha hai?",
-      "timestamp": "00:01:08"
+      "timestamp": "00:01:12"
     },
     {
       "speaker": {
@@ -91,7 +91,7 @@
         "matched_calendar_invitee_email": "paul.fernandes@medbridge-clinics.example"
       },
       "text": "Wo theek hai, uh, test mein hai abhi.",
-      "timestamp": "00:01:18"
+      "timestamp": "00:01:22"
     },
     {
       "speaker": {
@@ -99,7 +99,7 @@
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
       "text": "Aur reminders ka kya karna hai, matlab kaunsa channel?",
-      "timestamp": "00:01:27"
+      "timestamp": "00:01:31"
     },
     {
       "speaker": {
@@ -107,7 +107,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Matlab patients WhatsApp use karte hain zyada.",
-      "timestamp": "00:01:34"
+      "timestamp": "00:01:38"
     },
     {
       "speaker": {
@@ -115,7 +115,7 @@
         "matched_calendar_invitee_email": "paul.fernandes@medbridge-clinics.example"
       },
       "text": "Haan, SMS toh koi dekhta hi nahi.",
-      "timestamp": "00:01:41"
+      "timestamp": "00:01:45"
     },
     {
       "speaker": {
@@ -123,7 +123,7 @@
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
       "text": "Toh kya final karein?",
-      "timestamp": "00:01:49"
+      "timestamp": "00:01:53"
     },
     {
       "speaker": {
@@ -131,7 +131,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Hum decide karte hain: WhatsApp se hi reminders jayenge.",
-      "timestamp": "00:01:57"
+      "timestamp": "00:02:01"
     },
     {
       "speaker": {
@@ -139,7 +139,7 @@
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
       "text": "Done, note kar liya. Thanks everyone.",
-      "timestamp": "00:02:04"
+      "timestamp": "00:02:08"
     }
   ]
 }

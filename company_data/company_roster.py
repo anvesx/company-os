@@ -198,7 +198,7 @@ NEW_CLIENTS = [  # id, name, industry, csm, account manager, status
 ]
 NEW_CLIENT_CONTACTS = [  # id, name, client
     ("X13", "Meenal Kapadia", "C07"), ("X14", "Sameer Bhatt", "C07"),
-    ("X15", "Farida Merchant", "C08"), ("X16", "Dev Malhotra", "C08"),
+    ("X15", "Farida Merchant", "C08"), ("X16", "Dhruv Malhotra", "C08"),
     ("X17", "Kunal Arora", "C09"), ("X18", "Tanya Gill", "C09"),
     ("X19", "Vivek Chandra", "C10"), ("X20", "Sheetal More", "C10"),
 ]

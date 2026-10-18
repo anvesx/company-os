@@ -26,7 +26,7 @@
         "display_name": "Vivek Chandra",
         "matched_calendar_invitee_email": "vivek.chandra@kiranakart.example"
       },
-      "text": "Haan Siddharth. Humein neighbourhood kirana shops ke liye ek ordering app chahiye, simple sa.",
+      "text": "Haan Siddharth. Humein neighbourhood kirana shops ke liye ek app chahiye, home delivery ke saath, simple sa.",
       "timestamp": "00:00:10"
     },
     {
@@ -42,7 +42,7 @@
         "display_name": "Vivek Chandra",
         "matched_calendar_invitee_email": "vivek.chandra@kiranakart.example"
       },
-      "text": "Haan stock bhi dikhna chahiye. Hum chahte hain ki jaldi launch ho, you know, market mein competition hai.",
+      "text": "Haan woh bhi dikhna chahiye. Hum chahte hain ki jaldi launch ho, you know, market mein competition hai.",
       "timestamp": "00:00:30"
     },
     {
@@ -51,7 +51,7 @@
         "matched_calendar_invitee_email": "siddharth.rao@devx-demo.example"
       },
       "text": "Theek hai, hum ek plan banake bhejte hain.",
-      "timestamp": "00:00:45"
+      "timestamp": "00:00:41"
     }
   ]
 }

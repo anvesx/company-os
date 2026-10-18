@@ -2,7 +2,7 @@
 
 # Spend advisor
 
-The CEO, finance lead or R&D lead asks a question in words, for example "where is our travel money going?". The agent
+The CEO, finance lead or CTO asks a question in words, for example "where is our travel money going?". The agent
 reads the books through the spend tools, and writes one private letter back to the person who asked (kind
 `finance_answer`). It takes no risky action: no task, no payment, no message to anyone else.
 

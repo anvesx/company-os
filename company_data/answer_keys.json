@@ -93,7 +93,7 @@
         "call_id": "LC02",
         "expected": [
           {
-            "against": "SRC25-5",
+            "against": "SRC25-9",
             "kind": "contradiction",
             "line_no": 4,
             "topic": "reminders"
@@ -160,7 +160,7 @@
         "area_id": "C04",
         "event_id": "EV115",
         "must_cite_keys": [
-          "SRC25-5",
+          "SRC25-9",
           "SRC27-3",
           "SRC27-1",
           "SRC25-3",
@@ -518,7 +518,8 @@
             "line_from": 2,
             "line_to": 2,
             "must_contain": [
-              "price"
+              "price",
+              "unhappy"
             ],
             "topic": "pricing"
           },
@@ -589,7 +590,7 @@
             "line_from": 2,
             "line_to": 2,
             "must_contain": [
-              "orders"
+              "delivery"
             ],
             "topic": "aggregator-integration"
           },
@@ -625,6 +626,16 @@
         "items": [
           {
             "key": "SRC11-1",
+            "kind": "fact",
+            "line_from": 1,
+            "line_to": 1,
+            "must_contain": [
+              "months"
+            ],
+            "topic": "timeline"
+          },
+          {
+            "key": "SRC11-2",
             "kind": "requirement",
             "line_from": 2,
             "line_to": 2,
@@ -634,7 +645,7 @@
             "topic": "phased-mvp"
           },
           {
-            "key": "SRC11-2",
+            "key": "SRC11-3",
             "kind": "sentiment",
             "line_from": 3,
             "line_to": 3,
@@ -794,7 +805,17 @@
             "line_from": 4,
             "line_to": 4,
             "must_contain": [
-              "language"
+              "whatsapp"
+            ],
+            "topic": "reminders"
+          },
+          {
+            "key": "SRC15-4",
+            "kind": "fact",
+            "line_from": 5,
+            "line_to": 5,
+            "must_contain": [
+              "hindi"
             ],
             "topic": "language-support"
           }
@@ -895,6 +916,26 @@
               "voucher"
             ],
             "topic": "gift-vouchers"
+          },
+          {
+            "key": "SRC18-3",
+            "kind": "fact",
+            "line_from": 4,
+            "line_to": 4,
+            "must_contain": [
+              "offline"
+            ],
+            "topic": "offline-mode"
+          },
+          {
+            "key": "SRC18-4",
+            "kind": "fact",
+            "line_from": 5,
+            "line_to": 5,
+            "must_contain": [
+              "gst"
+            ],
+            "topic": "gst-invoicing"
           }
         ],
         "language": "en",
@@ -953,47 +994,57 @@
             "line_to": 2,
             "must_contain": [
               "price",
-              "expensive"
+              "unhappy"
             ],
             "topic": "pricing"
           },
           {
             "key": "SRC20-2",
-            "kind": "decision",
+            "kind": "fact",
             "line_from": 3,
             "line_to": 3,
+            "must_contain": [
+              "pilot"
+            ],
+            "topic": "pilot"
+          },
+          {
+            "key": "SRC20-3",
+            "kind": "decision",
+            "line_from": 4,
+            "line_to": 4,
             "must_contain": [
               "rollout"
             ],
             "topic": "outlet-rollout"
           },
           {
-            "key": "SRC20-3",
+            "key": "SRC20-4",
             "kind": "requirement",
-            "line_from": 4,
-            "line_to": 4,
+            "line_from": 5,
+            "line_to": 5,
             "must_contain": [
               "appointment"
             ],
             "topic": "appointments"
           },
           {
-            "key": "SRC20-4",
+            "key": "SRC20-5",
             "kind": "fact",
-            "line_from": 5,
-            "line_to": 5,
+            "line_from": 6,
+            "line_to": 6,
             "must_contain": [
               "launch"
             ],
             "topic": "launch-date"
           },
           {
-            "key": "SRC20-5",
+            "key": "SRC20-6",
             "kind": "sentiment",
-            "line_from": 6,
-            "line_to": 6,
+            "line_from": 7,
+            "line_to": 7,
             "must_contain": [
-              "demo"
+              "happy"
             ],
             "topic": "pilot"
           }
@@ -1001,12 +1052,12 @@
         "language": "hinglish",
         "links": [
           {
-            "from": "SRC20-2",
+            "from": "SRC20-3",
             "rel": "supersedes",
             "to": "SRC19-2"
           },
           {
-            "from": "SRC20-3",
+            "from": "SRC20-4",
             "rel": "refines",
             "to": "SRC19-1"
           }
@@ -1064,7 +1115,7 @@
           {
             "from": "SRC21-2",
             "rel": "contradicts",
-            "to": "SRC20-4"
+            "to": "SRC20-5"
           }
         ],
         "origin_ref": "SRC21",
@@ -1153,7 +1204,7 @@
             "line_from": 4,
             "line_to": 4,
             "must_contain": [
-              "plan"
+              "worried"
             ],
             "topic": "timeline"
           },
@@ -1246,6 +1297,16 @@
           {
             "key": "SRC25-4",
             "kind": "question",
+            "line_from": 6,
+            "line_to": 6,
+            "must_contain": [
+              "hindi"
+            ],
+            "topic": "language-support"
+          },
+          {
+            "key": "SRC25-5",
+            "kind": "question",
             "line_from": 8,
             "line_to": 8,
             "must_contain": [
@@ -1255,7 +1316,37 @@
             "topic": "insurance-claims"
           },
           {
-            "key": "SRC25-5",
+            "key": "SRC25-6",
+            "kind": "question",
+            "line_from": 10,
+            "line_to": 10,
+            "must_contain": [
+              "reminders"
+            ],
+            "topic": "reminders"
+          },
+          {
+            "key": "SRC25-7",
+            "kind": "fact",
+            "line_from": 11,
+            "line_to": 11,
+            "must_contain": [
+              "whatsapp"
+            ],
+            "topic": "reminders"
+          },
+          {
+            "key": "SRC25-8",
+            "kind": "fact",
+            "line_from": 12,
+            "line_to": 12,
+            "must_contain": [
+              "sms"
+            ],
+            "topic": "reminders"
+          },
+          {
+            "key": "SRC25-9",
             "kind": "decision",
             "line_from": 14,
             "line_to": 14,
@@ -1355,6 +1446,17 @@
               "launch"
             ],
             "topic": "launch-date"
+          },
+          {
+            "key": "SRC27-4",
+            "kind": "risk",
+            "line_from": 6,
+            "line_to": 6,
+            "must_contain": [
+              "launch",
+              "risk"
+            ],
+            "topic": "launch-date"
           }
         ],
         "language": "hinglish",
@@ -1367,7 +1469,7 @@
           {
             "from": "SRC27-1",
             "rel": "follows_up",
-            "to": "SRC25-5"
+            "to": "SRC25-9"
           }
         ],
         "origin_ref": "SRC27",

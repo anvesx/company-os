@@ -4,12 +4,12 @@ NAMES = {"C01": "Tailorbird Menswear", "C04": "MedBridge Clinics", "C07": "CareN
          "C09": "Swasth Labs", "C10": "KiranaKart"}
 SOURCES = (  # (origin_ref, area, kind, title, language, [(speaker, raw)])
     ("SAMPLE-1", "C04", "chat", "MedBridge WhatsApp", "hinglish",
-     [("Dr Rao", "Patients ko reminders WhatsApp pe chahiye, SMS nahi."), ("Neha Iyer", "Theek hai, we will plan WhatsApp reminders."),
+     [("Dr Rao", "Patients ko reminders WhatsApp pe chahiye, SMS nahi."), ("Akbar Ali", "Theek hai, we will plan WhatsApp reminders."),
       ("Dr Rao", "Insurance claim upload bhi chahiye before launch.")]),
     ("SAMPLE-2", "C01", "email", "Tailorbird POS rollout", "en",
      [("Rhea Kulkarni", "Offline billing must work when the store internet drops."), ("Rhea Kulkarni", "GST invoice format is fixed by our CA.")]),
     ("SAMPLE-3", "C07", "fathom", "CareNest discovery call", "en",
-     [("Rohan Kapoor", "Where will patient data be stored?"), ("Anil Rao", "It must stay in India. Also we want WhatsApp reminders.")]),
+     [("Anthony Fernandes", "Where will patient data be stored?"), ("Anil Rao", "It must stay in India. Also we want WhatsApp reminders.")]),
     ("SAMPLE-4", "C09", "fathom", "Swasth Labs follow-up", "en",
      [("Swasth CEO", "You never answered our data storage question."), ("Swasth CEO", "The price is too high for this plan.")]),
 )

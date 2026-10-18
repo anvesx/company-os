@@ -198,7 +198,7 @@ class ServiceTests(unittest.TestCase):
         good = {"letter": r["letter"].split("\n\nBest hotels")[0] + "\n\nNothing is booked yet."}
         self.assertEqual(pack.check(ctx, good, t), [])
         self.assertTrue(pack.check(ctx, {"letter": good["letter"] + " INR 9,99,999"}, t))
-        self.assertTrue(pack.check(ctx, {"letter": good["letter"] + " Neha Iyer also flies."}, t))
+        self.assertTrue(pack.check(ctx, {"letter": good["letter"] + " Akbar Ali also flies."}, t))
         self.assertTrue(pack.check(ctx, {"letter": good["letter"] + " See TR012."}, t))
         self.assertTrue(pack.check(ctx, {"letter": "KSA 111 is great. Nothing is booked yet."}, t))
         self.assertTrue(pack.check(ctx, {"letter": good["letter"].replace("Nothing is booked", "It is done")}, t))

@@ -28,9 +28,9 @@ class BrainCase(unittest.TestCase):
             CREATE TABLE clients (client_id TEXT, name TEXT, csm_id TEXT);
             CREATE TABLE people (person_id TEXT, name TEXT, email TEXT, role TEXT, is_devx INTEGER, client_id TEXT);
             INSERT INTO clients VALUES ('C01', 'Tailorbird', 'P05'), ('C04', 'MedBridge', NULL);
-            INSERT INTO people VALUES ('P01', 'Aarav', 'aarav@devx.example', 'ceo', 1, NULL),
-                ('P02', 'Dev', 'dev@devx.example', 'rnd_lead', 1, NULL), ('P05', 'Neha Iyer', 'neha@devx.example', 'csm', 1, NULL),
-                ('P03', 'Rohan', 'rohan@devx.example', 'growth', 1, NULL), ('P11', 'Ishaan', 'ishaan@devx.example', 'engineer', 1, NULL),
+            INSERT INTO people VALUES ('P01', 'Ammar', 'ammar@devx.example', 'ceo', 1, NULL),
+                ('P02', 'Dev', 'dev@devx.example', 'rnd_lead', 1, NULL), ('P05', 'Akbar Ali', 'akbar@devx.example', 'csm', 1, NULL),
+                ('P03', 'Anthony', 'anthony@devx.example', 'growth', 1, NULL), ('P11', 'Ishaan', 'ishaan@devx.example', 'engineer', 1, NULL),
                 ('X01', 'Dr Rao', 'rao@client.example', 'client_contact', 0, 'C04');
         """)
         self.brain.data_conn = self.data

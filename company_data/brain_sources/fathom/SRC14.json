@@ -34,7 +34,7 @@
         "display_name": "Paul Fernandes",
         "matched_calendar_invitee_email": "paul.fernandes@medbridge-clinics.example"
       },
-      "text": "Ek baat, patients ko appointment ka reminder WhatsApp pe chahiye. We need reminders on WhatsApp, SMS nahi.",
+      "text": "Ek baat, patients ko reminder WhatsApp pe chahiye. We need reminders on WhatsApp, SMS nahi.",
       "timestamp": "00:00:08"
     },
     {
@@ -42,8 +42,8 @@
         "display_name": "Meera Pillai",
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
-      "text": "Achha, uske liye WhatsApp Business ka approval lagta hai, matlab thoda time.",
-      "timestamp": "00:00:24"
+      "text": "Achha, WhatsApp Business ka approval lene mein thoda time lagta hai.",
+      "timestamp": "00:00:18"
     },
     {
       "speaker": {
@@ -51,7 +51,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "और मरीज़ों के लिए स्क्रीन हिंदी में भी होनी चाहिए, यह ज़रूरी है।",
-      "timestamp": "00:00:33"
+      "timestamp": "00:00:27"
     },
     {
       "speaker": {
@@ -59,7 +59,7 @@
         "matched_calendar_invitee_email": "akbar.ali@devx-demo.example"
       },
       "text": "Noted. Dono ko next sprint ke plan mein daal dete hain.",
-      "timestamp": "00:00:44"
+      "timestamp": "00:00:38"
     },
     {
       "speaker": {
@@ -67,7 +67,7 @@
         "matched_calendar_invitee_email": "meera.pillai@devx-demo.example"
       },
       "text": "Haan, aur main dono ke liye alag estimate dungi.",
-      "timestamp": "00:00:54"
+      "timestamp": "00:00:48"
     }
   ]
 }

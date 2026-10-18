@@ -7,11 +7,15 @@
         "reminders",
         "remind",
         "notification",
-        "notifications"
+        "notifications",
+        "whatsapp",
+        "sms"
       ],
       "hinglish": [
         "reminder",
-        "yaad"
+        "yaad",
+        "whatsapp",
+        "sms"
       ],
       "hi": [
         "रिमाइंडर",
@@ -419,13 +423,11 @@
       "label": "Loyalty",
       "en": [
         "loyalty",
-        "points",
         "rewards",
         "membership"
       ],
       "hinglish": [
         "loyalty",
-        "points",
         "reward"
       ],
       "hi": [

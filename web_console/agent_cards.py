@@ -48,7 +48,7 @@ CARDS = {
             "Business seats on flights under 2.5 hours, when economy was cheaper that day.",
             "Two trips by one team to one city within a week, and hotels above the city rate.",
         ],
-        "acts": "When the CEO, the finance lead or the R&D lead asks, from the Ask finance box or the Finance page. It does not run on a timer.",
+        "acts": "When the CEO, the finance lead or the CTO asks, from the Ask finance box or the Finance page. It does not run on a timer.",
         "tells": "Only the person who asked, in one private letter. The letter starts with the trip totals, then the biggest savings and two or three policy suggestions.",
         "never": [
             "Show one person's salary or name a person. Team totals only.",
@@ -66,7 +66,7 @@ PLANNED = [{
 }]
 
 ROLE_LABELS = {
-    "ceo": "CEO", "rnd_lead": "R&D lead (CTO view)", "growth": "Growth", "csm": "CSM (project manager)",
+    "ceo": "CEO", "rnd_lead": "CTO", "growth": "Growth", "csm": "CSM (project manager)",
     "finance_lead": "Finance lead", "project_lead": "Project lead", "engineer": "Engineer", "designer": "Designer",
     "hr": "HR", "system": "System timer",
 }

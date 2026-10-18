@@ -8,19 +8,12 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
-| Wave 1 integration: make the full test suite green after the parallel build, and finish the rename to Ammar, Akbar and Anthony | (lead) | Running |
+| Wave 2: brain agents, CSM and Growth briefs, live call helper, finance v2, console shell (7 agents in parallel) | S1 to S7 | Started Oct 19 |
 
 ## Next
 
 | What | Ticket | Notes |
 |---|---|---|
-| Cleaner and Extractor agents, pipeline, Brain inbox page | S1 | Wave 2 |
-| Linker and Playbook writer agents, record sync, optional Check page | S2 | Wave 2 |
-| CSM project brief and Meeting prep page | S3 | Wave 2 |
-| Growth deal brief and Deals and playbooks page | S4 | Wave 2 |
-| Live call helper and Live call page | S5 | Wave 2 |
-| Finance v2: real cheaper flights and hotels per trip, return flights in booking, Finance and Travel pages | S6 | Wave 2 |
-| Console shell v2: role switcher with one person per role | S7 | Wave 2 |
 | Integration, exams, docs, and the compaction hook in the agent loop | I1 | Wave 3 |
 | Browser check of each role | I2 | Wave 3 |
 
@@ -28,6 +21,7 @@ Last updated: Oct 19, 2026.
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Wave 1 integration: full suite green (410 tests); exams pass for meeting prep, finance watch, spend advice and travel booking; names changed to Ammar, Akbar and Anthony; job title "R&D lead" renamed to CTO | (lead) |
 | Oct 19 | Repo created at `anvesx/company-os` (private) | |
 | Oct 19 | Compaction in `runtime/compaction.py`, adapted from dsh commit `687f282` (MIT) | R1 |
 | Oct 19 | Travel booking agent: best 3 options by policy; booking waits for Admin approval. Exam 8 of 8 | F4 |

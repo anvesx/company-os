@@ -348,7 +348,7 @@ class LettersAndStory(ConsoleCase):
 class RealSamples(ConsoleCase):
     SAMPLE = {"generated_at": "2026-10-19T10:00", "model": "sonnet", "samples": {"finance_watch": {
         "area_id": "C01", "as_of": "2026-10-19", "inputs": {}, "status": "done", "reason": "", "final_text": "{}",
-        "letters": [{"to": "P05", "to_name": "Neha Iyer", "kind": "flag", "text": "Hello"}],
+        "letters": [{"to": "P05", "to_name": "Akbar Ali", "kind": "flag", "text": "Hello"}],
         "approvals": [], "walkthrough": {"outcome": "done", "headline": "Done.", "steps": [{"n": 1, "title": "x"}]},
         "calls": 1, "seconds": 3.2}}}
 
@@ -395,13 +395,13 @@ class Permissions(ConsoleCase):
 
     def test_concrete_people(self):
         perm = lambda who: self.console.permissions(who)
-        self.assertEqual(len(perm("P01")["areas"]), 7)
+        self.assertEqual(len(perm("P01")["areas"]), 11)  # 10 client areas + devx-internal; hold and library are not listed
         self.assertEqual(perm("P01")["departments"], ["finance", "growth", "csm", "cto"])
         self.assertEqual(perm("P06")["agent_areas"]["meeting_prep"], ["C02", "C03", "C05"])
         self.assertEqual((perm("P11")["agents"], perm("P11")["agent_areas"]), ([], {}))
         self.assertEqual((perm("P90")["agents"], perm("P90")["departments"]), ([], []))
-        self.assertEqual((perm("P07")["agents"], perm("P07")["agent_areas"]), (["finance_watch", "spend_advisor"],
-                                                                    {"finance_watch": ["devx-internal"], "spend_advisor": ["devx-internal"]}))
+        self.assertEqual((perm("P07")["agents"], perm("P07")["agent_areas"]), (["finance_watch", "spend_advisor", "travel_booking"],
+                                                                    {"finance_watch": ["devx-internal"], "spend_advisor": ["devx-internal"], "travel_booking": []}))
         self.assertFalse(perm("P11")["can_ask_in_words"])
         self.assertFalse(perm("nobody")["ok"])
 
@@ -544,7 +544,7 @@ class AskFinance(ConsoleCase):
     def test_the_card_has_the_agent_colour_and_the_page_has_the_box(self):
         card = next(c for c in self.console.agent_cards()["agents"] if c["agent"] == "spend_advisor")
         self.assertTrue(card["watches"] and card["never"] and card["acts"] and card["tells"])
-        self.assertEqual(card["who_may_start"], ["CEO", "Finance lead", "R&D lead (CTO view)"])
+        self.assertEqual(card["who_may_start"], ["CEO", "CTO", "Finance lead"])
         import os
         root = os.path.join(os.path.dirname(console_api.__file__), "static")
         with open(os.path.join(root, "console.css")) as f1, open(os.path.join(root, "console.js")) as f2:

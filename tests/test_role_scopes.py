@@ -48,7 +48,7 @@ def add_prospects(conn):
         insert_first_working(conn, [(lead, cid, "web", owner, stage, "2026-10-01", None, 1000000),
                                     (lead, cid, "web", owner, "proposal" if stage == "negotiation" else stage,
                                      "2026-10-01", None, 1000000)],
-                             "INSERT INTO leads VALUES (?,?,?,?,?,?,?,?)")
+                             "INSERT INTO leads (lead_id,client_id,source,owner_id,stage,created_on,won_on,value_inr) VALUES (?,?,?,?,?,?,?,?)")
     conn.commit()
 
 
@@ -146,7 +146,7 @@ class AreaTests(RoleWorld):
     def test_prospects_added_later_appear_without_code_changes(self):
         self.assertNotIn("C99", rs.readable_areas(self.d, "P03"))
         self.conn.execute("INSERT INTO clients VALUES ('C99','Later Co','x',NULL,NULL,'active')")
-        self.conn.execute("INSERT INTO leads VALUES ('L99','C99','web','P03','proposal','2026-10-18',NULL,5)")
+        self.conn.execute("INSERT INTO leads (lead_id,client_id,source,owner_id,stage,created_on,won_on,value_inr) VALUES ('L99','C99','web','P03','proposal','2026-10-18',NULL,5)")
         self.assertIn("C99", rs.readable_areas(self.d, "P03"))
         self.assertNotIn("C99", rs.readable_areas(self.d, "P05"))
         self.assertIn("C99", rs.readable_areas(self.d, "P01"))

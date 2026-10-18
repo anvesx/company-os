@@ -50,7 +50,7 @@
         "display_name": "Anthony Fernandes",
         "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
       },
-      "text": "Paid pilot ke saath hum chhoti rate de denge. Aap decide karke batao.",
+      "text": "Chhoti shuruaat ke saath hum chhota figure de denge. Aap decide karke batao.",
       "timestamp": "00:00:38"
     },
     {
@@ -59,7 +59,7 @@
         "matched_calendar_invitee_email": "nandini.sethi@medbridge-clinics.example"
       },
       "text": "Thik hai. Hum decide kar chuke hain, we decided to go with DevX. Sign kar dete hain.",
-      "timestamp": "00:00:50"
+      "timestamp": "00:00:48"
     },
     {
       "speaker": {
@@ -67,7 +67,7 @@
         "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
       },
       "text": "Wah, thank you. Kal SOW bhejta hoon.",
-      "timestamp": "00:01:01"
+      "timestamp": "00:00:59"
     }
   ]
 }

@@ -59,7 +59,7 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 
 ## Run it
 
-Needs Python 3.11 or later. No packages to install.
+Needs Python 3 (tested with 3.14). No packages to install.
 
 ```
 python3 -m company_data.generate_dummy_data      # build the dummy company

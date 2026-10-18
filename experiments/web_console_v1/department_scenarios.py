@@ -112,7 +112,7 @@ DEPARTMENTS = [
      "notes": ["The live panel below updates after every run. Use Home or Departments to create runs first."],
      "scenarios": [
          _s("cto-refused-role", "See how a refusal looks",
-            "An engineer (Arjun Singh) tries to start the project risk agent. Only CSMs, project leads, the CEO and the R&D lead may.",
+            "An engineer (Arjun Singh) tries to start the project risk agent. Only CSMs, project leads, the CEO and the CTO may.",
             "Look for a refused run with the reason in plain words. This one runs as Arjun on purpose.",
             "project_risk", "P11", "C02", as_named=True),
          _s("cto-refused-area", "A refusal for another client",

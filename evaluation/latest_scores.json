@@ -67,36 +67,45 @@
  },
  {
   "agent": "travel_booking",
-  "measured": "-",
-  "result": "skipped, not ready (No module named 'agents.finance.travel_booking')",
-  "passed": null,
-  "raw": null
+  "measured": "top 3 follow the policy; nothing books without approval",
+  "result": "8/8 requests right; policy violations 0; booked before approval 0; booked twice 0; booked after deny 0",
+  "passed": true,
+  "raw": {
+   "cases": 8,
+   "passed": 8,
+   "failed": 0,
+   "policy_violations": 0,
+   "booked_before_approval": 0,
+   "double_bookings": 0,
+   "booked_after_deny": 0,
+   "failed_ids": []
+  }
  },
  {
   "agent": "brain_cleaner",
   "measured": "-",
-  "result": "skipped, not ready (No module named 'company_brain')",
+  "result": "skipped, not ready (No module named 'company_brain.agents.cleaner')",
   "passed": null,
   "raw": null
  },
  {
   "agent": "brain_extractor",
   "measured": "-",
-  "result": "skipped, not ready (No module named 'company_brain')",
+  "result": "skipped, not ready (No module named 'company_brain.agents.extractor')",
   "passed": null,
   "raw": null
  },
  {
   "agent": "brain_linker",
   "measured": "-",
-  "result": "skipped, not ready (No module named 'company_brain')",
+  "result": "skipped, not ready (No module named 'company_brain.agents.linker')",
   "passed": null,
   "raw": null
  },
  {
   "agent": "brain_playbook",
   "measured": "-",
-  "result": "skipped, not ready (No module named 'company_brain')",
+  "result": "skipped, not ready (No module named 'company_brain.agents.playbook')",
   "passed": null,
   "raw": null
  }

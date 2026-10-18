@@ -30,7 +30,7 @@
         "display_name": "Tanya Gill",
         "matched_calendar_invitee_email": "tanya.gill@swasth-labs.example"
       },
-      "text": "Sofia, price dekh ke thoda shock laga. Yeh humare budget se bahut upar hai.",
+      "text": "Sofia, price dekh ke shock laga. Hum unhappy hain, yeh bahut zyada hai.",
       "timestamp": "00:00:08"
     },
     {
@@ -39,7 +39,7 @@
         "matched_calendar_invitee_email": "kunal.arora@swasth-labs.example"
       },
       "text": "Aur woh data wala sawaal abhi bhi pending hai. Hum waiting for a clear answer on where the data is hosted.",
-      "timestamp": "00:00:21"
+      "timestamp": "00:00:16"
     },
     {
       "speaker": {
@@ -47,7 +47,7 @@
         "matched_calendar_invitee_email": "sofia.martinez@devx-demo.example"
       },
       "text": "Main isse dekhti hoon aur ek line mein reply karti hoon.",
-      "timestamp": "00:00:32"
+      "timestamp": "00:00:27"
     },
     {
       "speaker": {
@@ -55,7 +55,7 @@
         "matched_calendar_invitee_email": "tanya.gill@swasth-labs.example"
       },
       "text": "Okay. Humein ek aur vendor ne bhi quote diya hai, kam rate pe.",
-      "timestamp": "00:00:39"
+      "timestamp": "00:00:34"
     }
   ]
 }

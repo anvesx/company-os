@@ -536,7 +536,7 @@ python3 -m unittest discover -s tests -t .
 
 ### S6: Finance v2, Finance and Travel pages (L)
 
-**Lead note (Oct 19).** F4 searches only the outbound flight. S6 also adds the return flight: rank the return legs by the same policy, show the best 3 round trips with both flight numbers, and keep the total per person and per group.
+**Lead note (Oct 19).** F4 searches only the outbound flight. S6 also gives the travel_booking agent the `devx-internal` area for the person's own requests (agent_areas returns none today), and adds the return flight: rank the return legs by the same policy, show the best 3 round trips with both flight numbers, and keep the total per person and per group.
 
 **Goal.** Each trip shows the actual cheaper flights and hotels. Finance and Travel get their console pages.
 

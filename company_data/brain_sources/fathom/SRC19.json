@@ -62,7 +62,7 @@
         "display_name": "Sameer Bhatt",
         "matched_calendar_invitee_email": "sameer.bhatt@carenest-clinics.example"
       },
-      "text": "Ek sawaal: hamara data kahan rahega? Hum thoda worried hain.",
+      "text": "Ek sawaal: hamara data kahan rahega?",
       "timestamp": "00:00:54"
     },
     {
@@ -71,7 +71,7 @@
         "matched_calendar_invitee_email": "anthony.fernandes@devx-demo.example"
       },
       "text": "Achha sawaal hai, main next call mein clear jawab dunga.",
-      "timestamp": "00:01:07"
+      "timestamp": "00:01:04"
     }
   ]
 }

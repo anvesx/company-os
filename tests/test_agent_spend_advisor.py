@@ -137,7 +137,7 @@ class SpendAdvisorTests(unittest.TestCase):
         self.assertIn("trip TR500", self.break_answer(lambda t: t + " See TR500."))
 
     def test_a_person_name_or_code_word_is_stopped_by_check(self):
-        self.assertIn("names a person", self.break_answer(lambda t: t + " Rohan booked it."))
+        self.assertIn("names a person", self.break_answer(lambda t: t + " Anthony booked it."))
         self.assertIn("code word", self.break_answer(lambda t: t + " Rule: late_booking."))
 
     def test_one_persons_salary_is_stopped_by_check(self):

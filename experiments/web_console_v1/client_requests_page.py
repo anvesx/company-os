@@ -17,7 +17,7 @@ def _kind_label(kind):
 
 
 def visible_projects(console, person_id):
-    """Projects whose board this person may see: all for CEO and R&D lead, own for CSM and lead, theirs for makers."""
+    """Projects whose board this person may see: all for CEO and CTO, own for CSM and lead, theirs for makers."""
     role, conn = console._role(person_id), console.cos.data_conn
     if role not in BOARD_ROLES:
         return []
@@ -78,7 +78,7 @@ def client_requests_board(console, person_id):
     out = {"ok": True, "safety": SAFETY_LINE, "projects": projects, "as_of": console.cos.clock.today,
            "columns": [{"id": cid, "title": title, "cards": []} for cid, title in COLUMNS]}
     if not projects:
-        out["note"] = ("This board is for CSMs, project leads, the CEO, the R&D lead and the engineers and designers "
+        out["note"] = ("This board is for CSMs, project leads, the CEO, the CTO and the engineers and designers "
                        "who work on a project.")
         return out
     by_col = {c["id"]: c for c in out["columns"]}

@@ -619,7 +619,7 @@
    "letters": [
     {
      "to": "P05",
-     "to_name": "Neha Iyer",
+     "to_name": "Akbar Ali",
      "kind": "unusual_pattern_review",
      "text": "Unusual patterns to review at Tailorbird Menswear (last 30 days up to 2026-10-19).\n1. Bhavna Trivedi (S13), store ST03: 5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19.\n   Why it matters: Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts.\n   Next step: Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together.\nThese are unusual patterns, not conclusions. Store managers are client staff, so this note goes to you to review and to talk with the store manager."
     }
@@ -762,7 +762,7 @@
       "lines": [],
       "items": [
        {
-        "text": "Told Neha Iyer in private (unusual pattern review)",
+        "text": "Told Akbar Ali in private (unusual pattern review)",
         "verdict": "allowed",
         "message": "Unusual patterns to review at Tailorbird Menswear (last 30 days up to 2026-10-19).\n1. Bhavna Trivedi (S13), store ST03: 5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19.\n   Why it matters: Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts.\n   Next step: Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together.\nThese are unusual patterns, not conclusions. Store managers are client staff, so this note goes to you to review and to talk with the store manager."
        },
@@ -814,7 +814,7 @@
     },
     {
      "to": "P01",
-     "to_name": "Aarav Mehta",
+     "to_name": "Ammar Khan",
      "kind": "forecast",
      "text": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
     }
@@ -963,7 +963,7 @@
         "message": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
        },
        {
-        "text": "Told Aarav Mehta in private (forecast)",
+        "text": "Told Ammar Khan in private (forecast)",
         "verdict": "allowed",
         "message": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
        }
@@ -1006,7 +1006,7 @@
    "letters": [
     {
      "to": "P05",
-     "to_name": "Neha Iyer",
+     "to_name": "Akbar Ali",
      "kind": "flag",
      "text": "Delivery progress flags for your projects:\n\n[MEDIUM] Ecommerce Revamp (PR02)\nWhat we see: 3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed.\nWhy it matters: Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable.\nSuggested next step: Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct."
     }
@@ -1145,7 +1145,7 @@
       "lines": [],
       "items": [
        {
-        "text": "Told Neha Iyer in private (flag)",
+        "text": "Told Akbar Ali in private (flag)",
         "verdict": "allowed",
         "message": "Delivery progress flags for your projects:\n\n[MEDIUM] Ecommerce Revamp (PR02)\nWhat we see: 3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed.\nWhy it matters: Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable.\nSuggested next step: Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct."
        }
@@ -1184,7 +1184,7 @@
    "letters": [
     {
      "to": "P05",
-     "to_name": "Neha Iyer",
+     "to_name": "Akbar Ali",
      "kind": "escalation",
      "text": "Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly."
     }
@@ -1291,7 +1291,7 @@
       "lines": [],
       "items": [
        {
-        "text": "Told Neha Iyer in private (escalation)",
+        "text": "Told Akbar Ali in private (escalation)",
         "verdict": "allowed",
         "message": "Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly."
        }
