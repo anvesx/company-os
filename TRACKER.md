@@ -8,7 +8,6 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
-| Fix from the browser check: a Growth call was cited in the CSM project brief (role rule says CSM may not see deal discussions); three changed decisions missing their "Changed on" line; Home cost total shows $0 | (fix) | Running |
 
 ## Next
 
@@ -24,6 +23,7 @@ Last updated: Oct 19, 2026.
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Browser-check fixes: a CSM no longer sees deal-stage sources (sales calls before the signed SOW), enforced on the data; only real changed decisions show "Changed on"; Home cost total matches the runs. 551 tests, 10 exams pass | (fix) |
 | Oct 19 | Browser check of each role: all pages work for Ammar, Akbar and Anthony; forbidden pages refused (403); 4 bugs fixed; screenshots in `evaluation/browser_check/` | I2 |
 | Oct 19 | Code split into `core/` (core harness) and `control_plane/`, with `contract/` between them. Boundary tests check both directions. 545 tests and all 10 exams pass | R2 |
 | Oct 19 | Integration: compaction runs before each model call; exams also run on a brain filled by the real pipeline, and all pass; 3 bugs fixed; real-Sonnet samples recorded (4 of 5 usable) | I1 |
