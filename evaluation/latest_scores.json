@@ -121,7 +121,7 @@
    "mean_recall": 1.0,
    "max_false": 0,
    "contradiction_found": true,
-   "p95_ms": 1.1007919965777546,
+   "p95_ms": 1.111958990804851,
    "per_call": [
     {
      "call_id": "LC01",
@@ -156,7 +156,7 @@
     "mean_recall": 1.0,
     "max_false": 1,
     "contradiction_found": true,
-    "p95_ms": 1.0808340011863038,
+    "p95_ms": 1.0717920085880905,
     "per_call": [
      {
       "call_id": "LC01",
