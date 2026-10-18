@@ -378,3 +378,14 @@ td .link-btn:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
+
+/* shell v2: family colours, Home cards, admin controls */
+.fam-meeting_prep { --c: #6D5BD0; --ct: #5B49BE; } .fam-finance { --c: #1F8A5B; --ct: #17724A; } .fam-brain { --c: #0E8C8C; --ct: #0B7272; }
+:root[data-theme="dark"] .fam-meeting_prep { --ct: #B3A7FF; } :root[data-theme="dark"] .fam-finance { --ct: #62D09C; } :root[data-theme="dark"] .fam-brain { --ct: #5CD6D6; }
+.home-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.home-card { background: var(--surface); border-radius: 14px; box-shadow: var(--shadow); border-left: 3px solid var(--c); padding: 20px; display: grid; gap: 12px; align-content: start; }
+.home-card h3 { color: var(--ct); font-size: 20px; }
+.home-card .btn { justify-self: start; }
+.top-actions .row { gap: 12px; }
+.privacy-line { font-size: 13px; }
+@media (max-width: 899px) { .top-actions { flex-wrap: wrap; } }

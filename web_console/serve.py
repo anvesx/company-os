@@ -64,13 +64,13 @@ def make_server(console, port=8800):
     return HTTPServer(("127.0.0.1", port), make_handler(console))
 
 
-def serve_in_thread(state_dir, port=0):
+def serve_in_thread(state_dir, port=0, **console_kwargs):
     """For tests. The console is built inside the server thread, because SQLite connections stay in their thread."""
     ready, box = threading.Event(), {}
 
     def target():
         try:
-            box["console"] = Console(state_dir)
+            box["console"] = Console(state_dir, **console_kwargs)
             box["server"] = make_server(box["console"], port)
         except Exception as e:
             box["error"] = e

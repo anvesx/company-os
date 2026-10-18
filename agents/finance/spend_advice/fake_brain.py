@@ -6,7 +6,30 @@ from contract.types import ModelReply
 from .pack import BEST_PHRASE, MARKER, inr
 
 
+def _clock(hhmm):
+    h = int(hhmm[:2])
+    return f"{(h % 12) or 12}:{hhmm[3:5]} {'AM' if h < 12 else 'PM'}"
+
+
+def _seen(day):
+    return f"{('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')[int(day[5:7]) - 1]} {int(day[8:])}"
+
+
+def _option(x):
+    o = x.get("option")
+    if not o:
+        return ""
+    if o["kind"] == "hotel":
+        return f" A cheaper hotel: {o['hotel']} at {inr(o['rate_inr'])} a night."
+    return (f" A cheaper flight: {o['carrier']} {o['flight_no']} at {_clock(o['depart_time'])}, {inr(o['fare_inr'])}, "
+            f"seen {_seen(o['seen_on'])}.")
+
+
 def _line(x):
+    return _base_line(x) + _option(x)
+
+
+def _base_line(x):
     head = f"{x['trip_id']} ({x['date']}): "
     if x["rule"] == "late_booking":
         days = x["booked_days_before"]

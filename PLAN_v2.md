@@ -187,6 +187,8 @@ Kept agents are regrouped (agent names do not change):
 - Pricing (the focus group asked for flat pricing; this is a business decision, not a build item).
 - Any per-person score, ranking or performance view.
 
+**Planned, not built: any document type in the brain inbox (owner, Oct 19).** Today the inbox reads Fathom transcripts (JSON), Word (.docx), email (.eml), chat exports and live call lines. Later it must read any document people send: Excel and CSV sheets, PDF (including scanned PDF through OCR), PowerPoint, Google Docs and Sheets exports, images of whiteboards, and plain text. The plan: one reader per format in `company_brain/source_readers.py`, each turning the file into numbered lines with a location (sheet and cell, page and line, slide), so every fact still links to its exact source. Tables keep their row and column as the location.
+
 ## 9. Risks
 
 | Risk | What we do |

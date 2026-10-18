@@ -42,38 +42,17 @@ meeting prep `#6D5BD0` violet · project risk `#D97706` amber · finance watch `
 
 ## 5. Layout and spacing
 - 4px base; spacing steps 4, 8, 12, 16, 24, 32, 48, 64.
-- Left rail (232px): the product name "Company OS", then navigation with icons: Today, Agents, Departments, Inbox, Approvals (with a count), Project progress, Client requests, Runs, Company memory. On small screens the rail becomes a bottom sheet menu.
-- Top bar: on the left the page title; on the right a date pill ("Mon 19 Oct 2026") with "Go to next day", the "Viewing as" person chip (avatar initials + name + role, opens a picker), the agents on or paused switch, and a small "Reset demo" text button. The real-Claude option lives in Settings text, off.
+- Left rail (232px): the product name "Company OS", then one link per page the viewed role may open (Home first), then the Dark mode switch. On small screens the rail becomes a bottom sheet menu.
+- Top bar: the page title on the left. On the right the role switcher: a chip with the first name and role ("Ammar · Admin"), opening a menu of exactly three people (Ammar Admin, Akbar CSM, Anthony Growth). Admin also sees the demo date, "Go to next day", the agents on or paused switch and "Reset demo".
 - Content max width 1120px, left aligned.
-
-```
-┌──────────┬────────────────────────────────────────────────────────┐
-│ Company  │ Today                       Mon 19 Oct ▸  ( AN Anjali ) │
-│ OS       ├────────────────────────────────────────────────────────┤
-│          │ Good morning, Anjali. 2 things need you.               │
-│ Today    │ [approval letter] [approval letter]                    │
-│ Agents   │                                                        │
-│ Depts    │ What your agents did today                             │
-│ Inbox    │ (av) Finance watch told you about 1 duplicate invoice  │
-│ Approvals│ (av) Hiring forecast: quiet, no team is short          │
-│ Progress │ ...                                                    │
-│ Requests │ Try a scenario   [tile] [tile] [tile]                  │
-│ Runs     │                                                        │
-│ Memory   │                                                        │
-└──────────┴────────────────────────────────────────────────────────┘
-```
+- Family colours: Meeting prep violet `#6D5BD0`, Finance green `#1F8A5B`, Company brain teal `#0E8C8C`. Each page card on Home gets the colour of its family on its left edge.
 
 ## 6. Pages
-- **Today** (home): greeting for the viewer, "Ask finance" for people who may start the spend advisor (a text field and three quick-pick chips; the answer opens in the drawer), "Things that need you" (their approvals), "What your agents did" as a readable activity list (one line per run, avatar first, click opens the drawer), "Try a scenario" tiles (3 to 6 picked for the viewer's role), and a first-visit strip: "New here? Take the 5-step tour".
-- **Agents**: profile cards in a 2-column grid.
-- **Departments**: a segmented control (Finance, HR, Growth, CSMs, CTO); each shows one sentence on how that team uses agents, scenario tiles with a "Try it" button (opens the drawer), privacy notes as a calm info line, and the "planned" agent as a dashed-outline tile.
-- **Inbox**: letters for the viewer, newest first, filter by agent.
-- **Approvals**: approval cards; decided ones fold into a "Decided" list.
-- **Project progress**: a project table, then a page per project (`#progress/<id>`) in plain business words: scope items, tasks, percent done, flags, client requests, decisions, risks. No PR names, dates or sizes, no per-developer numbers. HR sees team totals only.
-- **Client requests**: a board per project in six columns, and a form to request something from the client.
-- Every page shows only what the "Viewing as" person may do. Hidden things are not greyed out; they are left out.
-- **Runs**: a table (agent, area, trigger, status chip, time, cost), click opens the run story.
-- **Company memory**: pick an area (only areas the viewer may see), then items grouped by kind with links shown as small "answers" or "replaces" tags.
+- Pages are plug-ins (contract C8). The shell lists a role's pages from `/api/console/pages`, loads each page script and calls `render`. A page whose module is not built yet shows a small "not ready yet" card.
+- **Home**: a greeting, the privacy line ("Nothing here is used to rate people."), then one card per allowed page from its `homeCard`.
+- **Approvals**: approval cards for held actions this person may decide (bookings: Admin only). Decided ones fold into a "Decided" list.
+- **Runs** (Admin): counts, then a table (agent, area, result chip, time, cost, cache hits). A click opens the six-step run story in the drawer.
+- Every page shows only what the viewed person may open. Hidden things are left out, and the server refuses them with 403.
 
 ## 7. Do and don't
 Do: whitespace over borders; one accent per agent; plain verbs; show refusals with the reason in words; keyboard focus rings; 44px touch targets.
@@ -83,4 +62,4 @@ Don't: identical boxed cards for every section; gradients; all-caps or tracked l
 Check at 375, 768, 1024 and 1440px. Below 900px the rail collapses to a menu button and the drawer becomes full screen.
 
 ## 9. Icons
-Inline SVG, 1.75px stroke, 20px, Lucide-style, drawn in `console.js` as a small icon map (calendar, pulse, coin, store, users, branch, key, check, x, pause, flag, inbox, home, book, settings, chevron, play, search).
+Inline SVG, 1.75px stroke, 20px, Lucide-style, drawn in `shell.js` as a small icon map (calendar, pulse, coin, store, users, branch, key, check, x, pause, flag, inbox, home, book, settings, chevron, play, search).

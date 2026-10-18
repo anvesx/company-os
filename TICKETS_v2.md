@@ -584,6 +584,8 @@ python3 -m unittest discover -s tests -t .
 
 ### I1: Integration, exams, docs (L)
 
+Lead notes from Wave 2 for I1 (Oct 19): (a) S3 sample brief lists the decision "reminders will go by WhatsApp only" under Blockers; check the kind mapping and the PR05 answer key. (b) S3, S4, S5 exams seed the brain from answer keys; I1 must also run them on a brain filled by the real pipeline (S1 then S2) and report both scores. (c) S4 closing-idea wording from the fake brain is stiff; run one real-Sonnet sample per brief and save it. (d) travel_booking agent_areas: S6 left it; confirm own-request scope through the way-in check with a test. (e) add the 'web console is only for experiments' note to web_console/README.md. (f) evaluation/record_real_samples.py fails to import (uses moved department_scenarios); rework it for v2 agents. (g) S7 next-day calls triggers.inbox_trigger only if it imports; S1 has now built it, so wire and test it.
+
 Also: add the R1 compaction hook to the loop in `runtime/agent_loop.py` (call `compact_if_needed` before each model call; log the note), with one test.
 
 

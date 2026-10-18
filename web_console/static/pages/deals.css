@@ -1,0 +1,12 @@
+.deals-stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 20px; }
+.deals-stage h4 { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; text-transform: capitalize; }
+.deals-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; box-shadow: var(--shadow); }
+.deals-card button { margin-top: 6px; }
+.deals-section { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+.deals-section h3 { margin-bottom: 8px; }
+.deals-section li { margin-bottom: 6px; }
+.deals-cite { color: var(--ink-soft); font-size: 12px; font-family: ui-monospace, Menlo, monospace; }
+.deals-unconfirmed { color: var(--warn-t); font-weight: 600; }
+.deals-outcome-won { color: var(--ok-t); } .deals-outcome-lost { color: var(--stop-t); }
+.deals-playbook summary { cursor: pointer; font-weight: 600; }
+.deals-playbook h5 { margin: 8px 0 2px; font-size: 13px; color: var(--ink-soft); }

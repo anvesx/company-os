@@ -1,5 +1,6 @@
 """Ranks flight and hotel options by the travel policy: policy first, then the lowest price. Pure code, no model."""
 import json
+from hashlib import sha1
 from pathlib import Path
 
 from company_data.generate_trips import POLICY_RATE
@@ -95,3 +96,22 @@ def rank_hotels(options, request, policy=None):
         top.append({**o, "policy_ok": True, "why": why,
                     "total_inr": o["rate_inr"] * request["nights"] * request["rooms"]})
     return top, bad
+
+
+def rank_round_trips(outbound, returns, request, policy=None):
+    """The best round trips from the top outbound and top return flights: cheapest total first, with both flight numbers."""
+    policy = policy or load_policy()
+    pax, combos = request["pax"], []
+    for o in outbound:
+        for r in returns:
+            combos.append((o["fare_inr"] + r["fare_inr"], o["depart_time"], r["depart_time"], o, r))
+    combos.sort(key=lambda c: (c[0], c[1], c[2], c[3]["flight_no"], c[4]["flight_no"]))
+    top = []
+    for n, (fare, _, _, o, r) in enumerate(combos[:policy["show_top"]], 1):
+        why = (f"Out {o['flight_no']} at {time12(o['depart_time'])}, back {r['flight_no']} at {time12(r['depart_time'])}. "
+               "Both flights fit the policy. ")
+        why += ("It is the cheapest round trip." if n == 1 else f"It costs {inr(fare - combos[0][0])} more a person than option 1.")
+        key = f"{o['option_id']}|{r['option_id']}"
+        top.append({"option_id": "RT-" + sha1(key.encode()).hexdigest()[:8], "outbound": o, "return": r, "fare_inr": fare,
+                    "total_inr": fare * pax, "pax": pax, "policy_ok": True, "why": why})
+    return top

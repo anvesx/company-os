@@ -9,7 +9,7 @@ from lifecycle_kit.action_tools import make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack
 
 from . import booking_store
-from .policy_ranking import load_policy, rank_flights, rank_hotels, rooms_for
+from .policy_ranking import load_policy, rank_flights, rank_hotels, rank_round_trips, rooms_for
 from .request_parser import RequestError, nights_of, normalize_request
 
 AREA = "devx-internal"
@@ -26,7 +26,7 @@ def make_book_travel(conn, clock) -> ToolSpec:
             raise ValueError("unknown travel request")
         if req["booking"]:
             raise ValueError("this request is already booked")
-        flight = next((f for f in req["flights"] if f["option_id"] == args["flight_option_id"]), None)
+        flight = next((f for f in (req["round_trips"] or req["flights"]) if f["option_id"] == args["flight_option_id"]), None)
         hotel_id = args.get("hotel_option_id") or None
         hotel = next((h for h in req["hotels"] if h["option_id"] == hotel_id), None) if hotel_id else None
         if flight is None or (hotel_id and hotel is None) or (req["hotels"] and hotel is None):
@@ -84,7 +84,10 @@ class TravelBookingPack(AgentPack):
                                                 "date": request["depart_on"], "pax": request["pax"]})
         hotels = _read(ctx, "search_hotels", {"city": request["to_city"], "check_in": request["depart_on"],
                                               "nights": request["nights"], "rooms": request["rooms"]}) if request["nights"] else {}
-        return {"request": request, "flights": flights.get("flights", []), "hotels": hotels.get("hotels", [])}
+        back = _read(ctx, "search_flights", {"from_city": request["to_city"], "to_city": request["from_city"],
+                                             "date": request["return_on"], "pax": request["pax"]}) if request.get("return_on") else {}
+        return {"request": request, "flights": flights.get("flights", []), "hotels": hotels.get("hotels", []),
+                "return_flights": back.get("flights", [])}
 
     def understand(self, ctx, recorded):
         request = recorded["request"]
@@ -95,8 +98,14 @@ class TravelBookingPack(AgentPack):
         top_h, bad_h = rank_hotels(recorded["hotels"], request, policy)
         if not top_f or (request["nights"] and not top_h):
             return {"quiet": True}
+        trips = []
+        if recorded["return_flights"]:
+            back = {**request, "from_city": request["to_city"], "to_city": request["from_city"]}
+            top_r, bad_r = rank_flights(recorded["return_flights"], back, policy)
+            bad_f += [{**b, "label": "Return " + b["label"]} for b in bad_r]
+            trips = rank_round_trips(top_f, top_r, request, policy) if top_r else []
         understood = {"request": {k: v for k, v in request.items() if k not in ("purpose", "client_id")},
-                      "flights": top_f, "hotels": top_h, "out_of_policy": bad_f + bad_h,
+                      "flights": top_f, "hotels": top_h, "round_trips": trips, "out_of_policy": bad_f + bad_h,
                       "city_rate_inr": POLICY_RATE[request["to_city"]]}
         ctx.notes["travel"] = understood
         return understood
@@ -114,6 +123,10 @@ class TravelBookingPack(AgentPack):
 
     def check(self, ctx, decision, understood):
         text, req, problems = decision["letter"], understood["request"], []
+        trips = understood.get("round_trips") or []
+        for rt in trips:
+            if rt["total_inr"] != rt["fare_inr"] * req["pax"] or rt["fare_inr"] != rt["outbound"]["fare_inr"] + rt["return"]["fare_inr"]:
+                problems.append(f"the total for round trip {rt['outbound']['flight_no']} and {rt['return']['flight_no']} is wrong")
         for f in understood["flights"]:
             if not f["policy_ok"]:
                 problems.append(f"flight {f['flight_no']} is out of policy")
@@ -128,7 +141,8 @@ class TravelBookingPack(AgentPack):
         for raw in re.findall(r"INR\s*([\d,]+)", text):
             if int(raw.replace(",", "")) not in shown:
                 problems.append(f"amount INR {raw} does not match the computed data")
-        numbers = {f["flight_no"] for f in understood["flights"]}
+        numbers = ({n for rt in trips for n in (rt["outbound"]["flight_no"], rt["return"]["flight_no"])} if trips
+                   else {f["flight_no"] for f in understood["flights"]})
         for no in set(FLIGHT_NO_RE.findall(text)) - numbers:
             problems.append(f"flight {no} is not one of the options")
         for no in sorted(numbers - set(FLIGHT_NO_RE.findall(text))):
@@ -150,8 +164,9 @@ class TravelBookingPack(AgentPack):
     def act(self, ctx, decision):
         t = ctx.notes["travel"]
         hotel = t["hotels"][0] if t["hotels"] else None
-        total = t["flights"][0]["total_inr"] + (hotel["total_inr"] if hotel else 0)
-        book = {"request_id": ctx.task.inputs["request_id"], "flight_option_id": t["flights"][0]["option_id"],
+        first = (t["round_trips"] or t["flights"])[0]
+        total = first["total_inr"] + (hotel["total_inr"] if hotel else 0)
+        book = {"request_id": ctx.task.inputs["request_id"], "flight_option_id": first["option_id"],
                 "hotel_option_id": hotel["option_id"] if hotel else "", "total_inr": total}
         return [ToolCall("act-letter", "send_private_message",
                          {"to_person_id": ctx.task.caller_id, "text": decision["letter"], "kind": "travel_options"}),
@@ -162,7 +177,7 @@ class TravelBookingPack(AgentPack):
         held = bool(ctx.held)
         booking_store.update_request(
             self.conn, ctx.task.inputs["request_id"], run_id=ctx.run_id, status="held" if held else "failed",
-            approval_id=ctx.held[0] if held else None, flights_json=t["flights"], hotels_json=t["hotels"],
+            approval_id=ctx.held[0] if held else None, flights_json=t["flights"], hotels_json=t["hotels"], round_trips_json=t["round_trips"],
             out_of_policy_json=t["out_of_policy"], letter=decision["letter"])
         return {"request_id": ctx.task.inputs["request_id"], "held": held}
 

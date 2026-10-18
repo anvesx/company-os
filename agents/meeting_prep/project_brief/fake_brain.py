@@ -15,6 +15,28 @@ def _context(req) -> dict:
     return json.loads(prompt.split(CONTEXT_MARKER, 1)[1])
 
 
+def _point(item):
+    return {"text": item["text"], "topic": item["topic"], "cites": [item["item_id"]], "sources": item["sources"],
+            "unconfirmed": item["unconfirmed"]}
+
+
+def _brain_sections(brain, questions):
+    """Brief points from brain items. Every point cites its item and carries that item's source lines."""
+    items = brain.get("items", [])
+    kind = lambda k: [_point(i) for i in items if i["kind"] == k]
+    for i in items:
+        if i["kind"] == "question":
+            questions.append({**_point(i), "text": f"Ask the client: {i['text']}"})
+    changes = [{"text": f"Changed on {c['changed_on']}: {c['old']['text']} → {c['new']['text']}",
+                "topic": c["new"]["topic"], "item_id": c["new"]["item_id"], "cites": [c["new"]["item_id"], c["old"]["item_id"]],
+                "sources": c["new"]["sources"] + c["old"]["sources"], "_kind": c["new"]["kind"]} for c in brain.get("changes", [])]
+    changed = [{k: v for k, v in c.items() if k != "_kind"} for c in changes if c["_kind"] == "decision"]
+    conflicts = [{k: v for k, v in c.items() if k not in ("_kind", "item_id")} for c in changes if c["_kind"] != "decision"]
+    return {"changed_decisions": changed, "open_requirements": kind("requirement"), "blockers": kind("blocker"),
+            "commitments_due": kind("commitment"), "contradictions": conflicts,
+            "recent_decisions": kind("decision"), "unconfirmed_count": brain.get("unconfirmed_count", 0)}
+
+
 def _answer(context) -> dict:
     meeting_day = date.fromisoformat(context["meeting"]["start_at"][:10])
     by_topic = {}
@@ -30,9 +52,11 @@ def _answer(context) -> dict:
         if age > STALE_AFTER_DAYS:
             watch_out.append(f"\"{topic}\" has been open for {age} days. Close it, or agree who owns it.")
     changed = [{"text": d["text"], "topic": d["topic"], "item_id": d["item_id"]} for d in context["recent_decisions"]]
+    extra = _brain_sections(context.get("brain") or {}, questions)
     summary = (f"{len(questions)} topic(s) to settle for {context['meeting']['project_name'] or 'this project'}"
                f" and {len(changed)} recent decision(s). Settle the open points in this meeting.")
-    return {"questions": questions, "changed_decisions": changed, "watch_out": watch_out, "summary": summary}
+    return {"questions": questions, "changed_decisions": changed + extra.pop("changed_decisions"),
+            "watch_out": watch_out, "summary": summary, **extra}
 
 
 def brain(request) -> ModelReply:

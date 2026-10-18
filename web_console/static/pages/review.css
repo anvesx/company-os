@@ -1,0 +1,13 @@
+.review-note { color: var(--ink-soft); }
+.review-list { display: grid; gap: 16px; margin-top: 16px; }
+.review-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); }
+.review-card header { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.review-source, .review-older { color: var(--ink-soft); margin: 6px 0; }
+.review-line { display: grid; grid-template-columns: 64px 1fr 1fr; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); }
+.review-context { opacity: .6; }
+.review-no { color: var(--calm-t); font-size: 12px; }
+.review-raw small, .review-clean small { color: var(--ink-soft); }
+.review-line p { margin: 2px 0 0; }
+.review-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.review-edit, .review-area { width: 100%; margin-top: 8px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
+@media (max-width: 640px) { .review-line { grid-template-columns: 1fr; } }

@@ -104,9 +104,12 @@ class ServiceTests(unittest.TestCase):
         self.assertEqual(pending[0]["tool"], "book_travel")
         mail = self.cos.outbox.messages("P05")
         self.assertEqual((len(mail), mail[0]["kind"], mail[0]["text"]), (1, "travel_options", r["letter"]))
-        for f in r["flights"]:
-            self.assertIn(f["flight_no"], r["letter"])
-            self.assertEqual(f["total_inr"], f["fare_inr"] * 3)
+        self.assertEqual(len(r["round_trips"]), 3)
+        for rt in r["round_trips"]:
+            for leg in (rt["outbound"], rt["return"]):
+                self.assertIn(leg["flight_no"], r["letter"])
+            self.assertEqual(rt["fare_inr"], rt["outbound"]["fare_inr"] + rt["return"]["fare_inr"])
+            self.assertEqual(rt["total_inr"], rt["fare_inr"] * 3)
         self.assertEqual(self.cos.memory.get_run(r["run_id"])["status"], "held")
 
     def test_nothing_is_booked_before_approval(self):
@@ -132,11 +135,11 @@ class ServiceTests(unittest.TestCase):
         self.assertEqual(self.bookings(), 1)
         row = service.requests_for(self.cos, "P05")[0]
         self.assertEqual((row["status"], row["booking_ref"]), ("booked", first["booking_ref"]))
-        self.assertEqual(row["total_inr"], r["flights"][0]["total_inr"] + r["hotels"][0]["total_inr"])
+        self.assertEqual(row["total_inr"], r["round_trips"][0]["total_inr"] + r["hotels"][0]["total_inr"])
 
     def test_choose_options_replaces_the_held_approval(self):
         r = service.request_trip(self.cos, "P05", TEXT)
-        c = service.choose_options(self.cos, r["request_id"], r["flights"][1]["option_id"], r["hotels"][2]["option_id"], "P05")
+        c = service.choose_options(self.cos, r["request_id"], r["round_trips"][1]["option_id"], r["hotels"][2]["option_id"], "P05")
         self.assertTrue(c["ok"])
         self.assertNotEqual(c["approval_id"], r["approval_id"])
         self.assertEqual(self.cos.approvals.get(r["approval_id"])["status"], "rejected")
@@ -144,11 +147,11 @@ class ServiceTests(unittest.TestCase):
         self.cos.approvals.decide(c["approval_id"], True, "P01")
         self.assertEqual(service.booking_after_approval(self.cos, c["approval_id"])["status"], "booked")
         self.assertEqual(self.cos.memory.conn.execute("SELECT flight_option_id, hotel_option_id FROM travel_bookings").fetchone()[:],
-                         (r["flights"][1]["option_id"], r["hotels"][2]["option_id"]))
+                         (r["round_trips"][1]["option_id"], r["hotels"][2]["option_id"]))
 
     def test_choose_options_refuses_bad_choices(self):
         r = service.request_trip(self.cos, "P05", TEXT)
-        f, h = r["flights"][0]["option_id"], r["hotels"][0]["option_id"]
+        f, h = r["round_trips"][0]["option_id"], r["hotels"][0]["option_id"]
         self.assertFalse(service.choose_options(self.cos, r["request_id"], "FL-nope", h, "P05")["ok"])
         self.assertFalse(service.choose_options(self.cos, r["request_id"], f, None, "P05")["ok"])
         self.assertFalse(service.choose_options(self.cos, r["request_id"], f, h, "P03")["ok"])   # another person's request
@@ -193,7 +196,8 @@ class ServiceTests(unittest.TestCase):
     def test_pack_check_rejects_a_bad_letter(self):
         pack = self.cos.packs["travel_booking"]
         r = service.request_trip(self.cos, "P05", TEXT)
-        t = {"request": {"pax": 3, "nights": 1, "rooms": 2}, "flights": r["flights"], "hotels": [], "out_of_policy": []}
+        t = {"request": {"pax": 3, "nights": 1, "rooms": 2}, "flights": r["flights"], "round_trips": r["round_trips"],
+             "hotels": [], "out_of_policy": []}
         ctx = type("C", (), {"notes": {}})()
         good = {"letter": r["letter"].split("\n\nBest hotels")[0] + "\n\nNothing is booked yet."}
         self.assertEqual(pack.check(ctx, good, t), [])
@@ -202,7 +206,9 @@ class ServiceTests(unittest.TestCase):
         self.assertTrue(pack.check(ctx, {"letter": good["letter"] + " See TR012."}, t))
         self.assertTrue(pack.check(ctx, {"letter": "KSA 111 is great. Nothing is booked yet."}, t))
         self.assertTrue(pack.check(ctx, {"letter": good["letter"].replace("Nothing is booked", "It is done")}, t))
-        wrong = {**t, "flights": [{**r["flights"][0], "total_inr": 5}]}
+        wrong_rt = {**t, "round_trips": [{**r["round_trips"][0], "total_inr": 5}, *r["round_trips"][1:]]}
+        self.assertTrue(pack.check(ctx, good, wrong_rt))
+        wrong = {**t, "round_trips": [], "flights": [{**r["flights"][0], "total_inr": 5}]}
         self.assertTrue(pack.check(ctx, good, wrong))
         self.assertTrue(pack.check(ctx, good, {**t, "flights": [{**r["flights"][0], "policy_ok": False}]}))
 

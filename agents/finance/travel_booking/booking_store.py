@@ -4,12 +4,14 @@ from hashlib import sha1
 from pathlib import Path
 
 JSON_COLUMNS = {"request_json": "request", "flights_json": "flights", "hotels_json": "hotels",
-                "out_of_policy_json": "out_of_policy"}
-UPDATABLE = {"status", "run_id", "approval_id", "flights_json", "hotels_json", "out_of_policy_json", "letter"}
+                "out_of_policy_json": "out_of_policy", "round_trips_json": "round_trips"}
+UPDATABLE = {"status", "run_id", "approval_id", "flights_json", "hotels_json", "out_of_policy_json", "round_trips_json", "letter"}
 
 
 def ensure_schema(conn):
     conn.executescript(Path(__file__).with_name("schema.sql").read_text())
+    if "round_trips_json" not in {r[1] for r in conn.execute("PRAGMA table_info(travel_requests)")}:   # older database
+        conn.execute("ALTER TABLE travel_requests ADD COLUMN round_trips_json TEXT NOT NULL DEFAULT '[]'")
 
 
 def new_request(conn, requester_id, request, now) -> str:

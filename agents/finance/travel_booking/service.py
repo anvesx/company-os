@@ -17,7 +17,7 @@ def _is_admin(cos, person_id) -> bool:
 
 
 def _result(row, run_id, status, letter, ok):
-    return {"ok": ok, "request_id": row, "run_id": run_id, "status": status, "flights": [], "hotels": [],
+    return {"ok": ok, "request_id": row, "run_id": run_id, "status": status, "flights": [], "hotels": [], "round_trips": [],
             "out_of_policy": [], "approval_id": None, "letter": letter}
 
 
@@ -36,7 +36,7 @@ def request_trip(cos, caller_id, request) -> dict:
     row = booking_store.get_request(conn, rid)
     if run.status == "held" and row["approval_id"]:
         return {**_result(rid, run.run_id, "held", row["letter"], True), "flights": row["flights"], "hotels": row["hotels"],
-                "out_of_policy": row["out_of_policy"], "approval_id": row["approval_id"]}
+                "round_trips": row["round_trips"], "out_of_policy": row["out_of_policy"], "approval_id": row["approval_id"]}
     if run.status == "refused":
         status, letter = "refused", run.reason or "The request was refused."
     else:
@@ -55,6 +55,7 @@ def _view(cos, row) -> dict:
             status = "denied"
     return {"request_id": row["request_id"], "requester_id": row["requester_id"], "status": status,
             "request": row["request"], "flights": row["flights"], "hotels": row["hotels"],
+            "round_trips": row["round_trips"],
             "out_of_policy": row["out_of_policy"], "approval_id": row["approval_id"], "run_id": row["run_id"],
             "booking_ref": row["booking"]["booking_ref"] if row["booking"] else None,
             "total_inr": row["booking"]["total_inr"] if row["booking"] else None,
@@ -83,7 +84,7 @@ def choose_options(cos, request_id, flight_option_id, hotel_option_id, by_person
     old = cos.approvals.get(row["approval_id"]) if row["approval_id"] else None
     if row["booking"] or old is None or old["status"] != "pending":
         return _refuse("this request is not waiting for approval")
-    flight = next((f for f in row["flights"] if f["option_id"] == flight_option_id), None)
+    flight = next((f for f in (row["round_trips"] or row["flights"]) if f["option_id"] == flight_option_id), None)
     hotel = next((h for h in row["hotels"] if h["option_id"] == hotel_option_id), None) if hotel_option_id else None
     if flight is None:
         return _refuse("that flight is not one of the options shown")

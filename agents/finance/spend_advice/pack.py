@@ -63,6 +63,17 @@ def _focus(question):
     return "overview"
 
 
+def _top_option(x, cards):
+    """The cheapest real option for one saving: a flight for fare rules, a hotel for the hotel rule. None if there is none."""
+    card = cards.get(x["trip_id"])
+    if not card or x["rule"] == "same_city_trips":
+        return None
+    if x["rule"] == "hotel_above_city_rate":
+        return {"kind": "hotel", **card["cheaper_hotels"][0]} if card["cheaper_hotels"] else None
+    mine = [f for f in card["cheaper_flights"] if f["rule"] == x["rule"]]
+    return {"kind": "flight", **mine[0]} if mine else None
+
+
 def _suggestions(by_rule, savings):
     rows = []
     for rule in RULES:
@@ -98,11 +109,15 @@ class SpendAdvisorPack(AgentPack):
         focus = _focus(question)
         trip = TRIP_RE.search(question).group(0) if focus == "trip" else None
         everything = {"from": "2000-01-01"}
+        savings = _read(ctx, "trip_savings", everything if trip else window)
+        shown = [x["trip_id"] for x in savings.get("savings", []) if not trip or x["trip_id"] == trip][:MAX_SAVINGS_SHOWN]
+        cards = [c for tid in dict.fromkeys(shown) for c in _read(ctx, "trip_alternatives", {"trip_id": tid}).get("trips", [])]
         return {"question": question, "focus": focus, "trip": trip,
                 "breakdown": _read(ctx, "spend_breakdown", window),
                 "verdicts": _read(ctx, "trip_verdicts", {"trip_id": trip} if trip else window),
-                "savings": _read(ctx, "trip_savings", everything if trip else window),
-                "teams": _read(ctx, "travel_by_team", window)}
+                "savings": savings,
+                "teams": _read(ctx, "travel_by_team", window),
+                "alternatives": {"trips": cards}}
 
     def understand(self, ctx, recorded):
         b, v, s = recorded["breakdown"], recorded["verdicts"], recorded["savings"]
@@ -115,6 +130,8 @@ class SpendAdvisorPack(AgentPack):
         by_rule = s["by_rule"]
         if trip:
             by_rule = {r: {"saving_inr": sum(x["saving_inr"] for x in savings if x["rule"] == r)} for r in RULES}
+        cards = {c["trip_id"]: c for c in recorded["alternatives"].get("trips", [])}
+        savings = [{**x, "option": _top_option(x, cards)} if _top_option(x, cards) else x for x in savings]
         teams = [{k: t[k] for k in ("team", "travel_inr", "share_of_travel_pct")} for t in recorded["teams"].get("teams", [])]
         return {"as_of": as_of, "question": recorded["question"], "focus": recorded["focus"], "trip": trip, "from": b["from"], "to": b["to"],
                 "total_inr": b["total_inr"], "travel": b["travel"], "categories": b["categories"][:6],

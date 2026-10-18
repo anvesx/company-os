@@ -8,6 +8,7 @@ LATE_DAYS, EARLY_FROM, EARLY_TO = 3, 14, 7     # booked 3 days or less ahead; a 
 MIN_SAVING_SHARE = 0.30                        # "much cheaper": 30% or more below what was paid
 SHORT_FLIGHT_HOURS = 2.5
 SAME_CITY_DAYS = 7
+MAX_OPTIONS = 3
 HOTEL_OVER_SHARE = 0.10
 RULES = ("late_booking", "business_short_flight", "same_city_trips", "hotel_above_city_rate")
 
@@ -103,8 +104,7 @@ def _all_savings(conn, as_of):
     for t in trips:
         opts = fares.get(t["trip_id"], [])
         ahead = days_between(t["depart_on"], t["booked_on"])
-        early = [o for o in opts if o["mode"] == t["mode"] and o["cabin"] == t["cabin"]
-                 and EARLY_TO <= days_between(t["depart_on"], o["seen_on"]) <= EARLY_FROM]
+        early = _late_options(t, opts)
         if ahead <= LATE_DAYS and "urgent" not in (t["note"] or "").lower() and early:
             best = min(early, key=lambda o: (o["fare_inr"], o["seen_on"], o["option_id"]))
             if t["fare_inr"] - best["fare_inr"] >= MIN_SAVING_SHARE * t["fare_inr"]:
@@ -114,7 +114,7 @@ def _all_savings(conn, as_of):
                             "carrier": best["carrier"], "booked_on": t["booked_on"], "booked_days_before": ahead,
                             "to_city": t["to_city"]})
         if t["mode"] == "flight" and t["cabin"] == "business" and t["duration_hours"] < SHORT_FLIGHT_HOURS:
-            econ = [o for o in opts if o["mode"] == "flight" and o["cabin"] == "economy" and o["seen_on"] == t["booked_on"]]
+            econ = _economy_options(t, opts)
             best = min(econ, key=lambda o: (o["fare_inr"], o["option_id"])) if econ else None
             if best and best["fare_inr"] < t["fare_inr"]:
                 out.append({"rule": "business_short_flight", "trip_id": t["trip_id"], "team": t["team"],
@@ -143,6 +143,88 @@ def _all_savings(conn, as_of):
                         "cheaper_hotel": alts[0]["hotel"] if alts else None,
                         "cheaper_hotel_rate_inr": alts[0]["rate_inr"] if alts else None})
     return sorted(out, key=lambda x: (-x["saving_inr"], x["date"], x["trip_id"], x["rule"]))
+
+
+def _late_options(t, opts):
+    """Same mode and cabin, seen 14 to 7 days before departure and not after the booking day."""
+    return [o for o in opts if o["mode"] == t["mode"] and o["cabin"] == t["cabin"] and o["seen_on"] <= t["booked_on"]
+            and EARLY_TO <= days_between(t["depart_on"], o["seen_on"]) <= EARLY_FROM]
+
+
+def _economy_options(t, opts):
+    """Economy flights seen on the booking day."""
+    return [o for o in opts if o["mode"] == "flight" and o["cabin"] == "economy" and o["seen_on"] == t["booked_on"]]
+
+
+RULE_TEXT = {
+    "late_booking": "Book at least 7 days ahead. A cheaper fare was open 14 to 7 days before departure.",
+    "business_short_flight": "Use economy on flights under 2.5 hours.",
+    "hotel_above_city_rate": "Keep hotels at or under the city rate.",
+    "same_city_trips": "Merge trips by one team to the same city within a week.",
+}
+
+
+def _flight_option(o, paid, rule):
+    return {"carrier": o["carrier"], "flight_no": o["flight_no"], "depart_time": o["depart_time"],
+            "arrive_time": o["arrive_time"], "cabin": o["cabin"], "fare_inr": o["fare_inr"], "seen_on": o["seen_on"],
+            "saving_inr": paid - o["fare_inr"], "rule": rule}
+
+
+def _trip_card(conn, t, opts, found):
+    rules = {x["rule"] for x in found}
+    flights = []
+    if "late_booking" in rules:
+        flights += [_flight_option(o, t["fare_inr"], "late_booking") for o in _late_options(t, opts) if o["fare_inr"] < t["fare_inr"]]
+    if "business_short_flight" in rules:
+        flights += [_flight_option(o, t["fare_inr"], "business_short_flight") for o in _economy_options(t, opts)
+                    if o["fare_inr"] < t["fare_inr"]]
+    for x in found:   # same-city trips: the other trip's flight already covers the visit
+        other = conn.execute("SELECT * FROM trips WHERE trip_id = ?", (x.get("other_trip_id"),)).fetchone()
+        if x["rule"] == "same_city_trips" and other:
+            flights.append({"carrier": other["carrier"], "flight_no": other["flight_no"], "depart_time": other["depart_time"],
+                            "arrive_time": None, "cabin": other["cabin"], "fare_inr": other["fare_inr"],
+                            "seen_on": other["booked_on"], "saving_inr": x["saving_inr"], "rule": "same_city_trips",
+                            "other_trip_id": other["trip_id"]})
+    flights.sort(key=lambda x: (x["fare_inr"], x["seen_on"], x["flight_no"]))
+    stay = conn.execute("SELECT * FROM hotel_stays WHERE trip_id = ?", (t["trip_id"],)).fetchone()
+    hotel_paid, hotels = None, []
+    if stay:
+        hotel_paid = {"hotel": stay["hotel"], "rate_inr": stay["rate_inr"], "nights": stay["nights"]}
+        if "hotel_above_city_rate" in rules:
+            alts = _rows(conn, "SELECT hotel, rate_inr FROM hotel_options WHERE stay_id = ? AND hotel != ? AND rate_inr < ? "
+                               "ORDER BY rate_inr, hotel", stay["stay_id"], stay["hotel"], stay["rate_inr"])
+            hotels = [{"hotel": a["hotel"], "rate_inr": a["rate_inr"],
+                       "saving_inr": (stay["rate_inr"] - a["rate_inr"]) * stay["nights"], "rule": "hotel_above_city_rate"}
+                      for a in alts]
+    return {"trip_id": t["trip_id"], "team": t["team"], "route": f"{t['from_city']} to {t['to_city']}",
+            "depart_on": t["depart_on"], "verdict": "cheaper_option_existed" if rules else "best_option_chosen",
+            "rules": [{"rule": r, "text": RULE_TEXT[r]} for r in sorted(rules) if r in RULE_TEXT],
+            "paid": {"carrier": t["carrier"], "flight_no": t["flight_no"], "depart_time": t["depart_time"],
+                     "cabin": t["cabin"], "fare_inr": t["fare_inr"], "booked_on": t["booked_on"]},
+            "hotel_paid": hotel_paid, "cheaper_flights": flights[:MAX_OPTIONS], "cheaper_hotels": hotels[:MAX_OPTIONS]}
+
+
+def make_trip_alternatives(data_conn):
+    def handler(args, area_id, as_of, ctx):
+        trip_id = str_arg(args, "trip_id")
+        start, end = ("2000-01-01", as_of) if trip_id else _window(args, as_of)
+        rules = {}
+        for x in _savings_in(data_conn, start, end, as_of):
+            rules.setdefault(x["trip_id"], []).append(x)
+        sql, params = "SELECT * FROM trips WHERE depart_on BETWEEN ? AND ?", [start, end]
+        if trip_id:
+            sql, params = sql + " AND trip_id = ?", params + [trip_id]
+        cards = []
+        for t in _rows(data_conn, sql + " ORDER BY depart_on, trip_id", *params):
+            opts = _rows(data_conn, "SELECT * FROM fare_options WHERE trip_id = ?", t["trip_id"])
+            cards.append(_trip_card(data_conn, t, opts, rules.get(t["trip_id"], [])))
+        return {"from": start, "to": end, "trips": cards}
+    return build_tool(
+        "trip_alternatives", "The real cheaper flights and hotels for each trip that left from `from` to `to` (default: last 90 "
+        "days to as_of), or for one `trip_id`. Each trip shows what was paid, up to 3 cheaper flights (carrier, flight number, "
+        "times, fare, saving) and up to 3 cheaper hotels (name, rate, saving), cheapest first, with the policy rule. No names.",
+        {"from": {"type": "string"}, "to": {"type": "string"}, "trip_id": {"type": "string"}},
+        handler, area_ok=_ok, area_label=AREA)
 
 
 def _savings_in(conn, start, end, as_of):
@@ -224,4 +306,4 @@ def make_travel_by_team(data_conn):
 
 def spend_tools(data_conn):
     return [make_spend_breakdown(data_conn), make_trip_savings(data_conn), make_trip_verdicts(data_conn),
-            make_travel_by_team(data_conn)]
+            make_travel_by_team(data_conn), make_trip_alternatives(data_conn)]

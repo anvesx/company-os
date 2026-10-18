@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <script>try { if (localStorage.getItem("theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) { /* light */ }</script>
-<title>Company OS console</title>
+<title>Company OS</title>
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
     <div class="rail-foot">
       <label class="switch" title="Switches the console to a dark palette"><input type="checkbox" id="dark" role="switch"><span class="track" aria-hidden="true"><span class="knob"></span></span><span>Dark mode</span></label>
       <p class="settings-line"><span data-icon="settings"></span><span>Real Claude is off. It would use your Claude plan, so ask first.</span></p>
-      <p class="privacy-line">Everything here uses made-up people and data. HR sees team numbers only.</p>
+      <p class="privacy-line">Everything here uses made-up people and data.</p>
     </div>
   </aside>
   <div class="rail-scrim" id="rail-scrim"></div>
@@ -30,21 +30,23 @@
   <div class="col">
     <header class="topbar">
       <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open the menu" aria-expanded="false" aria-controls="rail"></button>
-      <h1 class="page-title" id="page-title" tabindex="-1">Today</h1>
+      <h1 class="page-title" id="page-title" tabindex="-1">Home</h1>
       <div class="top-actions">
-        <span class="date-pill" id="date-pill" title="The date in this demo company"><span class="long"></span><span class="short"></span></span>
-        <button class="btn secondary" id="next-day" title="Moves the demo date forward one day and lets the timer and calendar start runs"><span class="long">Go to next day</span><span class="short">Next day</span></button>
+        <span id="admin-controls" class="row" hidden>
+          <span class="date-pill" id="date-pill" title="The date in this demo company"></span>
+          <button class="btn secondary" id="next-day" title="Moves the demo date forward one day and lets the timer, calendar and inbox start runs">Go to next day</button>
+          <label class="switch" title="Pauses every agent. New runs are refused until you switch them back on.">
+            <input type="checkbox" id="pause" role="switch" checked>
+            <span class="track" aria-hidden="true"><span class="knob"></span></span>
+            <span id="pause-label">Agents on</span>
+          </label>
+          <button class="text-btn" id="reset" title="Wipes runs, letters and memory of this demo and sets the date back">Reset demo</button>
+        </span>
         <button class="viewer" id="viewer" aria-haspopup="true" aria-expanded="false" aria-label="Viewing as">
           <span class="initials" id="viewer-initials"></span>
           <span class="viewer-text"><span class="viewer-name" id="viewer-name"></span><span class="viewer-role" id="viewer-role"></span></span>
           <span data-icon="chevron" class="chev-down"></span>
         </button>
-        <label class="switch" title="Pauses every agent. New runs are refused until you switch them back on.">
-          <input type="checkbox" id="pause" role="switch">
-          <span class="track" aria-hidden="true"><span class="knob"></span></span>
-          <span id="pause-label">Agents on</span>
-        </label>
-        <button class="text-btn" id="reset" title="Wipes runs, letters and memory of this demo and sets the date back">Reset demo</button>
       </div>
     </header>
     <div id="banner" class="banner" hidden><span data-icon="pause"></span><span>All agents are paused. New runs will be refused until you switch them back on.</span></div>
@@ -60,6 +62,6 @@
 </aside>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-<script src="console.js"></script>
+<script src="shell.js"></script>
 </body>
 </html>

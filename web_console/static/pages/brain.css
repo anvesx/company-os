@@ -1,0 +1,26 @@
+/* Brain inbox page. Colours come only from the shell's CSS variables. */
+.brain-drop { border: 2px dashed var(--border); border-radius: 8px; padding: 16px; text-align: center; background: var(--surface); }
+.brain-over { border-color: var(--accent); }
+.brain-paste { width: 100%; margin-top: 12px; box-sizing: border-box; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 8px; }
+.brain-go { margin: 8px 0; }
+.brain-status { color: var(--muted); min-height: 1.2em; }
+.brain-strip { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+.brain-step { flex: 1 1 150px; text-align: left; border: 1px solid var(--border); border-radius: 8px; padding: 8px; background: var(--surface); color: var(--text); }
+.brain-step span { display: block; color: var(--muted); font-size: 0.85em; }
+.brain-step-done { border-color: var(--accent); }
+.brain-step-failed { border-color: var(--danger); }
+.brain-step-skipped, .brain-step-idle { opacity: 0.6; }
+.brain-body { display: grid; grid-template-columns: minmax(180px, 1fr) 3fr; gap: 16px; }
+.brain-list { display: flex; flex-direction: column; gap: 6px; }
+.brain-source { text-align: left; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; background: var(--surface); color: var(--text); }
+.brain-source small, .brain-item small { display: block; color: var(--muted); }
+.brain-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 12px; }
+.brain-lines { border-collapse: collapse; width: 100%; font-size: 0.9em; }
+.brain-lines td, .brain-lines th { border-bottom: 1px solid var(--border); padding: 4px 6px; text-align: left; vertical-align: top; }
+.brain-lit td { background: var(--highlight); }
+.brain-untranslated .brain-clean { color: var(--muted); font-style: italic; }
+.brain-items { display: flex; flex-direction: column; gap: 6px; }
+.brain-item { text-align: left; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; background: var(--surface); color: var(--text); }
+.brain-item-unconfirmed { border-style: dashed; }
+.brain-kind { font-weight: 600; text-transform: capitalize; }
+@media (max-width: 800px) { .brain-body, .brain-cols { grid-template-columns: 1fr; } }

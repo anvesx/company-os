@@ -25,4 +25,4 @@ Any starter role (ceo, rnd_lead, finance_lead, csm, growth) may ask. Only ceo an
 
 ## Notes
 
-Only the outbound flight is searched. A hotel is shown only when a return date (or "for N nights") is given. The fare source is simulated, and a booking gets only a simulated reference.
+With a return date the agent also searches the return flight, ranks it by the same policy, and shows the best 3 round trips (both flight numbers, total per person and per group). Booking and `choose_options` then use the round-trip option id. `flights` still holds the outbound top 3. A hotel is shown only when a return date (or "for N nights") is given. The fare source is simulated, and a booking gets only a simulated reference.

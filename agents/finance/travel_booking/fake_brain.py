@@ -14,6 +14,15 @@ def _flight_line(n, f, pax):
             f"{inr(f['fare_inr'])} a person, {inr(f['total_inr'])} for {pax}. Why: {f['why']}")
 
 
+def _leg(f):
+    return f"{f['carrier']} {f['flight_no']} leaves {time12(f['depart_time'])}, arrives {time12(f['arrive_time'])}"
+
+
+def _trip_line(n, rt):
+    return (f"{n}. Out: {_leg(rt['outbound'])}. Back: {_leg(rt['return'])}. {inr(rt['fare_inr'])} a person, "
+            f"{inr(rt['total_inr'])} for {rt['pax']}. Why: {rt['why']}")
+
+
 def _hotel_line(n, h):
     return (f"{n}. {h['hotel']}, {h['stars']} stars, {h['km_to_center']} km from the centre. "
             f"{inr(h['rate_inr'])} a night, {inr(h['total_inr'])} for the stay. Why: {h['why']}")
@@ -22,8 +31,14 @@ def _hotel_line(n, h):
 def _letter(facts):
     r = facts["request"]
     people = f"{r['pax']} {'person' if r['pax'] == 1 else 'people'}"
-    out = [f"Here are the best {len(facts['flights'])} flights for {people}, {r['from_city']} to {r['to_city']}, on {r['depart_on']}."]
-    out += [_flight_line(n, f, r["pax"]) for n, f in enumerate(facts["flights"], 1)]
+    trips = facts.get("round_trips") or []
+    if trips:
+        out = [f"Here are the best {len(trips)} round trips for {people}, {r['from_city']} to {r['to_city']}, out on "
+               f"{r['depart_on']} and back on {r['return_on']}."]
+        out += [_trip_line(n, rt) for n, rt in enumerate(trips, 1)]
+    else:
+        out = [f"Here are the best {len(facts['flights'])} flights for {people}, {r['from_city']} to {r['to_city']}, on {r['depart_on']}."]
+        out += [_flight_line(n, f, r["pax"]) for n, f in enumerate(facts["flights"], 1)]
     if facts["hotels"]:
         night = "night" if r["nights"] == 1 else "nights"
         room = "room" if r["rooms"] == 1 else "rooms"

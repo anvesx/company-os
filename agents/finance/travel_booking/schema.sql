@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS travel_requests (
     flights_json TEXT NOT NULL DEFAULT '[]',
     hotels_json TEXT NOT NULL DEFAULT '[]',
     out_of_policy_json TEXT NOT NULL DEFAULT '[]',
+    round_trips_json TEXT NOT NULL DEFAULT '[]',
     letter TEXT NOT NULL DEFAULT '',
     created_at TEXT NOT NULL
 );

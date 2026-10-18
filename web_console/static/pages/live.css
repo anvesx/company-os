@@ -1,0 +1,24 @@
+/* Live call page. Colours come from the shell variables. */
+.live-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0; }
+.live-btn { font: inherit; padding: 7px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.live-btn[aria-pressed="true"], .live-btn.live-primary { background: var(--focus); color: var(--surface); border-color: var(--focus); }
+.live-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.live-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 860px) { .live-grid { grid-template-columns: 1fr; } }
+.live-call { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; min-height: 280px; }
+.live-col h4 { font-size: 14px; color: var(--ink-soft); margin-bottom: 8px; }
+.live-line { padding: 8px 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--line); animation: live-in .35s ease-out; }
+.live-us { border-left: 4px solid var(--focus); }
+.live-them { border-left: 4px solid var(--wait); }
+.live-orig { font-size: 13px; color: var(--ink-soft); }
+.live-cards > * + * { margin-top: 10px; }
+.live-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); animation: live-slide .4s ease-out; }
+.live-tag { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+.live-gap { color: var(--warn-t); background: color-mix(in srgb, var(--warn) var(--tint), transparent); }
+.live-contradiction { color: var(--stop-t); background: color-mix(in srgb, var(--stop) var(--tint), transparent); }
+.live-follow_up { color: var(--wait-t); background: color-mix(in srgb, var(--wait) var(--tint), transparent); }
+.live-source { font-size: 13px; color: var(--ink-soft); margin-top: 6px; }
+.live-summary { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-top: 16px; }
+@keyframes live-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes live-slide { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .live-line, .live-card { animation: none; } }

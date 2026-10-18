@@ -110,7 +110,7 @@ class SpendAdvisorTests(unittest.TestCase):
         numbers = {n.replace(",", "") for n in re.findall(r"\d[\d,]*\d", text)}
         self.assertFalse(numbers & salaries)
         for name in [r[0] for r in self.cos.data_conn.execute("SELECT name FROM people")]:
-            self.assertNotIn(name.split()[0], text)
+            self.assertIsNone(re.search(rf"\b{re.escape(name.split()[0])}\b", text))   # whole words: "Tarang Air" is not "Tara"
 
     def test_window_inputs_change_the_answer(self):
         _, text = self.ask("Travel", **{"from": "2026-09-01", "to": "2026-09-30"})

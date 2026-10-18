@@ -8,19 +8,20 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
-| Wave 2: brain agents, CSM and Growth briefs, live call helper, finance v2, console shell (7 agents in parallel) | S1 to S7 | Started Oct 19 |
+| Integration: one full run through the real brain pipeline, compaction hook in the agent loop, real-Sonnet samples, fixes found in Wave 2 | I1 | Started Oct 19 |
 
 ## Next
 
 | What | Ticket | Notes |
 |---|---|---|
-| Integration, exams, docs, and the compaction hook in the agent loop | I1 | Wave 3 |
 | Browser check of each role | I2 | Wave 3 |
+| Brain inbox reads any document type: Excel and CSV, PDF (with OCR for scans), PowerPoint, Google exports, images. Each fact still links to its exact place (sheet and cell, page and line, slide) | (planned) | Owner's plan, Oct 19. Today: Fathom, Word, email, chat, live calls |
 
 ## Done
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Wave 2: Cleaner, Extractor, Linker and Playbook writer (the brain's four agents); CSM project brief; Growth deal brief; live call helper; finance v2 with real cheaper flights and hotels and round-trip booking; console shell with three people. 526 tests pass; all 10 exams pass | S1 to S7 |
 | Oct 19 | Wave 1 integration: full suite green (410 tests); exams pass for meeting prep, finance watch, spend advice and travel booking; names changed to Ammar, Akbar and Anthony; job title "R&D lead" renamed to CTO | (lead) |
 | Oct 19 | Repo created at `anvesx/company-os` (private) | |
 | Oct 19 | Compaction in `runtime/compaction.py`, adapted from dsh commit `687f282` (MIT) | R1 |
