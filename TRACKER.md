@@ -8,7 +8,6 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
-| Research: how Grok Bot works inside, compared with Company OS | (research) | Running; note goes to `docs/research/` |
 | Integration: one full run through the real brain pipeline, compaction hook in the agent loop, real-Sonnet samples, fixes found in Wave 2 | I1 | Started Oct 19 |
 
 ## Next
@@ -16,12 +15,14 @@ Last updated: Oct 19, 2026.
 | What | Ticket | Notes |
 |---|---|---|
 | Browser check of each role | I2 | Wave 3 |
+| Approvals that expire after a set time (idea from Grok Bot) | (idea) | Not planned yet |
 | Brain inbox reads any document type: Excel and CSV, PDF (with OCR for scans), PowerPoint, Google exports, images. Each fact still links to its exact place (sheet and cell, page and line, slide) | (planned) | Owner's plan, Oct 19. Today: Fathom, Word, email, chat, live calls |
 
 ## Done
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 19 | Research: Grok Bot inside vs Company OS. Direction sound; ideas to copy: approvals that expire, teach mode, limits on routines (`docs/research/grok-bot-internals-vs-company-os.md`) | (research) |
 | Oct 19 | Wave 2: Cleaner, Extractor, Linker and Playbook writer (the brain's four agents); CSM project brief; Growth deal brief; live call helper; finance v2 with real cheaper flights and hotels and round-trip booking; console shell with three people. 526 tests pass; all 10 exams pass | S1 to S7 |
 | Oct 19 | Wave 1 integration: full suite green (410 tests); exams pass for meeting prep, finance watch, spend advice and travel booking; names changed to Ammar, Akbar and Anthony; job title "R&D lead" renamed to CTO | (lead) |
 | Oct 19 | Repo created at `anvesx/company-os` (private) | |
