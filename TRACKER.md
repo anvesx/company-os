@@ -41,10 +41,10 @@ Last updated: Oct 19, 2026.
 | Oct 19 | Three roles: Admin (Ammar Khan), CSM (Akbar Ali), Growth (Anthony Fernandes). The console shows one person per role. | Show each view from one person's point of view |
 | Oct 19 | Growth reads lessons from past clients with names removed, never another client's raw transcripts | Keeps client data separate |
 | Oct 19 | Meeting prep and finance are each a family of three small agents | Each agent gets only its own tools. For example, travel booking cannot read the books |
-| Oct 19 | Keep our own base, and copy parts from dsh when needed. Compaction is the first part copied. | Code is a commodity. The value is our memory, guardrails and data. dsh is MIT licensed |
+| Oct 19 | Keep our own base. It has the 7 dsh features we need, compaction included. For more later (browser control, subagents, skills, a web app), use dsh directly or write our own code. | Code is a commodity. The value is our memory, guardrails and data. dsh is MIT licensed |
 | Oct 19 | Keep only the finance agent (with travel booking) and the meeting prep agent | Focus. Finance watch was the first pick of 56% in the simulated focus group |
 | Oct 19 | The finance agent shows the actual cheaper flights and hotels (airline, flight number, time, fare; hotel name, rate) | "A cheaper option existed" is not useful on its own |
-| Oct 18 | Our own thin runtime, not dsh, as the base | Our agents need about 6 of dsh's 25 features. What they need most is not in dsh |
+| Oct 18 | Our own thin runtime, not dsh, as the base | Our agents need 7 of dsh's 25 features. What they need most is not in dsh |
 | Oct 18 | The learning loop is designed but not built yet | Owner's call |
 
 ## Open questions

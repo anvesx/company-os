@@ -32,7 +32,7 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 
 ## How it is built
 
-- **Our own thin runtime** (`runtime/`), not a ready-made agent harness. Our agents need about 6 of the 25 features in DeepSeek's harness (dsh). We copy parts from dsh when we need them. For example, compaction is adapted from dsh, under its MIT licence (see `THIRD_PARTY_NOTICES.md`).
+- **Our own thin runtime** (`runtime/`), not a ready-made agent harness. Our agents need 7 of the 25 features in DeepSeek's harness (dsh): the agent loop, retries, a cache-safe prompt order, a tool pipeline with checks, a session log, output caps and compaction. Our base has all 7. When we need more later, such as browser control, subagents or skills, we can use dsh directly or write our own code. Compaction follows dsh's design, under its MIT licence (see `THIRD_PARTY_NOTICES.md`).
 - **Code finds, the model explains.** Plain code finds the problems. The AI model only writes the explanation and the next step. A quiet day makes no model call.
 - **Check before act.** Every action passes the guardrails before it reaches a person.
 - **A fake model by default.** Tests and exams use a deterministic fake model. Real Claude (Sonnet) is an option through the `claude` CLI.
