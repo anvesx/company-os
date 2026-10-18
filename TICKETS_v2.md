@@ -3,9 +3,11 @@
 Read `PLAN_v2.md` first, then the **shared rules** and **shared contracts** below, then your own ticket. Old v1 tickets: `TICKETS.md` (style copied here).
 
 ```
- Wave 0 (1 agent)      Wave 1 (4 parallel)        Wave 2 (7 parallel)              Wave 3 (in order)        Wave 4
- ┌───────────────┐     ┌──────────────────────┐   ┌─────────────────────────────┐  ┌────────────────────┐  ┌──────────────┐
- │ regroup, keep │     │ F3 RBAC three roles  │   │ S3 project brief (CSM)      │  │ I2 browser check,  │  └──────────────┘
+ Wave 0 (1 agent)      Wave 1 (4 parallel)        Wave 2 (7 parallel)              Wave 3 (in order)
+ ┌───────────────┐     ┌──────────────────────┐   ┌─────────────────────────────┐  ┌────────────────────┐
+ │ X0 move to    │────►│ F1 dummy data v2     │──►│ S1 cleaner+extractor+inbox  │─►│ I1 integration,    │
+ │ experiments,  │     │ F2 brain store+inbox │   │ S2 linker+playbook+review   │  │ exams, docs        │
+ │ regroup, keep │     │ F3 RBAC three roles  │   │ S3 project brief (CSM)      │  │ I2 browser check,  │
  │ tests green   │     │ F4 travel booking    │   │ S4 deal brief (Growth)      │  │ screenshots        │
  └───────────────┘     └──────────────────────┘   │ S5 live copilot             │  └────────────────────┘
                                                   │ S6 finance v2 + 2 pages     │
@@ -27,15 +29,15 @@ Read `PLAN_v2.md` first, then the **shared rules** and **shared contracts** belo
 | S5 | 2 | Live copilot, Live call page | `agents/meeting_prep/live_copilot/**`, `connectors/live_call_tools.py` | L | todo |
 | S6 | 2 | Finance v2: real cheaper options per trip, Finance and Travel pages | `agents/finance/{watch,spend_advice}/**`, `connectors/{spend,books}_tools.py` | L | todo |
 | S7 | 2 | Console shell v2: three-person switcher, plug-in pages, Home, Approvals, Runs | `web_console/` shell files | L | todo |
-| I1 | 3 | Integration: wiring, brain seeding, demo day, all exams, docs | `wiring/**`, `run_demo.py`, `evaluation/**`, `README.md`, `SPEC.md`, `RESULTS.md` | L | todo |
-| I2 | 3 | Browser check per role, fix list, screenshots | `evaluation/browser_check.md` | M | todo |
+| I1 | 3 | Integration: wiring, brain seeding, demo day, all exams, docs | `wiring/**`, `run_demo.py`, `evaluation/**`, `README.md`, `SPEC.md`, `RESULTS.md` | L | done |
+| I2 | 3 | Browser check per role, fix list, screenshots | `evaluation/browser_check/` (report and screenshots) | M | todo |
 
 ## Shared rules (every ticket)
 
 1. Python 3.14, standard library only, `unittest`. Run from `company-os/`: `python3 -m unittest discover -s tests -t .`
 2. Follow `SPEC.md` "Rules for all code": file names say what the file does (no `utils.py`), comments 1 or 2 lines, short module docstring, deterministic (`random.Random(seed)`, simulated clock, `TODAY = "2026-10-19"`), money in INR, a short `README.md` per new folder.
 3. **Edit only the files your ticket owns.** You may read anything. If a contract below is wrong or a file you do not own must change, stop and say so in your report. Do not work around it.
-4. **Never touch** `market_simulation/`, `render.log`, or anything outside `company-os/`.
+4. **Never touch** untracked local folders (for example `market_simulation/`), `render.log`, or anything outside `company-os/`.
 5. No network calls, no `pip install`, no real model calls in tests. Real Claude (`real_model="claude-cli"`, Sonnet) only when Pratham says yes. Never Opus at runtime.
 6. User-facing text: plain English, short sentences, no em dashes, times as 12-hour IST where a time of day is shown.
 7. **Wave gate:** a wave is done when every ticket's acceptance checks pass and the full suite is green. The lead then runs the full suite once more and sends any break to the owner of the failing file.
@@ -245,7 +247,7 @@ Carrier codes: Kestrel Air `KSA`, Sarang Airways `SRG`, Nimbus Jet `NMB`, Tarang
 
 **Owns.** `experiments/**` (new), `agents/**`, `wiring/agent_registry.py` (new), `wiring/build_company_os.py`, `evaluation/run_all_exams.py`, `run_demo.py`, `company_data/generate_dummy_data.py` (only the two `build()` flag defaults), `connectors/__init__.py`, `connectors/README.md`, `web_console/**` (prune only), `tests/**` (move, cut, update imports), `tests/console_stub.py` (new), `web_console/routes/__init__.py` (new, docstring only), `web_console/static/pages/.keep` (new).
 
-**May read.** Everything. **Do not touch** `market_simulation/`, `render.log`.
+**May read.** Everything. **Do not touch** untracked local folders, `render.log`.
 
 **Steps.**
 1. Run the suite first and note the count (435 on Oct 19).
@@ -604,6 +606,22 @@ python3 run_demo.py
 python3 -c "import pathlib,sys; b=[str(p) for p in [*map(pathlib.Path,('PLAN_v2.md','README.md','RESULTS.md')),*pathlib.Path('web_console/static/pages').glob('*.js')] if any(c in p.read_text() for c in '\u2014\u2013')]; print(b); sys.exit(bool(b))"   # prints []
 ```
 
+### R2: Split into core harness and control plane folders (L; after I1, before I2)
+
+**Goal.** Make the two layers visible and enforce the boundary. Behaviour does not change.
+
+**Layout.**
+- `core/`: `agent_loop.py`, `tool_registry.py`, `tool_output_cap.py`, `compaction.py` (from `runtime/`); `prompt_cache.py`, `model_gateway.py`, `fake_model.py`, `claude_cli_model.py` (from `gateway/`); a `README.md`.
+- `control_plane/`: `triggers/`, `guardrails/`, `company_memory/`, `company_brain/`, `people_surface/`, `connectors/`; `cost_ledger.py`, `model_prices.py`, `fixed_clock.py` (from `gateway/`, if they are not needed by the core); a `README.md`.
+- Unchanged at the top level: `contract/` (the boundary), `agents/`, `lifecycle_kit/`, `wiring/`, `web_console/`, `company_data/`, `evaluation/`, `tests/`, `experiments/`, `docs/`. `runtime/` and `gateway/` are removed once empty.
+
+**Boundary rules.**
+- No file in `core/` imports from `control_plane/`, `agents/`, `lifecycle_kit/`, `web_console/` or `company_data/`. The core reaches the run log and the before-tool check only through `contract/` interfaces passed in by `wiring/`.
+- Add `tests/test_layer_boundary.py`: it parses every `core/*.py` import (with `ast`) and fails on a forbidden import.
+- Use `git mv` so history follows the files. Update every import, test and doc path (README, CLAUDE.md, PLAN_v2.md, TICKETS_v2.md paths, SPEC.md, RESULTS.md, folder READMEs). Do not edit untracked local folders.
+
+**Acceptance.** Full suite and all exams pass with the same counts as before the move; `test_layer_boundary` passes; `git grep -nE "(^|[^_])(runtime|gateway)[./]"` finds no stale import paths outside `experiments/`.
+
 ### I2: Browser check per role (M)
 
 **Goal.** Each role works in a real browser, sees only what it may with screenshots.
@@ -617,4 +635,3 @@ python3 -c "import pathlib,sys; b=[str(p) for p in [*map(pathlib.Path,('PLAN_v2.
 ---
 
 ## Wave 4 (needs Wave 3)
-
