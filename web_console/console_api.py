@@ -242,7 +242,7 @@ class Console:
         hits = sum(e["cache"] == "hit" for e in entries)
         return {"ok": True, "runs": [self._run_row(r, quiet) for r in rows],
                 "summary": {"run_count": len(self.cos.memory.runs()), "model_calls": len(entries), "cache_hits": hits,
-                            "total_cost_usd": sum(e["cost_usd"] for e in entries),
+                            "total_cost_usd": sum(r.get("cost_usd") or 0.0 for r in self.cos.memory.runs()),  # same numbers as the run rows
                             "status": dict(Counter(self._run_row(r, quiet)["status_label"] for r in self.cos.memory.runs()))}}
 
     # ---- approvals

@@ -71,6 +71,13 @@ class PeopleAndPages(ShellCase):
 
 
 class RoleChecks(ShellCase):
+    def test_runs_total_cost_is_the_sum_of_the_run_rows(self):
+        service.request_trip(self.console.cos, GROWTH, TRIP)
+        out = self.get("/api/console/runs", ADMIN)[1]
+        rows = self.console.cos.memory.runs()
+        self.assertGreater(sum(r["cost_usd"] for r in rows), 0)
+        self.assertAlmostEqual(out["summary"]["total_cost_usd"], sum(r["cost_usd"] for r in rows))
+
     def test_runs_page_and_controls_are_admin_only(self):
         for who in (CSM, GROWTH):
             self.assertEqual(self.get("/api/console/runs", who)[0], 403)

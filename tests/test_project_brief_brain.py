@@ -18,9 +18,10 @@ class ProjectBriefBrainTests(unittest.TestCase):
             cls.key = json.load(f)
         cls.cos = build_company_os(agents=(AGENT,))
         cls.ids = seed_project_brain(cls.cos, cls.key)
-        low = cls.cos.brain.source_lines(cls.cos.brain.sources(["C04"])[0]["source_id"])[2]["text"]
+        live = cls.cos.brain.source_by_ref("SRC25")["source_id"]  # a project source, visible to the CSM
+        low = cls.cos.brain.source_lines(live)[2]["text"]
         cls.cos.brain.add_brain_item("C04", "requirement", "Maybe a second language later.", topic="language-support",
-                                     source_id=cls.cos.brain.sources(["C04"])[0]["source_id"], line_from=3, line_to=3,
+                                     source_id=live, line_from=3, line_to=3,
                                      quote_raw=low, quote_clean=low, confidence=0.4, project_id="PR05")
         cls.result = cls.cos.run(AGENT, "P05", "C04", inputs={"event_id": "EV115"})
         cls.brief = json.loads(cls.result.final_text)
@@ -48,6 +49,34 @@ class ProjectBriefBrainTests(unittest.TestCase):
         self.assertTrue(changed)
         self.assertTrue(all(" → " in t for t in changed))
         self.assertIn("Changed on", self.message)
+
+    def test_csm_brief_has_no_deal_stage_source(self):
+        titles = {s["title"] for name in self.brief if isinstance(self.brief[name], list)
+                  for p in self.brief[name] if isinstance(p, dict) for s in p.get("sources", [])}
+        self.assertFalse({t for t in titles if t.startswith("Growth call") or "proposal" in t.lower()}, titles)
+        self.assertNotIn("Growth call", self.message)
+        self.assertNotIn("proposal", self.message.lower())
+
+    def test_admin_still_sees_the_growth_call(self):
+        result = self.cos.run(AGENT, "P01", "C04", inputs={"event_id": "EV115"})
+        brief = json.loads(result.final_text)
+        titles = {s["title"] for name in brief if isinstance(brief[name], list)
+                  for p in brief[name] if isinstance(p, dict) for s in p.get("sources", [])}
+        self.assertIn("Growth call: MedBridge patient app", titles)
+
+    def test_growth_scope_keeps_deal_stage_sources_and_csm_scope_hides_them(self):
+        refs = lambda sb: {s["origin_ref"] for s in sb.sources(["C04"])}
+        self.assertLessEqual({"SRC01", "SRC02", "SRC03"}, refs(self.cos.brain.scoped(["C04"])))
+        self.assertFalse({"SRC01", "SRC02", "SRC03"} & refs(self.cos.brain.scoped(["C04"], hide_deal_stage=True)))
+        item = self.ids["SRC01-1"]
+        self.assertIsNone(self.cos.brain.scoped(["C04"], hide_deal_stage=True).get_brain_item(item))
+        self.assertIsNotNone(self.cos.brain.scoped(["C04"]).get_brain_item(item))
+
+    def test_changed_decisions_all_show_old_and_new(self):
+        changed = self.brief["changed_decisions"]
+        self.assertTrue(changed)
+        self.assertTrue(all(d["text"].startswith("Changed on ") and " → " in d["text"] for d in changed), changed)
+        self.assertEqual(len(changed), len({d["text"] for d in changed}))
 
     def test_unconfirmed_item_is_labelled_and_counted(self):
         flagged = [p for p in self.brief["open_requirements"] if p.get("unconfirmed")]

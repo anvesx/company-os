@@ -1,4 +1,6 @@
 """Read tool for the project brief: brain items of one project with their source lines, read through a scoped brain."""
+from control_plane.guardrails.role_scopes import DB_ROLE_TO_CONSOLE, may_see
+
 from .tool_reply import ToolInputError, build_tool, client_area_ids, str_arg
 
 KINDS = ("question", "requirement", "blocker", "decision", "commitment", "risk")
@@ -51,6 +53,11 @@ def _changes(sb, memory, project_id, as_of):
     return sorted(out, key=lambda c: c["changed_on"])
 
 
+def _sees_deal_stage(data_conn, person_id):
+    row = data_conn.execute("SELECT role FROM people WHERE person_id = ?", (person_id,)).fetchone()
+    return bool(row) and may_see(DB_ROLE_TO_CONSOLE.get(row["role"]), "deal_items")
+
+
 def make_project_brain_items(data_conn, brain):
     def handler(args, area_id, as_of, ctx):
         project_id = str_arg(args, "project_id")
@@ -61,7 +68,8 @@ def make_project_brain_items(data_conn, brain):
             raise ToolInputError("kinds must be a list of text")
         if brain is None:
             return {"as_of": as_of, "items": [], "changes": [], "unconfirmed_count": 0}
-        sb, memory = brain.scoped(ctx.memory.area_ids), ctx.memory
+        hide = not _sees_deal_stage(data_conn, ctx.task.caller_id)  # PLAN 5: deal talk is for Admin and Growth only
+        sb, memory = brain.scoped(ctx.memory.area_ids, hide_deal_stage=hide), ctx.memory
         items, info = [], {}
         for raw in sb.brain_items(area_id, kinds=kinds, project_id=project_id):
             view = item_view(sb, raw)

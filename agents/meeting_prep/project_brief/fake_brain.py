@@ -51,7 +51,9 @@ def _answer(context) -> dict:
         age = (meeting_day - date.fromisoformat(oldest["created_at"][:10])).days
         if age > STALE_AFTER_DAYS:
             watch_out.append(f"\"{topic}\" has been open for {age} days. Close it, or agree who owns it.")
-    changed = [{"text": d["text"], "topic": d["topic"], "item_id": d["item_id"]} for d in context["recent_decisions"]]
+    # Recent decisions are not changes: with a brain block only replaced decisions are listed as changed.
+    changed = [] if context.get("brain") else [{"text": d["text"], "topic": d["topic"], "item_id": d["item_id"]}
+                                                for d in context["recent_decisions"]]
     extra = _brain_sections(context.get("brain") or {}, questions)
     summary = (f"{len(questions)} topic(s) to settle for {context['meeting']['project_name'] or 'this project'}"
                f" and {len(changed)} recent decision(s). Settle the open points in this meeting.")

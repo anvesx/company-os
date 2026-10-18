@@ -114,14 +114,14 @@
  {
   "agent": "live_copilot",
   "measured": "expected questions suggested in time, speed per line",
-  "result": "recall 100%, at most 0 false per call, contradiction found, p95 1.3 ms per line",
+  "result": "recall 100%, at most 0 false per call, contradiction found, p95 1.1 ms per line",
   "passed": true,
   "raw": {
    "calls": 2,
    "mean_recall": 1.0,
    "max_false": 0,
    "contradiction_found": true,
-   "p95_ms": 1.2681669904850423,
+   "p95_ms": 1.1007919965777546,
    "per_call": [
     {
      "call_id": "LC01",
@@ -149,14 +149,14 @@
   },
   "real_pipeline": {
    "measured": "expected questions suggested in time, speed per line",
-   "result": "recall 100%, at most 1 false per call, contradiction found, p95 2.2 ms per line",
+   "result": "recall 100%, at most 1 false per call, contradiction found, p95 1.1 ms per line",
    "passed": true,
    "raw": {
     "calls": 2,
     "mean_recall": 1.0,
     "max_false": 1,
     "contradiction_found": true,
-    "p95_ms": 2.169415995012969,
+    "p95_ms": 1.0808340011863038,
     "per_call": [
      {
       "call_id": "LC01",

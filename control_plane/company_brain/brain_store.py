@@ -492,6 +492,18 @@ class BrainStore:
         out = [{**dict(r), "learned_from": json.loads(r["learned_from"]), "industries": json.loads(r["industries"])} for r in rows]
         return [c for c in out if industry is None or not c["industries"] or industry in c["industries"]]
 
-    def scoped(self, area_ids):
+    def is_deal_stage(self, source):
+        """Deal-stage source: linked to a deal, or dated before its client's first signed SOW (else first win)."""
+        if source.get("deal_id"):
+            return True
+        if self.data_conn is None:
+            return False
+        row = self.data_conn.execute(
+            "SELECT COALESCE((SELECT MIN(signed_on) FROM sows WHERE client_id = :c AND signed_on IS NOT NULL),"
+            " (SELECT MIN(won_on) FROM leads WHERE client_id = :c AND won_on IS NOT NULL)) AS d", {"c": source["area_id"]}).fetchone()
+        day = (source.get("occurred_at") or source.get("received_at") or "")[:10]
+        return bool(row and row["d"] and day and day < row["d"])
+
+    def scoped(self, area_ids, *, hide_deal_stage=False):
         from .scoped_brain import ScopedBrain
-        return ScopedBrain(self, area_ids)
+        return ScopedBrain(self, area_ids, hide_deal_stage=hide_deal_stage)

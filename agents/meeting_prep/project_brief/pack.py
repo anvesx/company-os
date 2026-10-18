@@ -238,6 +238,9 @@ class MeetingPrepPack(AgentPack):
     # -- act
     def act(self, ctx, decision):
         context = ctx.notes["meeting_prep"]
+        if context.get("brain"):  # a "changed" decision must show old and new; recent ones belong under recent_decisions
+            decision["changed_decisions"] = [d for d in decision.get("changed_decisions") or []
+                                             if isinstance(d, dict) and str(d.get("text", "")).startswith("Changed on ")]
         enrich_brief(decision, brain_item_map(context))
         decision.setdefault("unconfirmed_count", (context.get("brain") or {}).get("unconfirmed_count", 0))
         return [ToolCall(f"brief-{p['person_id']}", "send_private_message",

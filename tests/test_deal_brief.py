@@ -84,6 +84,11 @@ class DealBriefTest(unittest.TestCase):
         self.assertNotEqual(self.cos.run("deal_brief", "P05", "C07", inputs={"deal_id": "L20"}).status, "done")
         self.assertNotEqual(self.cos.run("deal_brief", "P03", "C04", inputs={"deal_id": "L05"}).status, "done")
 
+    def test_growth_reads_deal_items_unfiltered(self):
+        sb = self.cos.brain.scoped(["C07"])
+        self.assertEqual([i["item_id"] for i in sb.brain_items("C07", deal_id="L20")],
+                         [i["item_id"] for i in self.cos.brain.brain_items(["C07"], deal_id="L20")])
+
     def test_exam_passes(self):
         cos = build_company_os(agents=("deal_brief",))
         raw = replay_exam.run_exam(cos)
