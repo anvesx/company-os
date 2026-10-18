@@ -6,7 +6,7 @@ The plugin contract: shared types plus six functions. Nothing else crosses the l
 
 Files:
 - `types.py`: shared data shapes (`Task`, `ToolSpec`, `ModelRequest`, `RunResult` and others).
-- `plugin_contract.py`: `Plugin` (hooks) and `Host` (what a core offers).
+- `plugin_contract.py`: `Plugin` (hooks), `Host` (what a core offers), `RunLog` and `WayInGate` (what the core receives from the control plane).
 - `conformance_tests.py`: `run_conformance(test_case, make_host)` checks any Host.
 
 The six functions:
@@ -26,5 +26,5 @@ Check a new core: pass `make_host(plugins, gate, replies)` to `run_conformance` 
 | File | What it does |
 |---|---|
 | `conformance_tests.py` | Conformance checks for any Host (our runtime, or a dsh adapter later). |
-| `plugin_contract.py` | The plugin contract: the only thing agent packs and guardrails import from the core. |
+| `plugin_contract.py` | The plugin contract (also `RunLog` and `WayInGate`): the only thing agent packs and guardrails import from the core. |
 | `types.py` | Shared data shapes. Every module imports these, so keep them small and stable. |

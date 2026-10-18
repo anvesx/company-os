@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from agents.finance.travel_booking import service
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 from web_console.console_api import Console, route
 from web_console.serve import serve_in_thread
 

@@ -1,9 +1,9 @@
 """Shared helpers for the S1 brain tests: a small Company OS with the two agents, and the manifest sources."""
 import json
 
-from company_brain import inbox
-from company_brain.pipeline import read_manifest_file
-from triggers.inbox_trigger import MANIFEST_PATH
+from control_plane.company_brain import inbox
+from control_plane.company_brain.pipeline import read_manifest_file
+from control_plane.triggers.inbox_trigger import MANIFEST_PATH
 from wiring.build_company_os import build_company_os
 
 AGENTS = ("brain_cleaner", "brain_extractor")

@@ -32,7 +32,7 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 
 ## How it is built
 
-- **Our own thin runtime** (`runtime/`), not a ready-made agent harness. Our agents need 7 of the 25 features in DeepSeek's harness (dsh): the agent loop, retries, a cache-safe prompt order, a tool pipeline with checks, a session log, output caps and compaction. Our base has all 7. When we need more later, such as browser control, subagents or skills, we can use dsh directly or write our own code. Compaction follows dsh's design, under its MIT licence (see `THIRD_PARTY_NOTICES.md`).
+- **Our own thin runtime** (`core/`), not a ready-made agent harness. Our agents need 7 of the 25 features in DeepSeek's harness (dsh): the agent loop, retries, a cache-safe prompt order, a tool pipeline with checks, a session log, output caps and compaction. Our base has all 7. When we need more later, such as browser control, subagents or skills, we can use dsh directly or write our own code. Compaction follows dsh's design, under its MIT licence (see `THIRD_PARTY_NOTICES.md`).
 - **Code finds, the model explains.** Plain code finds the problems. The AI model only writes the explanation and the next step. A quiet day makes no model call.
 - **Check before act.** Every action passes the guardrails before it reaches a person.
 - **A fake model by default.** Tests and exams use a deterministic fake model. Real Claude (Sonnet) is an option through the `claude` CLI.
@@ -41,21 +41,19 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 
 | Folder | What it holds |
 |---|---|
+| `core/` | The core harness: agent loop, tool registry, compaction, model gateway, prompt cache, fake model, real Claude, cost ledger |
+| `control_plane/` | The control plane: `guardrails/`, `company_memory/`, `company_brain/`, `people_surface/`, `triggers/`, `connectors/` |
+| `contract/` | The boundary between the core and everything else |
 | `agents/` | The two agents: `finance/` and `meeting_prep/` |
-| `company_brain/` | The company brain: inbox, store, search and its internal agents |
-| `company_memory/` | The memory database: one area per client, an append-only run log |
 | `company_data/` | The dummy company: people, clients, projects, deals, trips, transcripts |
-| `connectors/` | Read-only tools that agents use to read company data |
-| `guardrails/` | The checks: who may start a run, what each action may do, the three roles |
-| `runtime/` | The agent loop, tool registry and compaction |
-| `gateway/` | The model gateway: prompt cache, cost ledger, fake model, real Claude |
 | `lifecycle_kit/` | The steps every agent run follows: record, understand, decide, check, act, remember |
-| `triggers/` | What starts a run: a timer, a calendar event, a new source, a person asking |
-| `people_surface/` | Private letters and approval requests to people |
+| `wiring/` | Builds the company OS: joins the core, the control plane and the agents |
 | `web_console/` | An experimental web console for each role (see the note below) |
 | `evaluation/` | Replay exams that score each agent |
 | `experiments/` | Earlier agents kept for later (project risk, store watch, hiring forecast, delivery progress, client requests) |
 | `tests/` | All tests |
+
+The core never imports `control_plane/`, `agents/`, `lifecycle_kit/`, `web_console/` or `company_data/`. `tests/test_layer_boundary.py` checks this.
 
 ## Run it
 

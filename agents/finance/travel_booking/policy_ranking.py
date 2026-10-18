@@ -4,7 +4,7 @@ from hashlib import sha1
 from pathlib import Path
 
 from company_data.generate_trips import POLICY_RATE
-from connectors.fare_search import route_hours
+from control_plane.connectors.fare_search import route_hours
 
 POLICY_PATH = Path(__file__).with_name("travel_policy.json")
 

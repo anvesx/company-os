@@ -23,7 +23,7 @@ def _answer(cos, day):
 
 def _alternatives_check(cos) -> dict:
     """Every cheaper_option_existed trip has a concrete option, and each option is a real row in the raw tables."""
-    from connectors.spend_tools import make_trip_alternatives
+    from control_plane.connectors.spend_tools import make_trip_alternatives
     from contract.types import RunContext, Task
     ctx = RunContext("EXAM", Task(AGENT, CALLER, AREA, "request", inputs={}), None)
     cards = json.loads(make_trip_alternatives(cos.data_conn).fn({"from": "2000-01-01"}, ctx))["trips"]

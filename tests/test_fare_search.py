@@ -4,7 +4,7 @@ import unittest
 from hashlib import sha1
 
 from company_data.generate_trips import FLIGHT_CARRIERS, FLIGHT_HOURS, HOTELS, POLICY_RATE
-from connectors.fare_search import CARRIER_CODES, fare_tools, search_flights, search_hotels
+from control_plane.connectors.fare_search import CARRIER_CODES, fare_tools, search_flights, search_hotels
 from contract.types import RunContext, Task
 
 DAY = "2026-10-28"

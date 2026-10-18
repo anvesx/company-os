@@ -3,7 +3,7 @@ import os
 import tempfile
 import unittest
 
-from people_surface import Approvals, DB_PATH, Outbox
+from control_plane.people_surface import Approvals, DB_PATH, Outbox
 
 
 class SurfaceTestCase(unittest.TestCase):

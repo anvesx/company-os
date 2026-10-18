@@ -1,9 +1,9 @@
 import unittest
 
 from contract.conformance_tests import run_conformance
-from gateway.fake_model import FakeModel
-from gateway.model_gateway import Gateway
-from runtime.agent_loop import Runtime
+from core.fake_model import FakeModel
+from core.model_gateway import Gateway
+from core.agent_loop import Runtime
 
 
 class _Memory:

@@ -4,11 +4,11 @@ import tempfile
 from types import SimpleNamespace
 
 from agents.finance.travel_booking import service
-from company_brain import pipeline
+from control_plane.company_brain import pipeline
 from evaluation.run_all_exams import close_all
-from triggers.dispatch import dispatch
-from triggers.inbox_trigger import InboxTrigger
-from triggers.timer_trigger import TimerTrigger
+from control_plane.triggers.dispatch import dispatch
+from control_plane.triggers.inbox_trigger import InboxTrigger
+from control_plane.triggers.timer_trigger import TimerTrigger
 from wiring.agent_registry import available_agents as registry_available
 from wiring.build_company_os import build_company_os
 

@@ -57,10 +57,10 @@ AGENTS = {  # agent name -> package with pack.py (make_pack), fake_brain.py (bra
     "finance_watch":   "agents.finance.watch",
     "spend_advisor":   "agents.finance.spend_advice",
     "travel_booking":  "agents.finance.travel_booking",
-    "brain_cleaner":   "company_brain.agents.cleaner",
-    "brain_extractor": "company_brain.agents.extractor",
-    "brain_linker":    "company_brain.agents.linker",
-    "brain_playbook":  "company_brain.agents.playbook",
+    "brain_cleaner":   "control_plane.company_brain.agents.cleaner",
+    "brain_extractor": "control_plane.company_brain.agents.extractor",
+    "brain_linker":    "control_plane.company_brain.agents.linker",
+    "brain_playbook":  "control_plane.company_brain.agents.playbook",
 }
 FAMILIES = {"meeting_prep": ("meeting_prep", "deal_brief", "live_copilot"),
             "finance": ("finance_watch", "spend_advisor", "travel_booking"),
@@ -122,9 +122,9 @@ Item kinds: decision, requirement, blocker, question, commitment, fact, risk, mo
 ### C6. Brain store API (by F2)
 
 ```python
-# company_brain/brain_store.py
+# control_plane/company_brain/brain_store.py
 class BrainStore:
-    def __init__(self, memory_store): ...   # runs company_brain/schema.sql on memory_store.conn; uses memory_store.clock
+    def __init__(self, memory_store): ...   # runs control_plane/company_brain/schema.sql on memory_store.conn; uses memory_store.clock
     # sources
     def add_source(self, area_id, kind, title, raw_text, *, origin_ref, occurred_at, participants, language,
                    lines: list[dict], project_id=None, deal_id=None, received_at=None) -> str   # "SRC-000001"
@@ -160,20 +160,20 @@ class BrainStore:
     def checklist(self, *, industry=None) -> list[dict]
     def scoped(self, area_ids) -> "ScopedBrain"
 
-# company_brain/scoped_brain.py: read-only. Raises company_memory.AreaDenied for any other area.
+# control_plane/company_brain/scoped_brain.py: read-only. Raises control_plane.company_memory.AreaDenied for any other area.
 # Library reads (playbooks, checklist) raise AreaDenied unless "playbooks" is in area_ids.
 class ScopedBrain: same read methods as above, area_ids optional (default: all allowed)
 
-# company_brain/inbox.py
+# control_plane/company_brain/inbox.py
 def receive(brain, data_conn, *, kind, content: bytes | str, filename=None, received_at=None,
             hint_area=None, origin_ref=None) -> dict   # {"source_id", "area_id", "routed_by", "lines": int, "language"}
-# company_brain/source_readers.py: read_fathom_json(text), read_docx(data), read_eml(data), read_chat(text),
+# control_plane/company_brain/source_readers.py: read_fathom_json(text), read_docx(data), read_eml(data), read_chat(text),
 #   read_plain(text) -> (meta: dict, lines: list[dict])
-# company_brain/area_router.py: route(data_conn, participants, title, hint_area=None) -> (area_id, reason)
-# company_brain/language.py: detect_language(text) -> "en" | "hi" | "hinglish" | "mixed"
-# company_brain/topic_lexicon.py: load_lexicon() -> dict; topics_in(text) -> list[str]
-# company_brain/retrieval.py: similar_deals(scoped_brain, deal: dict, k=3) -> [{"playbook_id", "area_id", "score", "why"}]
-# company_brain/sample_content.py: seed_sample(brain, data_conn) -> dict   # small fixed brain for W2 tests
+# control_plane/company_brain/area_router.py: route(data_conn, participants, title, hint_area=None) -> (area_id, reason)
+# control_plane/company_brain/language.py: detect_language(text) -> "en" | "hi" | "hinglish" | "mixed"
+# control_plane/company_brain/topic_lexicon.py: load_lexicon() -> dict; topics_in(text) -> list[str]
+# control_plane/company_brain/retrieval.py: similar_deals(scoped_brain, deal: dict, k=3) -> [{"playbook_id", "area_id", "score", "why"}]
+# control_plane/company_brain/sample_content.py: seed_sample(brain, data_conn) -> dict   # small fixed brain for W2 tests
 ```
 
 `CompanyOS.brain` and `Parts.brain` hold the `BrainStore` (F2 adds them in `wiring/build_company_os.py`).
@@ -181,7 +181,7 @@ def receive(brain, data_conn, *, kind, content: bytes | str, filename=None, rece
 ### C7. Role scopes (by F3)
 
 ```python
-# guardrails/role_scopes.py
+# control_plane/guardrails/role_scopes.py
 CONSOLE_ROLES = ("admin", "csm", "growth")
 DB_ROLE_TO_CONSOLE = {"ceo": "admin", "rnd_lead": "admin", "finance_lead": "admin", "csm": "csm", "growth": "growth"}
 ADMIN_DB_ROLES = frozenset({"ceo", "rnd_lead", "finance_lead"})
@@ -607,6 +607,8 @@ python3 -c "import pathlib,sys; b=[str(p) for p in [*map(pathlib.Path,('PLAN_v2.
 ```
 
 ### R2: Split into core harness and control plane folders (L; after I1, before I2)
+
+**Status: done.** `cost_ledger.py`, `model_prices.py` and `fixed_clock.py` stayed in `core/` because the loop and the gateway use them. The run log and the way-in gate are `RunLog` and `WayInGate` in `contract/plugin_contract.py`.
 
 **Goal.** Make the two layers visible and enforce the boundary. Behaviour does not change.
 

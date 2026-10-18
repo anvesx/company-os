@@ -27,7 +27,7 @@ All other v1 agents move to `experiments/`. The shared core stays. Everything st
 ## 3. Architecture
 
 ```
-  SOURCES (any kind)                     COMPANY BRAIN (company_brain/)
+  SOURCES (any kind)                     COMPANY BRAIN (control_plane/company_brain/)
   Fathom JSON (hi/en/Hinglish) ──┐       ┌──────────────────────────────────────────────────┐
   Word .docx ────────────────────┤       │ inbox: read file → split lines → route to area   │
   Email .eml ────────────────────┼─────► │   (attendee email → client; unknown → hold area) │
@@ -62,7 +62,7 @@ Rules that do not change: code finds, the model explains. Check comes before act
 
 ## 4. Brain schema
 
-The brain tables live in the company memory database (`company_memory.db`), so there is one memory. `company_brain/schema.sql` adds them. Existing tables stay.
+The brain tables live in the company memory database (`company_memory.db`), so there is one memory. `control_plane/company_brain/schema.sql` adds them. Existing tables stay.
 
 | Table | Key columns | What it holds |
 |---|---|---|
@@ -82,7 +82,7 @@ The brain tables live in the company memory database (`company_memory.db`), so t
 
 ## 5. RBAC: three roles
 
-A role comes from the person's job in the people table: `ceo`, `rnd_lead`, `finance_lead` → **Admin**; `csm` → **CSM**; `growth` → **Growth**. Other jobs get no console. `guardrails/role_scopes.py` holds the whole matrix. The way-in check, the memory scopes and every console API call use it.
+A role comes from the person's job in the people table: `ceo`, `rnd_lead`, `finance_lead` → **Admin**; `csm` → **CSM**; `growth` → **Growth**. Other jobs get no console. `control_plane/guardrails/role_scopes.py` holds the whole matrix. The way-in check, the memory scopes and every console API call use it.
 
 **Areas each role can read**
 
@@ -159,7 +159,7 @@ The console role switcher shows exactly three people.
 | From | To |
 |---|---|
 | `agents/project_risk/`, `agents/fraud_watch/`, `agents/hiring_forecast/`, `agents/delivery_progress/`, `agents/client_requests/` | `experiments/agents/<same name>/` |
-| `connectors/project_tools.py`, `project_hours.py`, `store_pos_tools.py`, `staffing_tools.py`, `git_tools.py`, `progress_views.py`, `client_request_tools.py` | `experiments/connectors/` |
+| `control_plane/connectors/project_tools.py`, `project_hours.py`, `store_pos_tools.py`, `staffing_tools.py`, `git_tools.py`, `progress_views.py`, `client_request_tools.py` | `experiments/connectors/` |
 | `company_data/generate_git_activity.py`, `company_data/generate_client_requests.py` (their flags in `build()` now default to off) | `experiments/company_data/` |
 | `web_console/progress_page.py`, `web_console/client_requests_page.py`, copies of v1 `department_scenarios.py`, `agent_cards.py`, `static/console.js` | `experiments/web_console_v1/` |
 | `tests/test_agent_project_risk.py`, `test_agent_fraud_watch.py`, `test_agent_hiring_forecast.py`, `test_agent_delivery_progress.py`, `test_agent_client_requests.py`, `test_client_request_tools.py`, `test_client_requests_data.py`, `test_git_activity_data.py`, `test_git_tools.py`, `test_progress_views.py`, and the cut-out parts of `test_connectors.py`, `test_company_data.py`, `test_web_console.py` | `experiments/tests/` |
@@ -174,7 +174,7 @@ Kept agents are regrouped (agent names do not change):
 | `agents/meeting_prep/` | `agents/meeting_prep/project_brief/` |
 | (new) | `agents/meeting_prep/deal_brief/`, `agents/meeting_prep/live_copilot/` |
 
-**Stays as it is:** `runtime/`, `gateway/`, `contract/`, `guardrails/`, `lifecycle_kit/`, `triggers/`, `people_surface/`, `company_memory/`, `connectors/` (books, spend, meeting, slack, people, event lookup, tool reply, meetings to memory, memory views), `market_simulation/`, `render.log`.
+**Stays as it is** (R2 moved the code into `core/` and `control_plane/`): `core/`, `contract/`, `control_plane/guardrails/`, `lifecycle_kit/`, `control_plane/triggers/`, `control_plane/people_surface/`, `control_plane/company_memory/`, `control_plane/connectors/` (books, spend, meeting, slack, people, event lookup, tool reply, meetings to memory, memory views), `market_simulation/`, `render.log`.
 
 ## 8. Out of scope
 
@@ -187,7 +187,7 @@ Kept agents are regrouped (agent names do not change):
 - Pricing (the focus group asked for flat pricing; this is a business decision, not a build item).
 - Any per-person score, ranking or performance view.
 
-**Planned, not built: any document type in the brain inbox (owner, Oct 19).** Today the inbox reads Fathom transcripts (JSON), Word (.docx), email (.eml), chat exports and live call lines. Later it must read any document people send: Excel and CSV sheets, PDF (including scanned PDF through OCR), PowerPoint, Google Docs and Sheets exports, images of whiteboards, and plain text. The plan: one reader per format in `company_brain/source_readers.py`, each turning the file into numbered lines with a location (sheet and cell, page and line, slide), so every fact still links to its exact source. Tables keep their row and column as the location.
+**Planned, not built: any document type in the brain inbox (owner, Oct 19).** Today the inbox reads Fathom transcripts (JSON), Word (.docx), email (.eml), chat exports and live call lines. Later it must read any document people send: Excel and CSV sheets, PDF (including scanned PDF through OCR), PowerPoint, Google Docs and Sheets exports, images of whiteboards, and plain text. The plan: one reader per format in `control_plane/company_brain/source_readers.py`, each turning the file into numbered lines with a location (sheet and cell, page and line, slide), so every fact still links to its exact source. Tables keep their row and column as the location.
 
 ## 9. Risks
 

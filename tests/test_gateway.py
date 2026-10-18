@@ -1,12 +1,12 @@
 import unittest
 
 from contract.types import ModelReply, ModelRequest, ToolSpec, Usage
-from gateway.cost_ledger import CostLedger
-from gateway.fake_model import FakeModel
-from gateway.fixed_clock import FixedClock
-from gateway.model_gateway import BudgetExceeded, Gateway
-from gateway.model_prices import cost_usd
-from gateway.prompt_cache import PromptCache
+from core.cost_ledger import CostLedger
+from core.fake_model import FakeModel
+from core.fixed_clock import FixedClock
+from core.model_gateway import BudgetExceeded, Gateway
+from core.model_prices import cost_usd
+from core.prompt_cache import PromptCache
 
 
 def tool(name="a"):
@@ -123,7 +123,7 @@ class GatewayTests(unittest.TestCase):
         self.assertEqual(gw2.ledger.entries[0]["model"], "haiku-5-5")
 
     def test_runtime_object_holds_no_backend(self):
-        from runtime.agent_loop import Runtime
+        from core.agent_loop import Runtime
         gw = make()
         rt = Runtime(gw, object(), object())
         held = list(vars(rt).values())

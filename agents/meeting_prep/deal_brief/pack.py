@@ -1,7 +1,7 @@
 """Deal brief pack: code picks similar playbooks and the checklist; the model writes ideas and questions; code checks every cite."""
 import json
 
-from connectors.deal_brain_tools import deal_brain_tools, find_leaks
+from control_plane.connectors.deal_brain_tools import deal_brain_tools, find_leaks
 from contract.types import ToolCall
 from lifecycle_kit.action_tools import make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack

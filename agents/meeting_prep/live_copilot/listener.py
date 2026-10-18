@@ -2,7 +2,7 @@
 import re
 from datetime import date
 
-from company_brain.topic_lexicon import topics_in
+from control_plane.company_brain.topic_lexicon import topics_in
 
 MONTHS = "jan feb mar apr may jun jul aug sep oct nov dec".split()
 CHANNELS = ("whatsapp", "sms", "email")

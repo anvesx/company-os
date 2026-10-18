@@ -1,7 +1,7 @@
 """Finance page routes: Admin only, findings with records, trip cards, a spend question."""
 import unittest
 
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 from tests.console_stub import ConsoleStub
 from web_console.routes import finance_routes
 

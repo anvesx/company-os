@@ -2,7 +2,7 @@
 import unittest
 
 from agents.meeting_prep.live_copilot.listener import LiveListener, values_in
-from company_brain.topic_lexicon import load_lexicon
+from control_plane.company_brain.topic_lexicon import load_lexicon
 
 DECISION = {"item_id": "I1", "kind": "decision", "topic": "reminders", "text": "We decided: the reminders will go by WhatsApp only.",
             "source_id": "SRC-1", "origin_ref": "SRC25", "source_kind": "fathom", "occurred_at": "2026-09-30T05:30", "line_from": 14}

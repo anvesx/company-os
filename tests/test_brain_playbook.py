@@ -4,12 +4,12 @@ import tempfile
 import unittest
 from types import SimpleNamespace
 
-from company_brain import link_tools, playbook_rules
-from company_brain.agents.playbook.fake_brain import leaky_brain
-from company_brain.agents.playbook.replay_exam import judge
-from company_brain.record_sync import sync_records
-from company_brain.redaction import find_leaks, redact
-from gateway.fake_model import FakeModel
+from control_plane.company_brain import link_tools, playbook_rules
+from control_plane.company_brain.agents.playbook.fake_brain import leaky_brain
+from control_plane.company_brain.agents.playbook.replay_exam import judge
+from control_plane.company_brain.record_sync import sync_records
+from control_plane.company_brain.redaction import find_leaks, redact
+from core.fake_model import FakeModel
 from wiring.build_company_os import build_company_os
 
 

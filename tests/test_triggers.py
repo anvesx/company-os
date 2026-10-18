@@ -4,7 +4,7 @@ import sqlite3
 import unittest
 
 from contract.types import Task
-from triggers import CalendarTrigger, Clock, TimerTrigger, dispatch, parse_request
+from control_plane.triggers import CalendarTrigger, Clock, TimerTrigger, dispatch, parse_request
 
 
 class TestClock(unittest.TestCase):

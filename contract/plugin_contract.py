@@ -25,6 +25,29 @@ class Plugin:
         return None
 
 
+class RunLog:
+    """The run log the core writes to. The control plane supplies it; wiring passes it in."""
+
+    def start_run(self, agent, trigger_kind, caller_id, area_id, started_at=None) -> str:
+        raise NotImplementedError
+
+    def log_step(self, run_id, step, detail=None, at=None) -> None:
+        raise NotImplementedError
+
+    def end_run(self, run_id, status, cost_usd=0.0, tokens_in=0, tokens_out=0, ended_at=None) -> None:
+        raise NotImplementedError
+
+    def scoped(self, area_ids):
+        raise NotImplementedError
+
+
+class WayInGate:
+    """The check before a run starts. The control plane supplies it; wiring passes it in."""
+
+    def admit(self, task: Task) -> Decision:
+        raise NotImplementedError
+
+
 class Host:
     """What any core must offer. Our runtime implements it; a dsh adapter would too."""
 

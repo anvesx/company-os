@@ -1,7 +1,7 @@
 """Check page routes (contract C8). The page is optional: nothing waits for it and nothing is sent to anyone."""
 import importlib
 
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "review", "title": "Check", "order": 30, "icon": "check"}
 KIND_LABEL = {"low_confidence": "Not sure about this item", "translation": "A line could not be translated",
@@ -127,7 +127,7 @@ def routes(console):
                                        (viewer, cos.memory._now(), source["source_id"]))
             steps = None
             try:
-                steps = importlib.import_module("company_brain.pipeline").process_source(cos, source["source_id"])
+                steps = importlib.import_module("control_plane.company_brain.pipeline").process_source(cos, source["source_id"])
             except ImportError:
                 pass
         return 200, {"ok": True, "source_id": source["source_id"], "area_id": body["area_id"],

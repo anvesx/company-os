@@ -8,7 +8,7 @@ Read this whole file before writing code. Do not change another ticket's files; 
 - Python 3.14, standard library only. No pip installs. Tests use `unittest`.
 - Run everything from the `company-os/` folder: `python3 -m unittest discover -s tests -t .`
 - Every folder is a package (has `__init__.py`). Import like `from contract.types import Task`.
-- **File names say what the file does** (for example `gateway/prompt_cache.py`, `guardrails/way_in_check.py`). No `utils.py`, `helpers.py` or `core.py`.
+- **File names say what the file does** (for example `core/prompt_cache.py`, `control_plane/guardrails/way_in_check.py`). No `utils.py`, `helpers.py` or `core.py`.
 - **Comments: plain English, 1 or 2 lines, only where the reason is not obvious.** A short module docstring (1 to 3 lines) on each file.
 - Deterministic: any randomness uses `random.Random(42)`. No wall-clock time in logic: use the simulated clock.
 - Simulated today: `TODAY = "2026-10-19"` (Monday), defined in `company_data/simulated_today.py`. Data covers 2026-04-01 to 2026-10-19; calendar events go up to 2026-10-23.
@@ -33,16 +33,16 @@ A model's final answer is its `text` when it returns no tool calls. Agent packs 
 
 | Folder | What it is | Ticket |
 |---|---|---|
+| `control_plane/` | The control plane (see the folders below); the core never imports it | R2 |
 | `company_data/` | Dummy company systems (CRM, SOWs, projects, meetings, Slack, books, store POS) in one SQLite file, plus planted cases | T1 |
-| `company_memory/` | Company memory: shared store of items, links, runs, run steps, cases, scores; one area per client | T3 |
-| `people_surface/` | Where agents reach people: private message outbox and approval queue | T3 |
-| `triggers/` | What starts a run: simulated clock, timer, a person's request, calendar events | T3 |
-| `gateway/` | AI gateway: the only path to a model; prompt cache simulation, cost ledger, budgets, fake model | T2 |
-| `runtime/` | Our thin agent runtime: the loop, tool registry, output cap, run log through memory | T2 |
+| `control_plane/company_memory/` | Company memory: shared store of items, links, runs, run steps, cases, scores; one area per client | T3 |
+| `control_plane/people_surface/` | Where agents reach people: private message outbox and approval queue | T3 |
+| `control_plane/triggers/` | What starts a run: simulated clock, timer, a person's request, calendar events | T3 |
+| `core/` | The core harness: the loop, tool registry, output cap, and the AI gateway (the only path to a model; prompt cache simulation, cost ledger, budgets, fake model) | T2, R2 |
 | `contract/` | Shared types and the 6-function plugin contract, plus conformance tests | T0, T2 |
-| `guardrails/` | Way-in check and every-action check, outside-text rule, access policy | T4 |
+| `control_plane/guardrails/` | Way-in check and every-action check, outside-text rule, access policy | T4 |
 | `lifecycle_kit/` | The agent lifecycle: record, understand, decide, check, act, remember | T4 |
-| `connectors/` | Read company_data for agents (as "company tools") and load meetings into memory | T5 |
+| `control_plane/connectors/` | Read company_data for agents (as "company tools") and load meetings into memory | T5 |
 | `agents/<name>/` | One agent pack each: meeting_prep, project_risk, finance_watch, fraud_watch | T6 to T9 |
 | `evaluation/` | Replay exams over planted cases; runs all exams | T6 to T9, T10 |
 | `tests/` | `test_<area>.py` per ticket | each ticket |
@@ -89,7 +89,7 @@ Planted cases (in `planted_cases.py`, recorded in `answer_keys.json`):
 
 ## T2: gateway, runtime, contract conformance
 
-`gateway/`
+`core/` (gateway files)
 - `model_prices.py`: per million tokens, USD. `opus-5-5` 4/20, `sonnet-5-5` 2/10, `haiku-5-5` 0.10/0.50. Cache read 0.1x input, cache write 1.25x input. `fake` priced as `sonnet-5-5`.
 - `prompt_cache.py`: `PromptCache()` with `check(agent, prefix_text, now) -> "hit" | "write"`. Hash of system + sorted tool specs; a hit if the same agent sent the same prefix within 5 simulated minutes. Logs which part changed on a miss (system or tools).
 - `cost_ledger.py`: `CostLedger()` records every call (`agent, caller_id, area_id, run_id, model, usage, cost_usd, cache`), `set_budget(key, usd)`, `spent(key)`, `budget_left(key)` where key is `"agent:<name>"` or `"caller:<id>"`; no budget set means unlimited.
@@ -98,28 +98,30 @@ Planted cases (in `planted_cases.py`, recorded in `answer_keys.json`):
 - `model_gateway.py`: `Gateway(backends: dict[name -> backend], ledger=None, cache=None, clock=None)`; `call(req, *, agent, caller_id, area_id, run_id) -> ModelReply` routes by `req.model`, applies cache accounting and cost, records in the ledger, raises `BudgetExceeded` when a budget is spent. `budget_left(agent, caller_id) -> float`. The runtime holds only a Gateway, never a backend.
 - `TransientModelError` exception for retryable failures.
 
-`runtime/`
+`core/` (loop files)
 - `tool_registry.py`: holds `ToolSpec`s; returns them sorted by name.
 - `tool_output_cap.py`: cap each tool result at 8,000 characters with a note of what was cut.
 - `agent_loop.py`: `Runtime(gateway, memory_store, way_in_gate, plugins=(), max_steps=12, retries=2)` implements `contract.plugin_contract.Host`. `way_in_gate` is required (no default): an object with `admit(task) -> Decision`. Flow of `run_task(task)`: `open_run` (gate admit; refused → RunResult status "refused", logged) → `run_loop` → `close_run`. Loop: build `ModelRequest` (tools sorted) → each plugin `before_request` → `gateway.call` (retry `TransientModelError` up to `retries`) → each plugin `after_reply` → no tool calls: done → for each call: plugins `before_tool` in order (first non-allow wins); "deny" → result `"denied: <reason>"`; "ask" → not run, approval needed, ctx.held, result `"held for approval: <reason>"`, run ends "held" after this step; "allow" → run `spec.fn(args, ctx)`, cap output, plugins `after_tool` → append tool message. Unknown tool → `"error: unknown tool"`. Tool exceptions → `"error: <msg>"`. Every model call, tool call, verdict and result is written with `memory_store.log_step(run_id, step, detail)`. `invoke_tool` runs one tool through the same before/after hooks.
 - Memory interface the runtime uses (built by T3): `start_run(agent, trigger_kind, caller_id, area_id, started_at) -> run_id`, `log_step(run_id, step, detail: dict)`, `end_run(run_id, status, cost_usd, tokens_in, tokens_out, ended_at)`, `scoped(area_ids) -> ScopedMemory`.
 
+The core must not import `control_plane/`, `agents/`, `lifecycle_kit/`, `web_console/` or `company_data/`. The run log (`RunLog`) and the gate (`WayInGate`) come in through `contract/plugin_contract.py`; `wiring/build_company_os.py` passes them in. `tests/test_layer_boundary.py` checks this.
+
 `contract/conformance_tests.py`: `run_conformance(test_case, make_host)` checks any Host: a plugin's hooks are all called, a deny skips the tool, an ask holds the run, output is capped, the way-in gate can refuse. Our runtime must pass; a dsh adapter later would run the same file.
 
 ## T3: company memory, people surface, triggers
 
-`company_memory/`
-- `schema.sql`, `memory_store.py`: `MemoryStore(path=DB_PATH)`; `DB_PATH` = `company_memory/company_memory.db`; `reset()` drops and recreates.
+`control_plane/company_memory/`
+- `schema.sql`, `memory_store.py`: `MemoryStore(path=DB_PATH)`; `DB_PATH` = `control_plane/company_memory/company_memory.db`; `reset()` drops and recreates.
 - Tables: `areas(area_id PK, name, kind)` kind client/internal/hold; `items(item_id PK, area_id, kind, text, topic, status, source, source_ref, created_at, owner_id)`; `links(from_id, rel, to_id, created_at, note)` rel: supersedes, answers, refines, follows_up, about; `runs(run_id PK, agent, trigger_kind, caller_id, area_id, started_at, ended_at, status, cost_usd, tokens_in, tokens_out)`; `run_steps(run_id, seq, step, detail, at)`; `cases(case_id PK, run_id, agent, area_id, subject, severity, evidence, status, created_at)`; `scores(exam, agent, metric, value, at, detail)`.
 - Methods: `ensure_area`, `add_item(...) -> item_id`, `add_link`, `start_run`, `log_step` (append only; there is no update or delete for steps), `end_run`, `run_steps(run_id)`, `add_case(...) -> case_id`, `add_score(...)`, `scoped(area_ids) -> ScopedMemory`.
-- `scoped_memory.py`: `ScopedMemory` reads only its allowed areas: `items(area_id, kinds=None, status=None, topic=None, before=None)`, `get_item(item_id)`, `links_of(item_id)`. Any other area raises `AreaDenied` (in `company_memory/__init__.py`).
+- `scoped_memory.py`: `ScopedMemory` reads only its allowed areas: `items(area_id, kinds=None, status=None, topic=None, before=None)`, `get_item(item_id)`, `links_of(item_id)`. Any other area raises `AreaDenied` (in `control_plane/company_memory/__init__.py`).
 - Area "hold": items whose client could not be decided wait here for a person.
 
-`people_surface/`
-- `private_outbox.py`: `Outbox(path=DB_PATH)` (`people_surface/people_surface.db`); `post(to_person_id, text, *, run_id, agent, kind) -> msg_id`; `messages(to_person_id=None)`. Stands in for private Slack messages.
+`control_plane/people_surface/`
+- `private_outbox.py`: `Outbox(path=DB_PATH)` (`control_plane/people_surface/people_surface.db`); `post(to_person_id, text, *, run_id, agent, kind) -> msg_id`; `messages(to_person_id=None)`. Stands in for private Slack messages.
 - `approval_queue.py`: `Approvals(path=DB_PATH)`; `request(run_id, agent, tool, args, reason) -> approval_id`; `pending()`; `decide(approval_id, approved: bool, by_person_id)`.
 
-`triggers/`
+`control_plane/triggers/`
 - `simulated_clock.py`: `Clock(now="2026-10-19T09:00")`, `advance(minutes)`, `now`, `today`.
 - `timer_trigger.py`: `TimerTrigger(schedule)` with `due(clock) -> list[Task]`; schedule rows `{"agent", "area_id", "every": "daily"}`.
 - `request_trigger.py`: `parse_request(text, caller_id) -> Task | None` for messages like "prep me for EV07".
@@ -128,7 +130,7 @@ Planted cases (in `planted_cases.py`, recorded in `answer_keys.json`):
 
 ## T4: guardrails and lifecycle kit
 
-`guardrails/`
+`control_plane/guardrails/`
 - `access_policy.py`: which roles may start which agent; which tools each agent may use; which tools are risky; who may receive messages (DevX people only).
 - `way_in_check.py`: `WayInCheck(directory, gateway)`; `admit(task) -> Decision`. Deny: unknown caller; caller's role may not start this agent; caller has no access to `task.area_id` (DevX staff need a project on that client, or role ceo/rnd_lead; "system" may run timer tasks); budget left is 0 for the agent or caller.
 - `every_action_check.py`: `ActionGuard(policy, approvals)` is a `Plugin`. `before_tool`: deny tools outside the agent's list; deny any `client_id`/`area_id` argument that is not the task's area; deny messages to non-DevX people; "ask" for risky tools (and create an approval). `after_tool`: wrap results of `reads_outside_text` tools with `outside_text.wrap`.
@@ -177,16 +179,16 @@ The v2 build is described in `PLAN_v2.md` and built by the tickets in `TICKETS_v
 - Finance family: finance watch, spend advisor, travel booking.
 - Company brain: Cleaner, Extractor, Linker, Playbook writer.
 
-**Company brain (`company_brain/`).** Every file enters through the inbox. It is stored as a source with numbered lines. Every fact keeps evidence that points to those lines. The four brain agents run in this order: Cleaner, Extractor, Linker, Playbook writer (`pipeline.process_source`). The Playbook writer runs once for each closed deal in the source's area.
+**Company brain (`control_plane/company_brain/`).** Every file enters through the inbox. It is stored as a source with numbered lines. Every fact keeps evidence that points to those lines. The four brain agents run in this order: Cleaner, Extractor, Linker, Playbook writer (`pipeline.process_source`). The Playbook writer runs once for each closed deal in the source's area.
 
 **Build and seeding.** `build_company_os(..., seed_brain=True)` copies the company records into the brain (`record_sync.sync_records`) and runs every history source through the pipeline. The default is `False`, so tests and exams start with an empty brain and fill it themselves. The console and `run_demo.py` pass `True`.
 
-**Run loop.** `runtime/agent_loop.py` calls `runtime.compaction.compact_if_needed` before each model call. When the conversation reaches 80% of the window (200,000 tokens by default), the old middle is folded into one summary. The run log gets a `compaction` step with the sizes before and after.
+**Run loop.** `core/agent_loop.py` calls `core.compaction.compact_if_needed` before each model call. When the conversation reaches 80% of the window (200,000 tokens by default), the old middle is folded into one summary. The run log gets a `compaction` step with the sizes before and after.
 
-**Roles.** Admin, CSM and Growth, enforced on the data in `guardrails/role_scopes.py`. Each person may start travel booking in the DevX internal area, and sees only their own requests. Only an Admin sees all of them.
+**Roles.** Admin, CSM and Growth, enforced on the data in `control_plane/guardrails/role_scopes.py`. Each person may start travel booking in the DevX internal area, and sees only their own requests. Only an Admin sees all of them.
 
 **Exams.** `evaluation/run_all_exams.py` runs 10 exams. The project brief, deal brief and live call exams also run on a brain built by the real pipeline (`evaluation/real_pipeline_brain.py`). Both results are saved in `evaluation/latest_scores.json`.
 
-**Real model.** Real Claude runs only through `gateway/claude_cli_model.py` with Sonnet. No code path uses Opus. `evaluation/record_real_samples.py --yes` records the samples shown in the console.
+**Real model.** Real Claude runs only through `core/claude_cli_model.py` with Sonnet. No code path uses Opus. `evaluation/record_real_samples.py --yes` records the samples shown in the console.
 
 **Web console.** It is only for experiments. It is not the final product.

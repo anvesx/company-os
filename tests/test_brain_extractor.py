@@ -1,8 +1,8 @@
 """Extractor agent: items with evidence, unconfirmed for low confidence or untranslated lines, injected lines ignored."""
 import unittest
 
-from company_brain import extract_rules
-from company_brain.topic_lexicon import load_lexicon
+from control_plane.company_brain import extract_rules
+from control_plane.company_brain.topic_lexicon import load_lexicon
 from evaluation.run_all_exams import close_all
 
 from tests.brain_test_support import make_cos, receive_ref

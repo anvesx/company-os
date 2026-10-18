@@ -7,7 +7,7 @@ Any starter role (ceo, rnd_lead, finance_lead, csm, growth) may ask. Only ceo an
 ## Flow
 
 1. `service.request_trip(cos, caller_id, request)` reads the request (words or a dict), runs the agent in area `devx-internal`.
-2. The agent searches `connectors/fare_search.py`, ranks with `policy_ranking.py`, and writes one letter to the asker (kind `travel_options`).
+2. The agent searches `control_plane/connectors/fare_search.py`, ranks with `policy_ranking.py`, and writes one letter to the asker (kind `travel_options`).
 3. It then calls `book_travel` (risky), so the run ends `held` with one approval. Option 1 of each is the default.
 4. `service.choose_options(...)` swaps the held approval for one with other shown options.
 5. After an Admin approves, `service.booking_after_approval(cos, approval_id)` books once and gives a `SIM-` reference.

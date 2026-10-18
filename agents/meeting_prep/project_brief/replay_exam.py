@@ -3,8 +3,8 @@ import json
 import os
 
 from company_data import DB_PATH
-from gateway.fake_model import FakeModel
-from company_brain.inbox import receive
+from core.fake_model import FakeModel
+from control_plane.company_brain.inbox import receive
 from wiring.build_company_os import build_company_os
 
 from .fake_brain import naive_brain

@@ -3,7 +3,7 @@ import json
 import unittest
 
 from agents.meeting_prep.deal_brief import replay_exam
-from company_brain.sample_content import seed_sample
+from control_plane.company_brain.sample_content import seed_sample
 from wiring.build_company_os import build_company_os
 
 

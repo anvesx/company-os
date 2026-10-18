@@ -6,12 +6,12 @@ from datetime import date, timedelta
 
 from company_data import DB_PATH, connect
 from company_data.generate_dummy_data import build
-from company_memory import MemoryStore
-from connectors import (PeopleDirectory, books_tools, event_area, meeting_tools, slack_tools, sync_meetings)
-from connectors.memory_views import open_items_as_of, recent_decisions_as_of
-from connectors.meetings_to_memory import meeting_area
+from control_plane.company_memory import MemoryStore
+from control_plane.connectors import (PeopleDirectory, books_tools, event_area, meeting_tools, slack_tools, sync_meetings)
+from control_plane.connectors.memory_views import open_items_as_of, recent_decisions_as_of
+from control_plane.connectors.meetings_to_memory import meeting_area
 from contract.types import RunContext, Task
-from triggers.request_trigger import parse_request
+from control_plane.triggers.request_trigger import parse_request
 
 KEYS_PATH = os.path.join(os.path.dirname(DB_PATH), "answer_keys.json")
 INTERNAL = "devx-internal"

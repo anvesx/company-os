@@ -2,7 +2,7 @@
 import json
 import unittest
 
-from company_brain.sample_content import seed_sample
+from control_plane.company_brain.sample_content import seed_sample
 from tests.console_stub import ConsoleStub
 from web_console.routes import deals_routes
 
@@ -22,7 +22,7 @@ class DealsRoutesTest(unittest.TestCase):
         return self.r[(method, path)]({}, body, viewer)
 
     def test_page_id_is_allowed_for_growth(self):
-        from guardrails import role_scopes
+        from control_plane.guardrails import role_scopes
         self.assertTrue(role_scopes.may_open_page("growth", deals_routes.PAGE["id"]))
         self.assertFalse(role_scopes.may_open_page("csm", deals_routes.PAGE["id"]))
 

@@ -2,7 +2,7 @@
 import tempfile
 import unittest
 
-from company_brain.record_sync import STAGE_OF_LEAD, sync_records
+from control_plane.company_brain.record_sync import STAGE_OF_LEAD, sync_records
 from wiring.build_company_os import build_company_os
 
 

@@ -3,11 +3,11 @@ import json
 import re
 
 from company_data.simulated_today import TODAY
-from connectors.tool_reply import days_before, days_between
+from control_plane.connectors.tool_reply import days_before, days_between
 from contract.types import ToolCall
 from lifecycle_kit.action_tools import make_create_followup_task, make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack
-from connectors.books_tools import books_tools
+from control_plane.connectors.books_tools import books_tools
 
 AREA = "devx-internal"
 DUPLICATE_DAYS = 10           # same vendor and amount within this many days

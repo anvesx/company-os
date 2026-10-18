@@ -1,8 +1,8 @@
 """Deals and playbooks page routes (contract C8): my deals by stage, the deal brief, the playbook library."""
 import json
 
-from connectors.deal_brain_tools import playbook_view
-from guardrails import role_scopes
+from control_plane.connectors.deal_brain_tools import playbook_view
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "deals", "title": "Deals and playbooks", "order": 40, "icon": "users"}
 STAGES = ("discovery", "proposal", "closing")

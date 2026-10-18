@@ -2,8 +2,8 @@
 import json
 
 from agents.meeting_prep.project_brief.pack import enrich_brief
-from connectors.project_brain_tools import item_view
-from guardrails import role_scopes
+from control_plane.connectors.project_brain_tools import item_view
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "meeting_prep", "title": "Meeting prep", "order": 30, "icon": "calendar"}
 AGENT = "meeting_prep"

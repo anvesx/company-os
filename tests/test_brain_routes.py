@@ -5,7 +5,7 @@ import unittest
 from types import SimpleNamespace
 
 from evaluation.run_all_exams import close_all
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 from web_console.routes import brain_routes
 
 from tests.brain_test_support import make_cos

@@ -16,7 +16,7 @@ Standard library only. One process holds one `CompanyOS`. The demo date and paus
 
 ## People and pages
 
-The role switcher offers exactly three people (`DEMO_PEOPLE` in `guardrails/role_scopes.py`): Ammar (Admin, P01), Akbar (CSM, P05), Anthony (Growth, P03).
+The role switcher offers exactly three people (`DEMO_PEOPLE` in `control_plane/guardrails/role_scopes.py`): Ammar (Admin, P01), Akbar (CSM, P05), Anthony (Growth, P03).
 Each role sees only the pages in `role_scopes.PAGES`. Every API call carries `viewer`; the server refuses an unknown viewer or a page the role may not open with 403 and runs nothing.
 
 | Role | Pages |

@@ -1,8 +1,8 @@
 """Cleaner agent: clean English lines, untranslated lines kept raw, raw never changed, area check on its tools."""
 import unittest
 
-from company_brain import extract_rules
-from company_brain.write_tools import make_save_clean_lines, untranslated_lines
+from control_plane.company_brain import extract_rules
+from control_plane.company_brain.write_tools import make_save_clean_lines, untranslated_lines
 from contract.types import RunContext, Task
 from evaluation.run_all_exams import close_all
 

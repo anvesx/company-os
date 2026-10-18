@@ -2,9 +2,9 @@
 import json
 from datetime import date, timedelta
 
-from connectors.meeting_tools import make_project_open_items, make_project_recent_decisions, make_upcoming_meeting
-from connectors.project_brain_tools import make_project_brain_items
-from connectors.slack_tools import make_recent_client_messages
+from control_plane.connectors.meeting_tools import make_project_open_items, make_project_recent_decisions, make_upcoming_meeting
+from control_plane.connectors.project_brain_tools import make_project_brain_items
+from control_plane.connectors.slack_tools import make_recent_client_messages
 from contract.types import ToolCall
 from lifecycle_kit.action_tools import make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack

@@ -1,8 +1,8 @@
 """Finance page routes (contract C8, Admin only): watch findings with their records, trip cards, and a spend question."""
 import json
 
-from connectors.spend_tools import make_trip_alternatives
-from guardrails import role_scopes
+from control_plane.connectors.spend_tools import make_trip_alternatives
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "finance", "title": "Finance", "order": 60, "icon": "coin"}
 AREA = "devx-internal"

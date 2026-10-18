@@ -2,7 +2,7 @@
 import unittest
 
 from agents.finance.travel_booking.policy_ranking import load_policy
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 from tests.console_stub import ConsoleStub
 from web_console.routes import travel_routes
 

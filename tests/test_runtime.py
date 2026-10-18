@@ -2,10 +2,10 @@ import unittest
 
 from contract.plugin_contract import Plugin
 from contract.types import Decision, ModelReply, Task, ToolCall, ToolSpec
-from gateway.fake_model import FakeModel
-from gateway.model_gateway import Gateway, TransientModelError
-from runtime.agent_loop import Runtime
-from runtime.tool_output_cap import cap_output
+from core.fake_model import FakeModel
+from core.model_gateway import Gateway, TransientModelError
+from core.agent_loop import Runtime
+from core.tool_output_cap import cap_output
 
 
 class FakeMemory:
@@ -210,7 +210,7 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(msgs[2]["tool_call_id"], "t1")
 
     def test_small_window_compacts_before_a_model_call_and_logs_it(self):
-        from runtime.compaction import INSTRUCTION
+        from core.compaction import INSTRUCTION
         turns = [0]
 
         def brain(req):

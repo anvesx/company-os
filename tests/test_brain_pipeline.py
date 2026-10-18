@@ -1,10 +1,10 @@
 """Pipeline: agents run in order, missing agents are skipped, a hold source waits for an Admin, the manifest and trigger work."""
 import unittest
 
-from company_brain import pipeline
+from control_plane.company_brain import pipeline
 from evaluation.run_all_exams import close_all
-from triggers.inbox_trigger import InboxTrigger
-from triggers.simulated_clock import Clock
+from control_plane.triggers.inbox_trigger import InboxTrigger
+from control_plane.triggers.simulated_clock import Clock
 
 from tests.brain_test_support import make_cos, manifest_row, receive_ref
 

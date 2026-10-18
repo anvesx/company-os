@@ -4,7 +4,7 @@ import sqlite3
 import tempfile
 import unittest
 
-from company_memory import AreaDenied, DB_PATH, MemoryStore, ScopedMemory
+from control_plane.company_memory import AreaDenied, DB_PATH, MemoryStore, ScopedMemory
 
 
 class MemoryTestCase(unittest.TestCase):

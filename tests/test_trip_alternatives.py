@@ -4,7 +4,7 @@ import shutil
 import tempfile
 import unittest
 
-from connectors.spend_tools import make_trip_alternatives
+from control_plane.connectors.spend_tools import make_trip_alternatives
 from contract.types import RunContext, Task
 from wiring.build_company_os import build_company_os
 

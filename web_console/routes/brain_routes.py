@@ -2,11 +2,11 @@
 import base64
 import binascii
 
-from company_memory import AreaDenied
-from company_brain import pipeline
-from company_brain.inbox import KINDS
-from company_brain.write_tools import untranslated_lines
-from guardrails import role_scopes
+from control_plane.company_memory import AreaDenied
+from control_plane.company_brain import pipeline
+from control_plane.company_brain.inbox import KINDS
+from control_plane.company_brain.write_tools import untranslated_lines
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "brain", "title": "Brain inbox", "order": 20, "icon": "inbox"}
 MAX_BYTES = 2_000_000

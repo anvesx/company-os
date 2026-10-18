@@ -1,5 +1,5 @@
 """Stand-in library for the exam while the Playbook writer's real output is not in the brain: built from the answer keys."""
-from company_brain.topic_lexicon import load_lexicon
+from control_plane.company_brain.topic_lexicon import load_lexicon
 
 STAGE = {"negotiation": "closing", "proposal": "proposal"}
 OWN_ITEMS = {  # (kind, topic, text, confidence) said by the prospect, per live deal

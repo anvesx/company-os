@@ -7,11 +7,11 @@ import sys
 import threading
 from collections import Counter
 
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 from lifecycle_kit.approved_actions import execute_approved
-from triggers.calendar_trigger import CalendarTrigger
-from triggers.dispatch import dispatch
-from triggers.timer_trigger import TimerTrigger
+from control_plane.triggers.calendar_trigger import CalendarTrigger
+from control_plane.triggers.dispatch import dispatch
+from control_plane.triggers.timer_trigger import TimerTrigger
 from wiring.agent_registry import available_agents
 from wiring.build_company_os import build_company_os
 
@@ -126,7 +126,7 @@ class Console:
 
     def _make_inbox_trigger(self):
         try:
-            from triggers.inbox_trigger import InboxTrigger
+            from control_plane.triggers.inbox_trigger import InboxTrigger
             return InboxTrigger(MANIFEST)
         except Exception:
             return None
@@ -316,7 +316,7 @@ class Console:
         """Sources whose arrival time has come go into the brain through the pipeline. A failed source is counted, not raised."""
         if self.inbox_trigger is None:
             return {"arrived": 0, "ingested": 0, "failed": 0}
-        from company_brain.pipeline import ingest_file, read_manifest_file
+        from control_plane.company_brain.pipeline import ingest_file, read_manifest_file
         rows, done, failed = self.inbox_trigger.due(clock), 0, 0
         for r in rows:
             try:

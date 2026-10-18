@@ -1,6 +1,6 @@
 """Travel page routes (contract C8): ask for a trip, see requests (own; Admin all), choose options. Booking waits for an Admin."""
 from agents.finance.travel_booking import service
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "travel", "title": "Travel", "order": 70, "icon": "plane"}
 

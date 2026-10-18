@@ -1,9 +1,9 @@
 """Builds a brain through the real pipeline (inbox, Cleaner, Extractor, Linker, Playbook writer), not from answer keys."""
 import json
 
-from company_brain import pipeline
-from company_brain.record_sync import sync_records
-from triggers.inbox_trigger import MANIFEST_PATH
+from control_plane.company_brain import pipeline
+from control_plane.company_brain.record_sync import sync_records
+from control_plane.triggers.inbox_trigger import MANIFEST_PATH
 from wiring.build_company_os import build_company_os
 
 BRAIN_AGENTS = ("brain_cleaner", "brain_extractor", "brain_linker", "brain_playbook")

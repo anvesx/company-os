@@ -1,6 +1,6 @@
 # company_data: the dummy company
 
-**Role in the harness:** Stands in for DevX's real tools (CRM, SOWs, ClickUp, Fathom, Slack, books, store POS). In production these are the real systems; agents reach them only through `connectors/`.
+**Role in the harness:** Stands in for DevX's real tools (CRM, SOWs, ClickUp, Fathom, Slack, books, store POS). In production these are the real systems; agents reach them only through `control_plane/connectors/`.
 
 One SQLite file (`company_data.db`) stands in for DevX's real tools and one retail client's store POS.
 Build it with `python3 -m company_data.generate_dummy_data` (same seed, same data; "today" is 2026-10-19).

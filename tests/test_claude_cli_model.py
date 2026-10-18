@@ -8,8 +8,8 @@ from types import SimpleNamespace
 
 from agents.finance.watch import fake_brain
 from contract.types import ModelRequest, ToolSpec
-from gateway.claude_cli_model import ClaudeCliModel, build_prompt
-from gateway.model_gateway import TransientModelError
+from core.claude_cli_model import ClaudeCliModel, build_prompt
+from core.model_gateway import TransientModelError
 from wiring.build_company_os import build_company_os
 
 
@@ -120,7 +120,7 @@ def finance_runner(cmd, input="", **kw):
 
 class SonnetOnlyTests(unittest.TestCase):
     def test_the_real_model_is_sonnet(self):
-        from gateway.model_prices import price_name
+        from core.model_prices import price_name
         runner = FakeRunner(envelope(json.dumps({"final": "ok"})))
         model = ClaudeCliModel(runner=runner)
         model.complete(ModelRequest(model="claude-cli", system="s", messages=[{"role": "user", "content": "hi"}], tools=[]), "ag")
@@ -132,7 +132,7 @@ class SonnetOnlyTests(unittest.TestCase):
         import pathlib
         root = pathlib.Path(__file__).resolve().parent.parent
         named = []
-        for folder in ("gateway", "runtime", "wiring", "lifecycle_kit", "agents", "company_brain", "web_console", "evaluation"):
+        for folder in ("core", "control_plane", "wiring", "lifecycle_kit", "agents", "web_console", "evaluation"):
             for path in (root / folder).rglob("*.py"):
                 if "opus" in path.read_text(encoding="utf-8").lower() and path.name != "model_prices.py":
                     named.append(str(path.relative_to(root)))

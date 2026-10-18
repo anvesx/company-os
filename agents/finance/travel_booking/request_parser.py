@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 from company_data.generate_trips import HOTELS
 from company_data.simulated_today import TODAY
-from connectors.fare_search import route_hours
+from control_plane.connectors.fare_search import route_hours
 
 PAX_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9}
 ALIASES = {"bangalore": "Bengaluru", "bombay": "Mumbai"}

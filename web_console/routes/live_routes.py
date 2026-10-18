@@ -2,8 +2,8 @@
 import uuid
 
 from agents.meeting_prep.live_copilot.live_session import LiveSession, Refused
-from connectors.live_call_tools import list_calls
-from guardrails import role_scopes
+from control_plane.connectors.live_call_tools import list_calls
+from control_plane.guardrails import role_scopes
 
 PAGE = {"id": "live", "title": "Live call", "order": 55, "icon": "pulse"}
 

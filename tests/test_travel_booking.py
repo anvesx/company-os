@@ -10,7 +10,7 @@ from agents.finance.travel_booking import replay_exam, service
 from agents.finance.travel_booking.policy_ranking import rank_flights, rank_hotels
 from agents.finance.travel_booking.request_parser import RequestError, parse_request
 from company_data.generate_trips import POLICY_RATE
-from connectors.fare_search import search_flights, search_hotels
+from control_plane.connectors.fare_search import search_flights, search_hotels
 from evaluation.run_all_exams import close_all
 from wiring.build_company_os import build_company_os
 
@@ -175,7 +175,7 @@ class ServiceTests(unittest.TestCase):
 
     def test_spend_rules_read_the_policy_file(self):
         import importlib
-        spend_tools = importlib.import_module("connectors.spend_tools")
+        spend_tools = importlib.import_module("control_plane.connectors.spend_tools")
         self.assertEqual((spend_tools.LATE_DAYS, spend_tools.MIN_SAVING_SHARE, spend_tools.SHORT_FLIGHT_HOURS,
                           spend_tools.SAME_CITY_DAYS, spend_tools.HOTEL_OVER_SHARE),
                          (POLICY["late_booking_days"], POLICY["earlier_fare_min_saving_share"], POLICY["economy_only_under_hours"],

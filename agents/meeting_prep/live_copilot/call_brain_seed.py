@@ -2,7 +2,7 @@
 import json
 import os
 
-from company_brain.inbox import receive
+from control_plane.company_brain.inbox import receive
 from company_data import DB_PATH
 
 SOURCES = os.path.join(os.path.dirname(DB_PATH), "brain_sources")

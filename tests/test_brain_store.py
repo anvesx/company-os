@@ -4,10 +4,10 @@ import sqlite3
 import tempfile
 import unittest
 
-from company_brain import BrainStore, ScopedBrain
-from company_brain.retrieval import similar_deals
-from company_brain.sample_content import seed_sample
-from company_memory import AreaDenied, MemoryStore
+from control_plane.company_brain import BrainStore, ScopedBrain
+from control_plane.company_brain.retrieval import similar_deals
+from control_plane.company_brain.sample_content import seed_sample
+from control_plane.company_memory import AreaDenied, MemoryStore
 
 
 def lines(*texts):

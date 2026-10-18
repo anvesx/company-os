@@ -10,9 +10,9 @@ import tempfile
 import time
 
 from agents.meeting_prep.live_copilot.live_session import LiveSession
-from company_brain import inbox
-from company_brain.pipeline import read_manifest_file
-from connectors.spend_tools import make_trip_alternatives
+from control_plane.company_brain import inbox
+from control_plane.company_brain.pipeline import read_manifest_file
+from control_plane.connectors.spend_tools import make_trip_alternatives
 from contract.types import RunContext, Task
 from evaluation.real_pipeline_brain import BRAIN_AGENTS, manifest_rows
 from wiring.build_company_os import build_company_os

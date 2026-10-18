@@ -7,26 +7,26 @@ import os
 import tempfile
 from dataclasses import dataclass, field
 
-from company_brain import BrainStore
+from control_plane.company_brain import BrainStore
 from company_data import DB_PATH as DATA_DB, connect
 from company_data.generate_dummy_data import build as build_dummy_data
-from company_memory import MemoryStore
-from connectors.meetings_to_memory import sync_meetings
-from connectors.people_directory import PeopleDirectory
-from gateway.claude_cli_model import ClaudeCliModel
-from gateway.cost_ledger import CostLedger
-from gateway.fake_model import FakeModel
-from gateway.model_gateway import Gateway
-from gateway.prompt_cache import PromptCache
-from guardrails.access_policy import AccessPolicy
-from guardrails.every_action_check import ActionGuard
-from guardrails.tool_scope import ToolScope
-from guardrails.way_in_check import WayInCheck
+from control_plane.company_memory import MemoryStore
+from control_plane.connectors.meetings_to_memory import sync_meetings
+from control_plane.connectors.people_directory import PeopleDirectory
+from core.claude_cli_model import ClaudeCliModel
+from core.cost_ledger import CostLedger
+from core.fake_model import FakeModel
+from core.model_gateway import Gateway
+from core.prompt_cache import PromptCache
+from control_plane.guardrails.access_policy import AccessPolicy
+from control_plane.guardrails.every_action_check import ActionGuard
+from control_plane.guardrails.tool_scope import ToolScope
+from control_plane.guardrails.way_in_check import WayInCheck
 from lifecycle_kit.lifecycle_runner import LifecycleRunner
-from people_surface.approval_queue import Approvals
-from people_surface.private_outbox import Outbox
-from runtime.agent_loop import Runtime
-from triggers.simulated_clock import Clock
+from control_plane.people_surface.approval_queue import Approvals
+from control_plane.people_surface.private_outbox import Outbox
+from core.agent_loop import Runtime
+from control_plane.triggers.simulated_clock import Clock
 from wiring.agent_registry import AGENTS, available_agents
 
 ALL_AGENTS = tuple(AGENTS)
@@ -109,8 +109,8 @@ def build_company_os(agents=None, *, state_dir=None, data_db=DATA_DB, now="2026-
     cos = CompanyOS(data_conn, memory, outbox, approvals, clock, directory, policy, ledger, gateway, runtime,
                     LifecycleRunner(runtime), way_in, packs, state_dir, brain)
     if seed_brain and "brain_cleaner" in packs:  # the brain starts filled: records, then every history source
-        from company_brain import pipeline
-        from company_brain.record_sync import sync_records
+        from control_plane.company_brain import pipeline
+        from control_plane.company_brain.record_sync import sync_records
         sync_records(data_conn, brain, until=now[:10])
         pipeline.ingest_manifest(cos, history=True)
     return cos

@@ -6,14 +6,14 @@ import tempfile
 import unittest
 
 from company_data import DB_PATH
-from company_memory.memory_store import MemoryStore
-from connectors.people_directory import PeopleDirectory
+from control_plane.company_memory.memory_store import MemoryStore
+from control_plane.connectors.people_directory import PeopleDirectory
 from contract.types import Task
-from guardrails import role_scopes as rs
-from guardrails.access_policy import AccessPolicy
-from guardrails.way_in_check import WayInCheck
+from control_plane.guardrails import role_scopes as rs
+from control_plane.guardrails.access_policy import AccessPolicy
+from control_plane.guardrails.way_in_check import WayInCheck
 from lifecycle_kit.agent_pack import AgentPack
-from runtime.agent_loop import Runtime
+from core.agent_loop import Runtime
 
 ROLES = rs.CONSOLE_ROLES
 

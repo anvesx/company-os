@@ -9,7 +9,7 @@ import unittest
 from agents.finance.spend_advice import replay_exam
 from agents.finance.spend_advice.pack import BEST_PHRASE, inr
 from company_data.generate_trips import SPEND_RULES
-from connectors.spend_tools import spend_tools
+from control_plane.connectors.spend_tools import spend_tools
 from contract.types import ModelReply
 from wiring.build_company_os import build_company_os
 
@@ -156,7 +156,7 @@ class SpendAdvisorTests(unittest.TestCase):
         self.assertIn("totals line", self.break_answer(lambda t: t.replace("were already the best option", "were fine")))
 
     def test_rules_match_the_data_step(self):
-        m = importlib.import_module("connectors.spend_tools")
+        m = importlib.import_module("control_plane.connectors.spend_tools")
         self.assertEqual((m.LATE_DAYS, m.EARLY_FROM, m.EARLY_TO, m.MIN_SAVING_SHARE, m.SHORT_FLIGHT_HOURS,
                           m.SAME_CITY_DAYS, m.HOTEL_OVER_SHARE),
                          tuple(SPEND_RULES[k] for k in ("late_days", "early_from", "early_to", "min_saving_share",

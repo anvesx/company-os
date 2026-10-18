@@ -1,7 +1,7 @@
-"""Tests for runtime.compaction: threshold, prefix, tool pairs, idempotence, kept facts."""
+"""Tests for core.compaction: threshold, prefix, tool pairs, idempotence, kept facts."""
 import unittest
 
-from runtime.compaction import SUMMARY_OPEN, compact_if_needed, estimate_tokens
+from core.compaction import SUMMARY_OPEN, compact_if_needed, estimate_tokens
 
 
 def fake_summary(messages):

@@ -2,7 +2,7 @@
 from dataclasses import replace
 
 from contract.types import RunResult, ToolCall
-from guardrails.outside_text import RULE
+from control_plane.guardrails.outside_text import RULE
 
 
 class LifecycleRunner:

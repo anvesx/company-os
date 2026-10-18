@@ -3,9 +3,9 @@ import json
 import re
 
 from company_data.simulated_today import TODAY
-from connectors.spend_tools import RULES, spend_tools
+from control_plane.connectors.spend_tools import RULES, spend_tools
 from contract.types import ToolCall
-from guardrails.outside_text import wrap
+from control_plane.guardrails.outside_text import wrap
 from lifecycle_kit.action_tools import make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack
 

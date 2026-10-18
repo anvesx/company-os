@@ -2,9 +2,9 @@
 import json
 import time
 
-from company_brain.topic_lexicon import load_lexicon
+from control_plane.company_brain.topic_lexicon import load_lexicon
 from contract.types import RunResult, Task
-from guardrails import role_scopes
+from control_plane.guardrails import role_scopes
 
 from .pack import INSTRUCTIONS, SYSTEM, CONTEXT_MARKER, lines_for_listener, load_call, summary_context
 
@@ -27,7 +27,7 @@ class LiveSession:
 
     @classmethod
     def start(cls, cos, caller_id, call_id, model="fake"):
-        from connectors.live_call_tools import load_call as find_call
+        from control_plane.connectors.live_call_tools import load_call as find_call
         found = find_call(cos.data_conn, call_id)
         if found is None:
             raise Refused("That call does not exist.")
@@ -74,7 +74,7 @@ class LiveSession:
         return max([*self.script, *self.heard], default=0) + 1
 
     def _topics(self, line):
-        from company_brain.topic_lexicon import topics_in
+        from control_plane.company_brain.topic_lexicon import topics_in
         return topics_in(f"{line['text']} {self.listener.clean_text(line)}", self.listener.lexicon)
 
     def end(self):

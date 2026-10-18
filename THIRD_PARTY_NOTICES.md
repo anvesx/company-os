@@ -2,7 +2,7 @@
 
 ## dsh (deepseek-harness)
 
-`runtime/compaction.py` is our own Python code. Its design is adapted from the compaction packages of
+`core/compaction.py` is our own Python code. Its design is adapted from the compaction packages of
 dsh (https://github.com/deepseek-ai/deepseek-harness, `packages/compaction`), commit
 `687f282e8625c6b8d11ff58211a90524be2e4317`. No dsh source code is copied.
 

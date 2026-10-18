@@ -8,13 +8,13 @@ import unittest
 import zipfile
 from email.message import EmailMessage
 
-from company_brain import BrainStore, inbox
-from company_brain.area_router import route
-from company_brain.inbox import should_ingest
-from company_brain.language import detect_language
-from company_brain.source_readers import read_chat, read_docx, read_eml, read_fathom_json, read_plain
-from company_brain.topic_lexicon import load_lexicon, topics_in
-from company_memory import MemoryStore
+from control_plane.company_brain import BrainStore, inbox
+from control_plane.company_brain.area_router import route
+from control_plane.company_brain.inbox import should_ingest
+from control_plane.company_brain.language import detect_language
+from control_plane.company_brain.source_readers import read_chat, read_docx, read_eml, read_fathom_json, read_plain
+from control_plane.company_brain.topic_lexicon import load_lexicon, topics_in
+from control_plane.company_memory import MemoryStore
 
 FATHOM = json.dumps({
     "recording_id": 4711, "title": "Patient Booking App sync", "created_at": "2026-10-02T10:30:00Z",

@@ -4,9 +4,9 @@ import tempfile
 import unittest
 from types import SimpleNamespace
 
-from company_brain import link_rules
-from company_brain.agents.linker.replay_exam import judge
-from company_brain.record_sync import sync_records
+from control_plane.company_brain import link_rules
+from control_plane.company_brain.agents.linker.replay_exam import judge
+from control_plane.company_brain.record_sync import sync_records
 from wiring.build_company_os import build_company_os
 
 
@@ -125,7 +125,7 @@ class RunCase(unittest.TestCase):
         _, (other,) = self.source("C10", "T6", "2026-08-02T10:00", ["We need a phased MVP."], [("requirement", "phased-mvp")])
         sid, (mine,) = self.source("C09", "T7", "2026-08-03T10:00", ["We need a lab portal."], [("requirement", "lab-integration")])
         ctx = SimpleNamespace(task=SimpleNamespace(area_id="C09"), run_id="R")
-        from company_brain import link_tools
+        from control_plane.company_brain import link_tools
         reply = json.loads(link_tools.make_add_links(self.cos.brain).fn({"links": [{"from": mine, "rel": "refines", "to": other}]}, ctx))
         self.assertIn("not in area", reply["error"])
         reply = json.loads(link_tools.make_set_state(self.cos.brain).fn({"item_id": other, "state": "dropped"}, ctx))

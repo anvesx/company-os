@@ -1,7 +1,7 @@
 """Live copilot pack: reads a call and the brain through guarded tools; the model writes only the end summary."""
 import json
 
-from connectors.live_call_tools import live_call_tools
+from control_plane.connectors.live_call_tools import live_call_tools
 from lifecycle_kit.agent_pack import AgentPack
 
 from .listener import LiveListener
@@ -56,7 +56,7 @@ class LiveCopilotPack(AgentPack):
 
     # One-shot run (exams, "run the agent"): replay the whole call through the listener, then ask for the summary.
     def record(self, ctx):
-        from company_brain.topic_lexicon import load_lexicon
+        from control_plane.company_brain.topic_lexicon import load_lexicon
         call, listener = load_call(ctx.notes["invoke_tool"], ctx.task.inputs.get("call_id"), load_lexicon())
         if call is None:
             return {"error": listener}

@@ -1,7 +1,7 @@
 """Deterministic stand-in for the model: turns the context into a brief using only the cites it was given."""
 import json
 
-from company_brain.topic_lexicon import load_lexicon, topics_in
+from control_plane.company_brain.topic_lexicon import load_lexicon, topics_in
 from contract.types import ModelReply
 
 from .pack import CONTEXT_MARKER, RISK_KINDS

@@ -9,12 +9,12 @@ Built Oct 18, 2026, from the plan in `../agent-harness/harness-decision/harness-
 | Part | Folder | Result |
 |---|---|---|
 | Dummy company: people, 8 projects, SOWs, 112 meetings, Slack, books, store POS, code history, client requests, planted cases with an answer key | `company_data/` | Done |
-| Our own runtime: loop, tool registry, output cap, retries, run log | `runtime/` | Done; small (about 150 lines) |
-| AI gateway: prompt cache, cost ledger, budgets, fake model, real Claude through the `claude` CLI | `gateway/` | Done; real Claude tested end to end |
+| Our own runtime: loop, tool registry, output cap, retries, run log | `core/` | Done; small (about 150 lines) |
+| AI gateway: prompt cache, cost ledger, budgets, fake model, real Claude through the `claude` CLI | `core/` | Done; real Claude tested end to end |
 | 6-function contract and conformance tests (a dsh adapter would run the same tests) | `contract/` | Done |
-| Guardrails: way-in check, every-action check, per-agent tool scope, outside text as data, pause switch | `guardrails/` | Done |
-| Company memory: one area per client, append-only run log, cases, scores | `company_memory/` | Done |
-| Triggers: timer, calendar, a person asking | `triggers/` | Done |
+| Guardrails: way-in check, every-action check, per-agent tool scope, outside text as data, pause switch | `control_plane/guardrails/` | Done |
+| Company memory: one area per client, append-only run log, cases, scores | `control_plane/company_memory/` | Done |
+| Triggers: timer, calendar, a person asking | `control_plane/triggers/` | Done |
 | Lifecycle kit: record, understand, decide, check, act, remember; quiet runs make no model call | `lifecycle_kit/` | Done |
 | Eight agent packs | `agents/` | Done, all exams pass |
 | Web console for each department, permission-aware | `web_console/` | Done |
@@ -57,7 +57,7 @@ Built Oct 18, 2026, from the plan in `../agent-harness/harness-decision/harness-
 | 3 | An "already told" rule in the kit for every agent | Learning 8 |
 | 4 | A limited people-level area for signals that cross clients | Learning 7 |
 | 5 | Real connectors read from existing tools (for example DevX's employee console for bandwidth, ClickUp for tasks) instead of copying their data | Avoid duplicating tools people already use |
-| 6 | Move savings rules into a travel policy file owned by finance (late = 3 days, earlier fare at least 30% cheaper, economy under 2.5 hours, same city within 7 days, hotel 10% over city rate) | Today they are constants in `connectors/spend_tools.py`; they are company policy, not code |
+| 6 | Move savings rules into a travel policy file owned by finance (late = 3 days, earlier fare at least 30% cheaper, economy under 2.5 hours, same city within 7 days, hotel 10% over city rate) | Today they are constants in `control_plane/connectors/spend_tools.py`; they are company policy, not code |
 | 7 | A travel booking agent: a person asks for flights for N people; it searches approved travel APIs, ranks by policy, shows the best 3, and booking waits for a manager's approval | The spend advisor only looks back; this books well in the first place. Needs a travel API account (not chosen) |
 | 8 | A hidden fare scout that records cheaper fares and hotels from travel APIs, before and after each trip | In the prototype these options are simulated data |
 | 9 | A central "chief of staff" agent that answers broad questions by calling other agents as helpers, each in its own fresh context, returning short summaries | Keeps the central context small and the prompt cache stable; every helper call is a normal run with the same guardrails |

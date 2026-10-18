@@ -3,7 +3,7 @@ import json
 import re
 
 from company_data.generate_trips import POLICY_RATE
-from connectors.fare_search import fare_tools
+from control_plane.connectors.fare_search import fare_tools
 from contract.types import ToolCall, ToolSpec
 from lifecycle_kit.action_tools import make_send_private_message
 from lifecycle_kit.agent_pack import AgentPack
