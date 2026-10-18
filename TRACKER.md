@@ -37,6 +37,7 @@ Last updated: Oct 19, 2026.
 
 | Date | Decision | Why |
 |---|---|---|
+| Oct 19 | Keep Python for the core (brain, agents, guardrails, document readers). If we need dsh features later, run dsh as a separate TypeScript service behind our contract. | Python was inherited from the first prototype, not chosen on purpose; checked Oct 19. Python needs no packages and is strong for documents (Excel, PDF, OCR). dsh is TypeScript, so we rewrite its ideas in Python. Revisit if the maintaining team mostly writes TypeScript |
 | Oct 19 | The web console is only for experiments: to see progress visually and try things out. It is not the final product. | How people will reach the agents (Slack, email or another tool) is still open |
 | Oct 19 | Every Fathom recording goes into the brain automatically. Nobody approves anything. Unsure facts are stored as "unconfirmed". When two statements conflict, the newer one wins and the older one is marked "superseded". | A required review step would be a hassle, and people would stop doing it |
 | Oct 19 | Only these recordings go in automatically: a meeting with at least one attendee from outside DevX, or a meeting whose title matches a known client. An internal meeting goes in only if `#brain` is in its title. | Keeps one-on-ones and HR talks out of company memory. Default; the owner may change it |
@@ -53,6 +54,7 @@ Last updated: Oct 19, 2026.
 
 | Question | Owner |
 |---|---|
+| Which language does the team that will maintain Company OS mostly write? If TypeScript, revisit the Python decision | Pratham |
 | How will people reach the agents in the final product (Slack, email or another tool)? The web console is only an experiment | Pratham |
 | Confirm the rule for which recordings go into the brain | Pratham |
 | Check how Fathom webhooks work before connecting real data (polling every 10 minutes is the fallback) | Lead |
