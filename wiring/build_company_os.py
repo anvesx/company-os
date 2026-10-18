@@ -70,7 +70,7 @@ class CompanyOS:
 
 
 def build_company_os(agents=None, *, state_dir=None, data_db=DATA_DB, now="2026-10-19T09:00",
-                     extra_backends=None, real_model=None) -> CompanyOS:
+                     extra_backends=None, real_model=None, seed_brain=False) -> CompanyOS:
     if not os.path.exists(data_db):
         build_dummy_data(data_db)
     state_dir = state_dir or tempfile.mkdtemp(prefix="company_os_")
@@ -106,5 +106,11 @@ def build_company_os(agents=None, *, state_dir=None, data_db=DATA_DB, now="2026-
                       clock=clock)
     for pack in packs.values():
         pack.register(runtime, policy)
-    return CompanyOS(data_conn, memory, outbox, approvals, clock, directory, policy, ledger, gateway, runtime,
-                     LifecycleRunner(runtime), way_in, packs, state_dir, brain)
+    cos = CompanyOS(data_conn, memory, outbox, approvals, clock, directory, policy, ledger, gateway, runtime,
+                    LifecycleRunner(runtime), way_in, packs, state_dir, brain)
+    if seed_brain and "brain_cleaner" in packs:  # the brain starts filled: records, then every history source
+        from company_brain import pipeline
+        from company_brain.record_sync import sync_records
+        sync_records(data_conn, brain, until=now[:10])
+        pipeline.ingest_manifest(cos, history=True)
+    return cos

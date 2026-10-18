@@ -1,21 +1,26 @@
 """Our thin agent runtime: the loop, the tool checks, and the run log. Implements the contract's Host."""
+import json
+
 from contract.plugin_contract import Host
 from contract.types import ALLOW, ModelRequest, RunContext, RunResult, ToolCall
 from gateway.fixed_clock import FixedClock
 from gateway.model_gateway import BudgetExceeded, TransientModelError
 
+from .compaction import compact_if_needed
 from .tool_output_cap import cap_output
 from .tool_registry import ToolRegistry
 
 
 class Runtime(Host):
-    def __init__(self, gateway, memory_store, way_in_gate, plugins=(), max_steps=12, retries=2, clock=None):
+    def __init__(self, gateway, memory_store, way_in_gate, plugins=(), max_steps=12, retries=2, clock=None,
+                 window_tokens=200_000):
         self.gateway = gateway
         self.memory = memory_store
         self.gate = way_in_gate
         self.plugins = list(plugins)
         self.max_steps = max_steps
         self.retries = retries
+        self.window_tokens = window_tokens
         self.clock = clock or getattr(gateway, "clock", None) or FixedClock()
         self.registry = ToolRegistry()
 
@@ -49,8 +54,9 @@ class Runtime(Host):
         limit = min(self.max_steps, ctx.task.max_steps)
         final_text, status = "", "max_steps"
         for _ in range(limit):
-            req = ModelRequest(model=ctx.task.model, system=system, messages=list(messages),
-                               tools=self.registry.sorted_specs())
+            tools = self.registry.sorted_specs()
+            messages = self._compact(ctx, messages, system, tools)
+            req = ModelRequest(model=ctx.task.model, system=system, messages=list(messages), tools=tools)
             for p in self.plugins:
                 req = p.before_request(req, ctx)
             try:
@@ -99,6 +105,28 @@ class Runtime(Host):
                             self.clock.now)
         return RunResult(run_id=ctx.run_id, status=status, final_text=final_text,
                          tool_results=list(state["results"]), cost_usd=state["cost"], reason=state["reason"])
+
+    def _compact(self, ctx, messages, system, tools):
+        """Fold the old middle of the conversation into a summary when it nears the window; log the note."""
+        prefix = (len(system) + sum(len(t.name) + len(t.description) + len(json.dumps(t.params)) for t in tools)) // 4
+        try:
+            messages, note = compact_if_needed(messages, window_tokens=self.window_tokens, prefix_tokens=prefix,
+                                               model_call=lambda m: self._summarise(ctx, m))
+        except (TransientModelError, BudgetExceeded):  # no summary: carry on with the full conversation
+            return messages
+        if note is not None:
+            self.memory.log_step(ctx.run_id, "compaction", note.as_dict())
+        return messages
+
+    def _summarise(self, ctx, messages) -> str:
+        reply = self.gateway.call(ModelRequest(model=ctx.task.model, system="", messages=messages, tools=[], cache_prefix=False),
+                                  agent=ctx.task.agent, caller_id=ctx.task.caller_id, area_id=ctx.task.area_id,
+                                  run_id=ctx.run_id)
+        state = ctx.notes["runtime"]
+        state["cost"] += reply.cost_usd
+        state["tokens_in"] += reply.usage.input_tokens + reply.usage.cache_read_tokens + reply.usage.cache_write_tokens
+        state["tokens_out"] += reply.usage.output_tokens
+        return reply.text
 
     def _call_model(self, ctx, req):
         for attempt in range(self.retries + 1):

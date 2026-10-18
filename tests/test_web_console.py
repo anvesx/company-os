@@ -131,6 +131,21 @@ class Controls(ShellCase):
         self.post("/api/console/reset", ADMIN)
         self.assertEqual(self.console.cos.clock.today, before)
 
+    def test_next_day_brings_new_sources_into_the_brain_once(self):
+        brain = self.console.cos.brain
+        self.assertIsNotNone(brain.source_by_ref("SRC28"))   # history is in the brain at build
+        self.assertIsNone(brain.source_by_ref("SRC29"))
+        first = self.post("/api/console/next_day", ADMIN)[1]["inbox"]
+        self.assertEqual((first["arrived"], first["ingested"], first["failed"]), (2, 2, 0))
+        for ref in ("SRC29", "SRC31"):
+            src = brain.source_by_ref(ref)
+            self.assertTrue(brain.brain_items(src["area_id"], state=None, source_id=src["source_id"]), ref)  # facts were extracted
+        self.assertIsNone(brain.source_by_ref("SRC30"))
+        second = self.post("/api/console/next_day", ADMIN)[1]["inbox"]
+        self.assertEqual((second["arrived"], second["ingested"]), (1, 1))
+        self.assertIsNotNone(brain.source_by_ref("SRC30"))
+        self.assertEqual(self.post("/api/console/next_day", ADMIN)[1]["inbox"]["arrived"], 0)
+
     def test_clock_survives_a_restart(self):
         self.post("/api/console/next_day", ADMIN)
         day = self.console.cos.clock.today

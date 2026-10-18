@@ -116,15 +116,19 @@ def _cited_items(result):
     return cited
 
 
-def _brain_section(key_all):
-    """Brief PR05 from a brain seeded from the answer key. Score = share of must-cite items the brief cites."""
+def _brain_section(key_all, real_cos=None):
+    """Brief PR05 from a brain seeded from the answer key (or the given real-pipeline brain). Score = share of must-cite items cited."""
     case = key_all["brain"]["project_brief"][0]
-    cos = build_company_os(agents=(AGENT,))
-    ids = seed_project_brain(cos, key_all)
+    if real_cos is None:
+        cos = build_company_os(agents=(AGENT,))
+        ids = {k: [i] for k, i in seed_project_brain(cos, key_all).items()}
+    else:
+        from evaluation.real_pipeline_brain import key_item_ids
+        cos, ids = real_cos, key_item_ids(real_cos, key_all)
     result = cos.run(AGENT, "P05", case["area_id"], inputs={"event_id": case["event_id"]})
     cited = _cited_items(result)
     need = {k: ids[k] for k in case["must_cite_keys"]}
-    missing = sorted(k for k, i in need.items() if i not in cited)
+    missing = sorted(k for k, found in need.items() if not set(found) & cited)
     text = (result.final_text or "") if result.status == "done" else ""
     return {"event_id": case["event_id"], "status": result.status, "must_cite": len(need), "missing": missing,
             "score": 1 - len(missing) / len(need), "changed_line": "Changed on" in text,
@@ -133,6 +137,18 @@ def _brain_section(key_all):
 
 def brain_message_has_count(cos):
     return any("unconfirmed items" in m["text"] for m in cos.outbox.messages() if m["kind"] == "brief")
+
+
+def run_real_pipeline_exam(cos) -> dict:
+    """The brain half of this exam on a brain filled by the real pipeline. Same score and pass bar."""
+    with open(KEY_PATH) as f:
+        return {"brain": _brain_section(json.load(f), real_cos=cos)}
+
+
+def judge_real(r):
+    """Return (what is measured, result text, passed) for the real-pipeline run."""
+    b = r["brain"]
+    return "PR05 brief cites the key items", f"PR05 brief cites {b['must_cite'] - len(b['missing'])}/{b['must_cite']} key items", b["ok"]
 
 
 def run_exam(cos=None) -> dict:

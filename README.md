@@ -63,11 +63,22 @@ Needs Python 3 (tested with 3.14). No packages to install.
 
 ```
 python3 -m company_data.generate_dummy_data      # build the dummy company
-python3 -m unittest discover -s tests -t .       # run all tests
-python3 -m evaluation.run_all_exams              # score every agent
+python3 -m unittest discover -s tests -t .       # run all tests (541 pass, under 2 minutes)
+python3 -m evaluation.run_all_exams              # 10 exams, one per agent
 python3 run_demo.py                              # one simulated day
 python3 -m web_console.serve                     # then open http://localhost:8800
 ```
+
+**The 10 exams.** Meeting prep (project brief), deal brief, live call helper, finance watch, spend advisor, travel booking, and the four brain agents (Cleaner, Extractor, Linker, Playbook writer). All pass.
+
+**The honest exam.** Three exams read the brain: project brief, deal brief and live call helper. `run_all_exams` runs each of them twice and prints both results side by side:
+
+- *Seeded from answer key:* the brain is filled directly from the answer keys.
+- *Through real pipeline:* the brain is filled by the real pipeline. All 31 sources go through the inbox, Cleaner, Extractor, Linker and Playbook writer, with no help from the answer keys.
+
+Both results are saved in `evaluation/latest_scores.json`. The pass bars are the same for both.
+
+**Real Claude samples (optional, uses your Claude plan).** `python3 -m evaluation.record_real_samples --yes` records five Sonnet samples (project brief, deal brief, Cleaner on a Hinglish source, live call end summary, finance trip card) in `web_console/real_model_samples.json`. It makes about 5 to 7 model calls. Without `--yes` it does nothing.
 
 **About the web console.** The web console is only for experiments. It lets us see the progress visually and try things out. It is not the final product, and it is not a decision about how people will use Company OS. The real way people reach the agents (for example Slack, email or another tool) is still open.
 

@@ -2,6 +2,8 @@
 
 **Role in the harness:** The console shell: a local website with a three-person role switcher, plug-in pages, Home, Approvals and Runs. Every call is checked on the server.
 
+**Note:** the web console is only for experiments, to see progress visually and try things out. It is not the final product.
+
 ## Run it
 
 From `company-os/`:

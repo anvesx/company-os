@@ -72,3 +72,46 @@ Built Oct 18, 2026, from the plan in `../agent-harness/harness-decision/harness-
 - Real Claude was run once per agent, not at scale; cost and reliability under many runs are not measured.
 - No real company system was connected; all data is dummy.
 - The learning loop, real connectors and Claude on Vertex are not built.
+
+## v2: what the second build showed
+
+Built Oct 19, 2026, on the same dummy company. v2 adds one company brain, three roles, travel booking, a live call helper and a deal brief. 541 tests pass and all 10 exams pass.
+
+### Exam table: two ways to fill the brain
+
+Three exams read the brain. Each one runs twice. In the first run the brain is filled from the answer keys. In the second run it is filled by the real pipeline: the inbox, then the Cleaner, Extractor, Linker and Playbook writer, over all 31 sources. The pass bars are the same.
+
+| Exam | Seeded from answer key | Through real pipeline |
+|---|---|---|
+| Project brief (PR05) | PASS: brief cites 6 of 6 key items | PASS: brief cites 6 of 6 key items |
+| Deal brief (CareNest, Zaika) | PASS: similar clients right 2 of 2, 0 missed kickoff topics, 0 forbidden cites | PASS: same result |
+| Live call helper (LC01, LC02) | PASS: recall 100%, 0 false suggestions per call, contradiction found | PASS: recall 100%, at most 1 false suggestion per call, contradiction found |
+
+The other seven exams do not read a seeded brain. They all pass: finance watch (8 of 8), spend advisor (9 of 9), travel booking (8 of 8 requests right), Cleaner, Extractor (recall 100%, precision 99% on 105 items), Linker (8 of 8 links) and Playbook writer (4 of 4 playbooks, 0 leaks).
+
+### What the honest exam found and fixed
+
+- **The pipeline never wrote a playbook.** The Playbook writer needs a deal id, and the pipeline did not pass one. Now it runs once for each closed deal in the area. After the fix the real pipeline writes 5 playbooks and 12 kickoff checklist questions.
+- **One client showed twice in "similar clients".** Client C01 has two won deals. Both playbooks ranked high, so the second similar client was missing. Now each client shows once, with its best playbook.
+- **Brain brief sections.** A cited item must now match its section: a decision cannot sit under Blockers. The check refuses a brief that breaks this. The decision "reminders will go by WhatsApp only" is correctly under Recent decisions in the stored data. The blocker line about the WhatsApp approval is a real blocker.
+- **A stray comma after "INR" crashed a finance check.** Real Sonnet wrote "INR ," once. The check now ignores it.
+
+### Other changes in this build
+
+- The run loop compacts the conversation before a model call when it nears the window. One test forces a small window and proves it.
+- `BrainStore.set_scope` sets an item's project and deal. The Linker's tool uses it, not raw SQL.
+- The console starts with the brain filled. "Next day" brings new sources in through the inbox trigger and the pipeline. A failed source is counted and shown, not hidden.
+- `run_demo.py` tells the v2 story: new sources arrive and go through the four brain agents, Akbar's project brief, Anthony's deal brief, finance watch, a held travel request, one quiet run, and one refusal.
+
+### Real Sonnet samples
+
+Five samples were recorded with the `claude` CLI and Sonnet, 7 model calls in all (the finance card was tried 3 times). They are in `web_console/real_model_samples.json`.
+
+- Project brief, deal brief, Cleaner and live call summary came back usable. The wording is plain and every point cites its source.
+- The finance trip card was stopped twice by our own checks. The first time Sonnet copied a field name with an underscore. The second time it wrote "4450 INR" where the check wants "INR 4,450". The guard worked as designed. The saved sample shows the refused answer.
+
+### Not verified
+
+- Real Claude ran for 5 samples only. Cost and reliability at scale are not measured.
+- The real pipeline exam uses the fake model for the four brain agents. Only the samples above used real Claude.
+- A browser check of each role (ticket I2) is still to do.

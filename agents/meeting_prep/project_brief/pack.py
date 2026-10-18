@@ -30,6 +30,8 @@ INSTRUCTIONS = (
     "\"Changed on <date>: <old> → <new>\". Add unconfirmed_count from brain.unconfirmed_count.\n")
 
 
+SECTION_KIND = {"open_requirements": "requirement", "blockers": "blocker", "commitments_due": "commitment",
+                "recent_decisions": "decision"}  # a cited item must have the kind of its section
 SECTION_TITLES = (("open_requirements", "Open requirements:"), ("blockers", "Blockers:"),
                   ("commitments_due", "Commitments due:"), ("contradictions", "Statements that conflict:"),
                   ("recent_decisions", "Recent decisions:"))
@@ -187,7 +189,8 @@ class MeetingPrepPack(AgentPack):
     # -- check: stop a bad brief while it is still only text
     def check(self, ctx, decision, understood):
         problems = []
-        brain_ids = brain_item_ids(understood)
+        brain_items = brain_item_map(understood)
+        brain_ids = set(brain_items)
         open_ids = {i["item_id"] for i in understood["open_items"]} | brain_ids
         known_ids = open_ids | {d["item_id"] for d in understood.get("recent_decisions", [])}
         for n, q in enumerate(decision["questions"], 1):
@@ -211,6 +214,8 @@ class MeetingPrepPack(AgentPack):
                 for item_id in cites:
                     if item_id not in known_ids:
                         problems.append(f"{name} point {n} cites {item_id!r}, which is not in the brain context")
+                    elif name in SECTION_KIND and item_id in brain_items and brain_items[item_id]["kind"] != SECTION_KIND[name]:
+                        problems.append(f"{name} point {n} cites {item_id!r}, a {brain_items[item_id]['kind']}, not a {SECTION_KIND[name]}")
         recipients = self._recipients(understood)
         if not recipients:
             problems.append("the meeting has no DevX attendee to tell")

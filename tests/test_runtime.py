@@ -209,6 +209,26 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(msgs[1]["tool_calls"], [{"id": "t1", "name": "echo", "args": {"q": 1}}])
         self.assertEqual(msgs[2]["tool_call_id"], "t1")
 
+    def test_small_window_compacts_before_a_model_call_and_logs_it(self):
+        from runtime.compaction import INSTRUCTION
+        turns = [0]
+
+        def brain(req):
+            if req.messages[0]["content"].startswith(INSTRUCTION[:30]):
+                return ModelReply(text="## Goal\n- finish")
+            turns[0] += 1
+            return tc("big", f"t{turns[0]}") if turns[0] < 12 else ModelReply(text="end")
+
+        mem = FakeMemory()
+        rt = Runtime(Gateway({"fake": FakeModel({"ag": brain})}), mem, Gate(), max_steps=20, window_tokens=1500)
+        rt.add_tool(spec("big", lambda a, c: "z" * 800))
+        res = rt.run_task(task())
+        self.assertEqual(res.status, "done")
+        notes = [s[2] for s in mem.steps if s[1] == "compaction"]
+        self.assertTrue(notes)
+        self.assertLess(notes[0]["after_tokens"], notes[0]["before_tokens"])
+        self.assertGreater(notes[0]["folded_messages"], 0)
+
     def test_kit_api_runs_same_hooks(self):
         spy = Spy("deny", "kit no")
         rt, mem, _ = build([ModelReply(text="done text")], plugins=[spy])

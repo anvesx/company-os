@@ -138,7 +138,7 @@ class TravelBookingPack(AgentPack):
             if h["total_inr"] != h["rate_inr"] * req["nights"] * req["rooms"]:
                 problems.append(f"the total for {h['hotel']} does not match the stay")
         shown = _amounts(understood)
-        for raw in re.findall(r"INR\s*([\d,]+)", text):
+        for raw in re.findall(r"INR\s*(\d[\d,]*)", text):
             if int(raw.replace(",", "")) not in shown:
                 problems.append(f"amount INR {raw} does not match the computed data")
         numbers = ({n for rt in trips for n in (rt["outbound"]["flight_no"], rt["return"]["flight_no"])} if trips
@@ -198,7 +198,7 @@ def _amounts(facts):
         elif isinstance(value, (int, float)) and key.endswith("_inr"):
             found.add(int(value))
         elif isinstance(value, str):
-            found.update(int(x.replace(",", "")) for x in re.findall(r"INR\s*([\d,]+)", value))
+            found.update(int(x.replace(",", "")) for x in re.findall(r"INR\s*(\d[\d,]*)", value))
     walk("facts", facts)
     return found
 

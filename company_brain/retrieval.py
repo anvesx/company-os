@@ -42,4 +42,7 @@ def similar_deals(scoped_brain, deal, k=3):
         ranked.append(({"playbook_id": pb["playbook_id"], "area_id": pb["area_id"], "score": round(score, 4),
                         "why": "; ".join(why) or "no match", "deal_id": pb["deal_id"], "outcome": pb["outcome"]}))
     ranked.sort(key=lambda r: (-r["score"], r["deal_id"]))
-    return ranked[:k]
+    one_per_client = {}  # a client with two closed deals shows once, with its best playbook
+    for r in ranked:
+        one_per_client.setdefault(r["area_id"], r)
+    return list(one_per_client.values())[:k]

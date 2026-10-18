@@ -1,15 +1,19 @@
 """Read tools for the spend advisor: company cost by category, trip savings and verdicts, travel by team. Team totals only."""
+import json
+from pathlib import Path
+
 from .tool_reply import DATE_RE, ToolInputError, build_tool, days_before, days_between, str_arg
 
 AREA = "devx-internal"
 DEFAULT_DAYS = 90
 SALARY_MONTH_DAYS = 30
-LATE_DAYS, EARLY_FROM, EARLY_TO = 3, 14, 7     # booked 3 days or less ahead; a cheaper fare 14 to 7 days before
-MIN_SAVING_SHARE = 0.30                        # "much cheaper": 30% or more below what was paid
-SHORT_FLIGHT_HOURS = 2.5
-SAME_CITY_DAYS = 7
+POLICY = json.loads((Path(__file__).resolve().parent.parent / "agents" / "finance" / "travel_booking" / "travel_policy.json").read_text())
+LATE_DAYS, EARLY_FROM, EARLY_TO = POLICY["late_booking_days"], 14, 7   # a cheaper fare 14 to 7 days before is "earlier"
+MIN_SAVING_SHARE = POLICY["earlier_fare_min_saving_share"]             # "much cheaper": 30% or more below what was paid
+SHORT_FLIGHT_HOURS = POLICY["economy_only_under_hours"]
+SAME_CITY_DAYS = POLICY["same_city_days"]
 MAX_OPTIONS = 3
-HOTEL_OVER_SHARE = 0.10
+HOTEL_OVER_SHARE = POLICY["hotel_over_city_rate_share"]
 RULES = ("late_booking", "business_short_flight", "same_city_trips", "hotel_above_city_rate")
 
 

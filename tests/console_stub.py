@@ -9,7 +9,7 @@ class ConsoleStub:
 
     def __init__(self):
         self._dir = tempfile.TemporaryDirectory()
-        self._console = Console(self._dir.name)
+        self._console = Console(self._dir.name, seed_brain=False)  # page tests seed their own sample brain
         self.cos = self._console.cos
         self.lock = self._console.lock
 

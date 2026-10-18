@@ -69,8 +69,9 @@ def discover_plugins(console, routes_dir=ROUTES_DIR, pages_dir=PAGES_DIR):
 
 
 class Console:
-    def __init__(self, state_dir, reset=False, routes_dir=ROUTES_DIR, pages_dir=PAGES_DIR):
+    def __init__(self, state_dir, reset=False, routes_dir=ROUTES_DIR, pages_dir=PAGES_DIR, seed_brain=True):
         self.state_dir = str(state_dir)
+        self.seed_brain = seed_brain
         self.routes_dir, self.pages_dir = routes_dir, pages_dir
         self.lock = threading.RLock()
         self.cos = None
@@ -113,7 +114,7 @@ class Console:
         saved = {} if reset else self._saved()
         self.agents, self.unavailable = available_agents()
         kwargs = {"now": saved["now"]} if saved.get("now") else {}
-        self.cos = build_company_os(self.agents, state_dir=self.state_dir, **kwargs)
+        self.cos = build_company_os(self.agents, state_dir=self.state_dir, seed_brain=self.seed_brain, **kwargs)
         if saved.get("paused"):
             self.cos.way_in.pause()
         self.timer = TimerTrigger(self._schedule())
@@ -312,22 +313,19 @@ class Console:
 
     # ---- clock, triggers, pause
     def _fire_inbox(self, clock):
-        """Sources whose arrival time has come go into the brain. Any failure is reported, never raised."""
+        """Sources whose arrival time has come go into the brain through the pipeline. A failed source is counted, not raised."""
         if self.inbox_trigger is None:
-            return {"arrived": 0, "ingested": 0}
-        rows = self.inbox_trigger.due(clock)
-        done = 0
-        try:
-            from company_brain.pipeline import ingest_file
-            base = os.path.dirname(MANIFEST)
-            for r in rows:
-                with open(os.path.join(base, r["file"]), "rb") as f:
-                    ingest_file(self.cos, kind=r["kind"], content=f.read(), filename=os.path.basename(r["file"]),
-                                hint_area=r.get("hint_area"), origin_ref=r.get("origin_ref"))
+            return {"arrived": 0, "ingested": 0, "failed": 0}
+        from company_brain.pipeline import ingest_file, read_manifest_file
+        rows, done, failed = self.inbox_trigger.due(clock), 0, 0
+        for r in rows:
+            try:
+                ingest_file(self.cos, kind=r["kind"], content=read_manifest_file(r, MANIFEST), filename=r["file"],
+                            hint_area=r.get("hint_area"), origin_ref=r["origin_ref"], received_at=r["arrives_at"])
                 done += 1
-        except Exception:
-            pass
-        return {"arrived": len(rows), "ingested": done}
+            except Exception:
+                failed += 1
+        return {"arrived": len(rows), "ingested": done, "failed": failed}
 
     def next_day(self):
         with self.lock:

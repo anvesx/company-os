@@ -66,9 +66,7 @@ def make_set_scope(brain):
         done = 0
         for a in args["assignments"]:
             item = _own_item(brain, a["item_id"], ctx.task.area_id)
-            with brain.conn:
-                brain.conn.execute("UPDATE brain_item_facts SET project_id = COALESCE(?, project_id), deal_id = COALESCE(?, deal_id)"
-                                   " WHERE item_id = ?", (a.get("project_id"), a.get("deal_id"), item["item_id"]))
+            brain.set_scope(item["item_id"], project_id=a.get("project_id"), deal_id=a.get("deal_id"))
             done += 1
         return {"scoped": done}
     return ToolSpec("brain_set_scope", "Set the project and deal of items in this area.",

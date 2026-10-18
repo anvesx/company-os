@@ -27,6 +27,23 @@
     "unconfirmed_line": true,
     "ok": true
    }
+  },
+  "real_pipeline": {
+   "measured": "PR05 brief cites the key items",
+   "result": "PR05 brief cites 6/6 key items",
+   "passed": true,
+   "raw": {
+    "brain": {
+     "event_id": "EV115",
+     "status": "done",
+     "must_cite": 6,
+     "missing": [],
+     "score": 1.0,
+     "changed_line": true,
+     "unconfirmed_line": true,
+     "ok": true
+    }
+   }
   }
  },
  {
@@ -60,19 +77,51 @@
    "objection_missing": 0,
    "forbidden_cites": 0,
    "failed_runs": []
+  },
+  "real_pipeline": {
+   "measured": "similar deals, kickoff topics, objections, no forbidden cites",
+   "result": "similar top 2 right 2/2; kickoff topics missed 0; objections without an idea 0; forbidden cites 0",
+   "passed": true,
+   "raw": {
+    "deals": 2,
+    "used_fixture": false,
+    "per_deal": [
+     {
+      "deal_id": "L20",
+      "status": "done",
+      "similar_ok": true,
+      "kickoff_missing": [],
+      "objection_missing": [],
+      "forbidden_cites": 0
+     },
+     {
+      "deal_id": "L21",
+      "status": "done",
+      "similar_ok": true,
+      "kickoff_missing": [],
+      "objection_missing": [],
+      "forbidden_cites": 0
+     }
+    ],
+    "similar_ok": 2,
+    "kickoff_missing": 0,
+    "objection_missing": 0,
+    "forbidden_cites": 0,
+    "failed_runs": []
+   }
   }
  },
  {
   "agent": "live_copilot",
   "measured": "expected questions suggested in time, speed per line",
-  "result": "recall 100%, at most 0 false per call, contradiction found, p95 1.1 ms per line",
+  "result": "recall 100%, at most 0 false per call, contradiction found, p95 1.3 ms per line",
   "passed": true,
   "raw": {
    "calls": 2,
    "mean_recall": 1.0,
    "max_false": 0,
    "contradiction_found": true,
-   "p95_ms": 1.1488330055726692,
+   "p95_ms": 1.2681669904850423,
    "per_call": [
     {
      "call_id": "LC01",
@@ -97,6 +146,42 @@
      "run_status": "done"
     }
    ]
+  },
+  "real_pipeline": {
+   "measured": "expected questions suggested in time, speed per line",
+   "result": "recall 100%, at most 1 false per call, contradiction found, p95 2.2 ms per line",
+   "passed": true,
+   "raw": {
+    "calls": 2,
+    "mean_recall": 1.0,
+    "max_false": 1,
+    "contradiction_found": true,
+    "p95_ms": 2.169415995012969,
+    "per_call": [
+     {
+      "call_id": "LC01",
+      "expected": 5,
+      "found": 5,
+      "recall": 1.0,
+      "false_suggestions": 1,
+      "contradiction_ok": true,
+      "has_contradiction": false,
+      "summary_ok": true,
+      "run_status": "done"
+     },
+     {
+      "call_id": "LC02",
+      "expected": 1,
+      "found": 1,
+      "recall": 1.0,
+      "false_suggestions": 0,
+      "contradiction_ok": true,
+      "has_contradiction": true,
+      "summary_ok": true,
+      "run_status": "done"
+     }
+    ]
+   }
   }
  },
  {

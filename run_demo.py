@@ -1,13 +1,13 @@
 """One simulated working day on the dummy company: triggers fire, agents run, people get messages."""
 import shutil
 import tempfile
+from types import SimpleNamespace
 
-from connectors.event_lookup import event_area
-from contract.types import Task
+from agents.finance.travel_booking import service
+from company_brain import pipeline
 from evaluation.run_all_exams import close_all
-from triggers.calendar_trigger import CalendarTrigger
 from triggers.dispatch import dispatch
-from triggers.request_trigger import parse_request
+from triggers.inbox_trigger import InboxTrigger
 from triggers.timer_trigger import TimerTrigger
 from wiring.agent_registry import available_agents as registry_available
 from wiring.build_company_os import build_company_os
@@ -49,47 +49,54 @@ def _outcome(cos, result):
 
 
 def run_day(agents=None, state_dir=None):
-    """Run the day. Returns a dict with the runs, messages, approvals, refusal and cost numbers."""
+    """Run the v2 day. Returns a dict with the runs, messages, approvals, refusal and cost numbers."""
     names = tuple(agents) if agents else available_agents()[0]
-    cos = build_company_os(names, state_dir=state_dir)
+    cos = build_company_os(names, state_dir=state_dir, seed_brain=True)
     runs, triggers = [], []
 
-    def start(task, label):
-        result = cos.runner.run(cos.packs[task.agent], task)
-        status, line = _outcome(cos, result)
-        runs.append({"trigger": label, "agent": task.agent, "area": task.area_id, "caller": task.caller_id,
-                     "status": status, "outcome": line, "run_id": result.run_id})
+    def note(trigger, agent, area, caller, result, line=None):
+        status, outcome = _outcome(cos, result)
+        line = line or outcome
+        runs.append({"trigger": trigger, "agent": agent, "area": area, "caller": caller, "status": status,
+                     "outcome": line, "run_id": result.run_id})
         return result
 
-    timer_tasks = TimerTrigger(_schedule(cos, names)).due(cos.clock)
-    triggers.append(f"timer: {len(timer_tasks)} daily run(s) due")
-    dispatch(timer_tasks, lambda t: start(t, "timer"))
+    def ask(agent, caller, area, inputs, trigger="request"):
+        return note(trigger, agent, area, caller, cos.run(agent, caller, area, trigger_kind=trigger, inputs=inputs))
+
+    if "brain_cleaner" in names:  # the day's recordings and emails arrive and go through the four brain agents
+        arrived = InboxTrigger().due(SimpleNamespace(now=f"{cos.clock.today}T23:59"))
+        triggers.append(f"inbox: {len(arrived)} new source(s) arrived today")
+        for row in arrived:
+            got = pipeline.ingest_file(cos, kind=row["kind"], content=pipeline.read_manifest_file(row), filename=row["file"],
+                                       hint_area=row.get("hint_area"), origin_ref=row["origin_ref"], received_at=row["arrives_at"])
+            for step in got.get("steps", []):
+                if step["run_id"]:
+                    note("inbox", step["agent"], got["area_id"], "system",
+                         SimpleNamespace(status=step["status"], reason="", final_text="", run_id=step["run_id"]), line=step["summary"])
+
+    if "finance_watch" in names:
+        timer_tasks = TimerTrigger(_schedule(cos, names)).due(cos.clock)
+        triggers.append(f"timer: {len(timer_tasks)} daily run(s) due")
+        dispatch(timer_tasks, lambda t: note("timer", t.agent, t.area_id, t.caller_id, cos.runner.run(cos.packs[t.agent], t)))
 
     if "meeting_prep" in names:
-        calendar = CalendarTrigger(cos.data_conn)
-        cal_tasks, hours = calendar.due(cos.clock, within_hours=24), 24
-        if not cal_tasks:  # nothing tomorrow: look 72 hours ahead so the demo shows the calendar path
-            cal_tasks, hours = calendar.due(cos.clock, within_hours=72), 72
-        triggers.append(f"calendar: {len(cal_tasks)} client meeting(s) in the next {hours} hours")
-        dispatch(cal_tasks, lambda t: start(t, "calendar"))
-        asker = cos.directory.csm_of("C02")
-        ask = parse_request("prep me for EV113", asker, event_area=event_area(cos.data_conn))
-        triggers.append(f"request: {asker} asks 'prep me for EV113'")
-        start(ask, "request")
+        triggers.append("request: Akbar asks for the project brief for the PR05 event")
+        ask("meeting_prep", "P05", "C04", {"event_id": "EV115"})
+    if "deal_brief" in names:
+        triggers.append("request: Anthony asks for the deal brief for CareNest")
+        ask("deal_brief", "P03", "C07", {"deal_id": "L20"})
+    if "travel_booking" in names:
+        triggers.append("request: Akbar asks for a trip; the booking waits for an Admin")
+        trip = service.request_trip(cos, "P05", "flights for 2 people Mumbai to Pune on 2026-10-28, back on 2026-10-29")
+        note("request", "travel_booking", "devx-internal", "P05",
+             SimpleNamespace(status=trip["status"], reason=trip.get("reason", ""), final_text="", run_id=trip["run_id"]))
 
     refusal = None
     if "finance_watch" in names:
-        lead = cos.directory.people_by_role("finance_lead")[0]
-        held = Task(agent="finance_watch", caller_id=lead, area_id="devx-internal", trigger_kind="request",
-                    inputs={"as_of": "2026-06-15"}, prompt="show me finance watch")
-        triggers.append(f"request: finance lead {lead} asks for finance watch as of 2026-06-15")
-        start(held, "request")
-        engineer = cos.directory.people_by_role("engineer")[0]
-        task = Task(agent="finance_watch", caller_id=engineer, area_id="devx-internal", trigger_kind="request",
-                    prompt="show me finance watch")
-        triggers.append(f"request: engineer {engineer} asks for finance watch")
-        res = start(task, "request")
-        refusal = {"caller": engineer, "status": res.status, "reason": res.reason}
+        triggers.append("request: Anthony (Growth) asks for a finance run")
+        res = ask("finance_watch", "P03", "devx-internal", {})
+        refusal = {"caller": "P03", "status": runs[-1]["status"], "reason": res.reason}
 
     messages = cos.outbox.messages()
     entries = cos.ledger.entries
@@ -118,7 +125,7 @@ def print_day(day):
         print(f"  {a['approval_id']} {a['agent']} {a['tool']}: {_first_line(a['reason'])}")
     if day["refusal"]:
         r = day["refusal"]
-        print(f"\nRefusal example: engineer {r['caller']} asked for finance watch -> {r['status']} ({r['reason']})")
+        print(f"\nRefusal example: Growth person {r['caller']} asked for a finance run -> {r['status']} ({r['reason']})")
     c = day["cost"]
     print(f"\nCost and cache: {c['calls']} model calls, {c['cache_hits']} cache hits, "
           f"{c['cache_writes']} cache writes, ${c['usd']:.4f} total")

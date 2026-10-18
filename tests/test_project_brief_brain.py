@@ -61,6 +61,18 @@ class ProjectBriefBrainTests(unittest.TestCase):
         listed = {c for name in ("recent_decisions", "open_requirements", "blockers") for p in self.brief[name] for c in p["cites"]}
         self.assertNotIn(old, listed)
 
+    def test_a_decision_never_sits_under_blockers(self):
+        decision_id = self.ids["SRC25-9"]
+        self.assertIn(decision_id, {c for p in self.brief["recent_decisions"] for c in p["cites"]})
+        self.assertNotIn(decision_id, {c for p in self.brief["blockers"] for c in p["cites"]})
+        understood = {"open_items": [], "recent_decisions": [], "attendees": [{"person_id": "P05", "is_devx": True}],
+                      "brain": {"items": [{"item_id": "D1", "kind": "decision"}, {"item_id": "B1", "kind": "blocker"}]}}
+        bad = {"questions": [], "blockers": [{"text": "Reminders by WhatsApp only", "cites": ["D1"]}]}
+        good = {"questions": [], "blockers": [{"text": "Approval is pending", "cites": ["B1"]}]}
+        pack = self.cos.packs[AGENT]
+        self.assertTrue(any("not a blocker" in p for p in pack.check(None, bad, understood)))
+        self.assertEqual(pack.check(None, good, understood), [])
+
     def test_agent_has_no_finance_or_library_access(self):
         tools = {s["detail"]["name"] for s in self.cos.memory.run_steps(self.result.run_id) if s["step"] == "tool"}
         self.assertIn("project_brain_items", tools)

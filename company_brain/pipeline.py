@@ -25,11 +25,23 @@ def _summary(cos, run_id, result):
     return "done"
 
 
-def _is_closed(cos, source):
+def _closed_deals(cos, source):
     deals = cos.brain.deals([source["area_id"]])
     if source.get("deal_id"):
         deals = [d for d in deals if d["deal_id"] == source["deal_id"]]
-    return any(d["stage"] in CLOSED_DEAL_STAGES for d in deals)
+    return [d for d in deals if d["stage"] in CLOSED_DEAL_STAGES]
+
+
+def _run_playbooks(cos, source, caller_id):
+    """One Playbook writer run per closed deal (it needs a deal id). Returns the step row."""
+    deals = _closed_deals(cos, source)
+    if not deals:
+        return _step("brain_playbook", "skipped", "the deal or project is not closed")
+    results = [cos.run("brain_playbook", caller_id, source["area_id"], trigger_kind="event",
+                       inputs={"source_id": source["source_id"], "deal_id": d["deal_id"]}) for d in deals]
+    bad = next((r for r in results if r.status != "done"), None)
+    last = results[-1]
+    return _step("brain_playbook", (bad or last).status, _summary(cos, (bad or last).run_id, bad or last), last.run_id)
 
 
 def process_source(cos, source_id, *, caller_id="system") -> dict:
@@ -45,8 +57,8 @@ def process_source(cos, source_id, *, caller_id="system") -> dict:
         if agent not in cos.packs:
             out["steps"].append(_step(agent, "skipped", "this agent is not available"))
             continue
-        if agent == "brain_playbook" and not _is_closed(cos, source):
-            out["steps"].append(_step(agent, "skipped", "the deal or project is not closed"))
+        if agent == "brain_playbook":
+            out["steps"].append(_run_playbooks(cos, source, caller_id))
             continue
         result = cos.run(agent, caller_id, source["area_id"], trigger_kind="event", inputs={"source_id": source_id})
         out["steps"].append(_step(agent, result.status, _summary(cos, result.run_id, result), result.run_id))

@@ -118,6 +118,27 @@ def finance_runner(cmd, input="", **kw):
     return envelope(json.dumps({"final": reply.text}), {"input_tokens": 2000, "output_tokens": 300})
 
 
+class SonnetOnlyTests(unittest.TestCase):
+    def test_the_real_model_is_sonnet(self):
+        from gateway.model_prices import price_name
+        runner = FakeRunner(envelope(json.dumps({"final": "ok"})))
+        model = ClaudeCliModel(runner=runner)
+        model.complete(ModelRequest(model="claude-cli", system="s", messages=[{"role": "user", "content": "hi"}], tools=[]), "ag")
+        cmd = runner.calls[0]["cmd"]
+        self.assertEqual(cmd[cmd.index("--model") + 1], "sonnet")
+        self.assertEqual(price_name("claude-cli"), "sonnet-5-5")
+
+    def test_no_runtime_path_names_opus(self):
+        import pathlib
+        root = pathlib.Path(__file__).resolve().parent.parent
+        named = []
+        for folder in ("gateway", "runtime", "wiring", "lifecycle_kit", "agents", "company_brain", "web_console", "evaluation"):
+            for path in (root / folder).rglob("*.py"):
+                if "opus" in path.read_text(encoding="utf-8").lower() and path.name != "model_prices.py":
+                    named.append(str(path.relative_to(root)))
+        self.assertEqual(named, [])
+
+
 class RealModelEndToEndTests(unittest.TestCase):
     def test_finance_watch_runs_through_cli_backend(self):
         d = tempfile.mkdtemp(prefix="cli_e2e_")

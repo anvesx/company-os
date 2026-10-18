@@ -360,6 +360,15 @@ class TestLibraryAndRetrieval(BrainCase):
         self.assertEqual([r["deal_id"] for r in got], ["L3", "L9"])
 
 
+class TestSimilarShowsEachClientOnce(BrainCase):
+    def test_two_closed_deals_of_one_client_show_one_playbook(self):
+        for deal, area in (("L1", "C01"), ("L2", "C01"), ("L3", "C04")):
+            self.brain.save_playbook(source_area_id=area, deal_id=deal, client_label="A client", industry="retail", outcome="won",
+                                     revenue_inr=0, sections={}, tags=["offline-mode"], run_id="r")
+        got = similar_deals(self.brain.scoped(["playbooks"]), {"deal_id": "L9", "area_id": "C08", "industry": "retail", "tags": ["offline-mode"]})
+        self.assertEqual(sorted(g["area_id"] for g in got), ["C01", "C04"])
+
+
 class TestEntitiesAndSample(BrainCase):
     def test_projects_deals_revenue(self):
         seed_sample(self.brain, self.data)
@@ -369,6 +378,17 @@ class TestEntitiesAndSample(BrainCase):
         self.assertEqual(self.brain.revenue(["C04"])[0]["amount_inr"], 900000)
         with self.assertRaises(ValueError):
             self.brain.upsert_deal(deal_id="Lx", area_id="C07", bogus=1)
+
+    def test_set_scope_sets_project_and_deal_and_keeps_the_other(self):
+        ids = seed_sample(self.brain, self.data)
+        item_id = self.brain.brain_items(["C04"])[0]["item_id"]
+        self.brain.set_scope(item_id, project_id="PR05")
+        self.brain.set_scope(item_id, deal_id="L05")
+        facts = self.brain.get_brain_item(item_id)["facts"]
+        self.assertEqual((facts["project_id"], facts["deal_id"]), ("PR05", "L05"))
+        with self.assertRaises(KeyError):
+            self.brain.set_scope("nope", project_id="PR05")
+        self.assertTrue(ids)
 
     def test_every_sample_item_has_evidence(self):
         ids = seed_sample(self.brain, self.data)

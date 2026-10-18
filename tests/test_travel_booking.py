@@ -173,6 +173,29 @@ class ServiceTests(unittest.TestCase):
                          {mine["request_id"], other["request_id"]})
         self.assertEqual([x["request_id"] for x in service.requests_for(self.cos, "P01")], [])
 
+    def test_spend_rules_read_the_policy_file(self):
+        import importlib
+        spend_tools = importlib.import_module("connectors.spend_tools")
+        self.assertEqual((spend_tools.LATE_DAYS, spend_tools.MIN_SAVING_SHARE, spend_tools.SHORT_FLIGHT_HOURS,
+                          spend_tools.SAME_CITY_DAYS, spend_tools.HOTEL_OVER_SHARE),
+                         (POLICY["late_booking_days"], POLICY["earlier_fare_min_saving_share"], POLICY["economy_only_under_hours"],
+                          POLICY["same_city_days"], POLICY["hotel_over_city_rate_share"]))
+
+    def test_way_in_gives_each_person_only_their_own_scope(self):
+        from contract.types import Task
+
+        def admit(caller, area):
+            return self.cos.way_in.admit(Task(agent="travel_booking", caller_id=caller, area_id=area, trigger_kind="request")).verdict
+        for person in ("P01", "P05", "P03"):  # Admin, CSM and Growth each use the DevX internal area
+            self.assertEqual(admit(person, "devx-internal"), "allow", person)
+        self.assertEqual(admit("P05", "C07"), "deny")   # a client area the CSM does not look after
+        self.assertEqual(admit("P03", "hold"), "deny")
+        self.assertEqual(admit("P11", "devx-internal"), "deny")  # an engineer may not start the agent
+        mine = service.request_trip(self.cos, "P05", TEXT)
+        theirs = service.request_trip(self.cos, "P03", TEXT)
+        self.assertEqual([x["request_id"] for x in service.requests_for(self.cos, "P03")], [theirs["request_id"]])
+        self.assertNotIn(mine["request_id"], [x["request_id"] for x in service.requests_for(self.cos, "P03", all_requests=True)])
+
     def test_no_return_date_means_flights_only(self):
         r = service.request_trip(self.cos, "P03", "flights for 2 people Delhi to Mumbai on 2026-11-03")
         self.assertEqual((r["status"], len(r["flights"]), r["hotels"]), ("held", 3, []))

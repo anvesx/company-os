@@ -145,7 +145,8 @@ class SpendAdvisorPack(AgentPack):
                 f"These facts were computed from DevX's books.\n{MARKER}\n"
                 f"{json.dumps(facts, sort_keys=True, separators=(',', ':'))}\n"
                 'Reply with final JSON only: {"answer": "<the letter>"}. Start with the trip totals line, '
-                "then the savings, then the policy suggestions.")
+                "then the savings, then the policy suggestions. Use plain words: never copy a field name with an underscore "
+                "(write \"same city trips\", not same_city_trips; write \"customer success\", not customer_success).")
 
     def parse_decision(self, final_text):
         text = final_text.strip()
@@ -156,7 +157,7 @@ class SpendAdvisorPack(AgentPack):
         text, f = decision["answer"], understood
         problems = []
         facts = _numbers(f)
-        for raw in re.findall(r"INR\s*([\d,]+)", text):
+        for raw in re.findall(r"INR\s*(\d[\d,]*)", text):
             if int(raw.replace(",", "")) not in facts["amounts"]:
                 problems.append(f"amount INR {raw} does not match the computed data")
         for raw in re.findall(r"(\d+(?:\.\d+)?)\s*%", text):

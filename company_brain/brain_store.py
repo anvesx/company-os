@@ -192,6 +192,14 @@ class BrainStore:
             raise KeyError(item_id)
         self.memory.set_item_status(item_id, state)
 
+    def set_scope(self, item_id, *, project_id=None, deal_id=None):
+        """Set an item's project and/or deal. A value of None keeps what is stored."""
+        if self._facts(item_id) is None:
+            raise KeyError(item_id)
+        with self.conn:
+            self.conn.execute("UPDATE brain_item_facts SET project_id = COALESCE(?, project_id), deal_id = COALESCE(?, deal_id)"
+                              " WHERE item_id = ?", (project_id, deal_id, item_id))
+
     def _facts(self, item_id):
         row = self.conn.execute("SELECT * FROM brain_item_facts WHERE item_id = ?", (item_id,)).fetchone()
         return dict(row) if row else None

@@ -167,3 +167,26 @@ Must also make each agent understandable to a non-engineer:
 ## T10: integration (done by the lead)
 
 `run_demo.py`, `evaluation/run_all_exams.py`, full test run, `RESULTS.md`.
+
+## v2: company brain, three roles, two agent families
+
+The v2 build is described in `PLAN_v2.md` and built by the tickets in `TICKETS_v2.md`. The frozen contracts (C1 to C9) are in `TICKETS_v2.md` under "Shared contracts". This section lists what exists now, in plain words.
+
+**Agents (10 packs, registry in `wiring/agent_registry.py`).**
+- Meeting prep family: project brief, deal brief, live call helper.
+- Finance family: finance watch, spend advisor, travel booking.
+- Company brain: Cleaner, Extractor, Linker, Playbook writer.
+
+**Company brain (`company_brain/`).** Every file enters through the inbox. It is stored as a source with numbered lines. Every fact keeps evidence that points to those lines. The four brain agents run in this order: Cleaner, Extractor, Linker, Playbook writer (`pipeline.process_source`). The Playbook writer runs once for each closed deal in the source's area.
+
+**Build and seeding.** `build_company_os(..., seed_brain=True)` copies the company records into the brain (`record_sync.sync_records`) and runs every history source through the pipeline. The default is `False`, so tests and exams start with an empty brain and fill it themselves. The console and `run_demo.py` pass `True`.
+
+**Run loop.** `runtime/agent_loop.py` calls `runtime.compaction.compact_if_needed` before each model call. When the conversation reaches 80% of the window (200,000 tokens by default), the old middle is folded into one summary. The run log gets a `compaction` step with the sizes before and after.
+
+**Roles.** Admin, CSM and Growth, enforced on the data in `guardrails/role_scopes.py`. Each person may start travel booking in the DevX internal area, and sees only their own requests. Only an Admin sees all of them.
+
+**Exams.** `evaluation/run_all_exams.py` runs 10 exams. The project brief, deal brief and live call exams also run on a brain built by the real pipeline (`evaluation/real_pipeline_brain.py`). Both results are saved in `evaluation/latest_scores.json`.
+
+**Real model.** Real Claude runs only through `gateway/claude_cli_model.py` with Sonnet. No code path uses Opus. `evaluation/record_real_samples.py --yes` records the samples shown in the console.
+
+**Web console.** It is only for experiments. It is not the final product.

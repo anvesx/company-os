@@ -1,1323 +1,163 @@
 {
  "samples": {
-  "meeting_prep": {
-   "area_id": "C02",
-   "as_of": "2026-10-19",
-   "inputs": {
-    "as_of": "2026-10-19",
-    "event_id": "EV113"
-   },
-   "trigger_kind": "request",
+  "project_brief": {
+   "what": "Project brief for the PR05 client sync (Akbar, CSM)",
+   "asked_by": "P05",
+   "run_id": "R000113",
    "status": "done",
    "reason": "",
-   "final_text": "{\"questions\": [{\"text\": \"When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting.\", \"cites\": [\"I0394\"], \"topic\": \"holiday-freeze\"}, {\"text\": \"How will the client's staff be trained before go-live? Agree who trains, when, and in what format.\", \"cites\": [\"I0506\"], \"topic\": \"training-plan\"}, {\"text\": \"Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date.\", \"cites\": [\"I0504\"], \"topic\": \"data-migration\"}, {\"text\": \"Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date.\", \"cites\": [\"I0218\"], \"topic\": \"payment-gateway\"}, {\"text\": \"Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date.\", \"cites\": [\"I0169\"], \"topic\": \"branding-guidelines\"}, {\"text\": \"What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan.\", \"cites\": [\"I0092\", \"I0263\"], \"topic\": \"shared-plan\"}, {\"text\": \"Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers.\", \"cites\": [\"I0126\"], \"topic\": \"next-demo\"}, {\"text\": \"Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date.\", \"cites\": [\"I0128\", \"I0170\"], \"topic\": \"test-feedback\"}], \"changed_decisions\": [{\"text\": \"Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.\", \"topic\": \"offline-mode\", \"item_id\": \"I0505\"}, {\"text\": \"The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.\", \"topic\": \"data-migration\", \"item_id\": \"I0502\"}], \"watch_out\": [\"The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.\", \"The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.\", \"The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.\", \"On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.\", \"The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.\", \"Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones.\"], \"summary\": \"Eight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer.\"}",
+   "final_text": "{\"questions\":[{\"text\":\"Which group should try Patient Booking App first? Get a named group and agree it.\",\"cites\":[\"I0350\"],\"topic\":\"pilot-group\"},{\"text\":\"Do we have the final brand colours and fonts? If not, who sends them and by when?\",\"cites\":[\"I0422\"],\"topic\":\"branding-guidelines\"},{\"text\":\"Which screens must work offline? The four-hour offline rule is decided, but the screen list is still open.\",\"cites\":[\"I0483\"],\"topic\":\"offline-mode\"},{\"text\":\"Who are the people for each user role? Agree the list so access rules can be frozen.\",\"cites\":[\"I0349\"],\"topic\":\"user-roles\"},{\"text\":\"Has the marketing team reviewed the list of twelve events to track? Confirm the list is final.\",\"cites\":[\"I0485\"],\"topic\":\"analytics-events\"},{\"text\":\"What is the status of the WhatsApp business account approval, and what is the new launch plan if Meta is late again?\",\"cites\":[\"I0286\"],\"topic\":\"notification-channel\"},{\"text\":\"Which dates go into the shared plan now that launch has moved to 20 November?\",\"cites\":[\"I0310\"],\"topic\":\"shared-plan\"},{\"text\":\"Has the client tested the latest build, and when will they send comments? This task has been open since June.\",\"cites\":[\"I0202\",\"I0229\",\"I0446\"],\"topic\":\"test-feedback\"},{\"text\":\"When is the next review, and which demo build is ready for it?\",\"cites\":[\"I0205\",\"I0311\",\"I0390\"],\"topic\":\"next-demo\"}],\"changed_decisions\":[{\"text\":\"Changed on 2026-10-10: We decided that the first clinic launch is on 6 November \u2192 the launch will be on 20 November.\",\"topic\":\"launch-date\",\"item_id\":\"I000726\"}],\"watch_out\":[\"The launch date moved from 6 November to 20 November. Confirm the client accepts 20 November. Their first request was before Diwali, in the first week of November.\",\"The WhatsApp approval from Meta has not come. If it is late again, the launch is at risk. Reminders are decided as WhatsApp only, so there is no SMS fallback.\",\"The Hindi patient screens are still open. The client has asked for them several times, and they asked again about Hindi translations on 30 September.\",\"The client asked about the insurance claim flow, the weekly reports dashboard, lab results in the app and support contacts. Agree scope and owner for each before the project moves on.\",\"Early SOW changes removed the clinic admin panel from phase one. A later request asks for a weekly reports dashboard for clinic admins. Confirm whether the dashboard is in or out of phase one.\",\"The label printer decision (phase two) has no linked question. Check that the client agrees.\",\"One brain item is unconfirmed. Do not treat everything as settled.\",\"The same tasks (test feedback, demo build, meeting notes) were logged several times since June. Close the old ones.\",\"I did not read recent client Slack messages for this brief.\"],\"summary\":\"Settle the pilot group, brand assets, offline screen list, user roles and the analytics event list. Confirm the new 20 November launch date against the WhatsApp approval risk. Close the Hindi screens, insurance claims, reports dashboard and lab results requirements, and get each one agreed and frozen.\",\"open_requirements\":[{\"text\":\"Hindi screens for patients are still open and the client says they need them.\",\"topic\":\"language-support\",\"cites\":[\"I000713\",\"I000675\",\"I000638\"],\"sources\":[{\"source_id\":\"SRC-000036\",\"line_from\":5,\"line_to\":5,\"origin_ref\":\"SRC25\",\"title\":\"Client sync: MedBridge booking app\",\"date\":\"2026-09-30\"},{\"source_id\":\"SRC-000025\",\"line_from\":4,\"line_to\":4,\"origin_ref\":\"SRC14\",\"title\":\"Sprint review: MedBridge booking app 2\",\"date\":\"2026-08-11\"},{\"source_id\":\"SRC-000013\",\"line_from\":2,\"line_to\":2,\"origin_ref\":\"SRC02\",\"title\":\"Growth call 2: MedBridge proposal\",\"date\":\"2026-05-25\"}]},{\"text\":\"A weekly reports dashboard for clinic admins.\",\"topic\":\"reporting\",\"cites\":[\"I000721\"],\"sources\":[{\"source_id\":\"SRC-000037\",\"line_from\":3,\"line_to\":3,\"origin_ref\":\"SRC26\",\"title\":\"Client sync: MedBridge booking app 2\",\"date\":\"2026-10-07\"}]},{\"text\":\"Lab results shown in the app, from the client's lab.\",\"topic\":\"lab-integration\",\"cites\":[\"I000722\"],\"sources\":[{\"source_id\":\"SRC-000037\",\"line_from\":4,\"line_to\":4,\"origin_ref\":\"SRC26\",\"title\":\"Client sync: MedBridge booking app 2\",\"date\":\"2026-10-07\"}]},{\"text\":\"Patients upload an insurance claim with a photo. The client asked about progress on 30 September.\",\"topic\":\"insurance-claims\",\"cites\":[\"I000669\"],\"sources\":[{\"source_id\":\"SRC-000024\",\"line_from\":2,\"line_to\":2,\"origin_ref\":\"SRC13\",\"title\":\"Sprint review: MedBridge booking app\",\"date\":\"2026-07-14\"},{\"source_id\":\"SRC-000011\",\"line_from\":1,\"line_to\":1,\"origin_ref\":\"record:SC12\",\"title\":\"SOW change SC12\",\"date\":\"2026-08-17\"}]},{\"text\":\"Reminders on WhatsApp, not SMS. This depends on the WhatsApp approval.\",\"topic\":\"reminders\",\"cites\":[\"I000673\"],\"sources\":[{\"source_id\":\"SRC-000025\",\"line_from\":2,\"line_to\":2,\"origin_ref\":\"SRC14\",\"title\":\"Sprint review: MedBridge booking app 2\",\"date\":\"2026-08-11\"}]}],\"blockers\":[{\"text\":\"The WhatsApp approval has not come. We are waiting for the reply from Meta.\",\"topic\":\"reminders\",\"cites\":[\"I000724\"],\"sources\":[{\"source_id\":\"SRC-000038\",\"line_from\":2,\"line_to\":2,\"origin_ref\":\"SRC27\",\"title\":\"Quick catch-up: MedBridge\",\"date\":\"2026-10-10\"}]}],\"commitments_due\":[{\"text\":\"DevX said it would send the estimate for the claim upload change by the next day. Check that the client received it.\",\"topic\":\"insurance-claims\",\"cites\":[\"I000672\"],\"sources\":[{\"source_id\":\"SRC-000024\",\"line_from\":6,\"line_to\":6,\"origin_ref\":\"SRC13\",\"title\":\"Sprint review: MedBridge booking app\",\"date\":\"2026-07-14\"}]}],\"contradictions\":[{\"text\":\"The launch moved from 6 November to 20 November. The client's first request was before Diwali, in the first week of November. A late approval is a risk to the new date.\",\"topic\":\"launch-date\",\"cites\":[\"I000726\",\"I000634\",\"I000727\"],\"sources\":[{\"source_id\":\"SRC-000038\",\"line_from\":4,\"line_to\":4,\"origin_ref\":\"SRC27\",\"title\":\"Quick catch-up: MedBridge\",\"date\":\"2026-10-10\"},{\"source_id\":\"SRC-000012\",\"line_from\":7,\"line_to\":7,\"origin_ref\":\"SRC01\",\"title\":\"Growth call: MedBridge patient app\",\"date\":\"2026-05-22\"},{\"source_id\":\"SRC-000038\",\"line_from\":6,\"line_to\":6,\"origin_ref\":\"SRC27\",\"title\":\"Quick catch-up: MedBridge\",\"date\":\"2026-10-10\"}]}],\"recent_decisions\":[{\"text\":\"Launch will be on 20 November.\",\"topic\":\"launch-date\",\"cites\":[\"I000726\"],\"sources\":[{\"source_id\":\"SRC-000038\",\"line_from\":4,\"line_to\":4,\"origin_ref\":\"SRC27\",\"title\":\"Quick catch-up: MedBridge\",\"date\":\"2026-10-10\"}]},{\"text\":\"Reminders will go by WhatsApp only.\",\"topic\":\"reminders\",\"cites\":[\"I000719\"],\"sources\":[{\"source_id\":\"SRC-000036\",\"line_from\":14,\"line_to\":14,\"origin_ref\":\"SRC25\",\"title\":\"Client sync: MedBridge booking app\",\"date\":\"2026-09-30\"}]}],\"unconfirmed_count\":1}",
    "letters": [
     {
-     "to": "P10",
-     "to_name": "Liam O'Brien",
+     "to": "P09",
      "kind": "brief",
-     "text": "Hello Liam,\nYou are in \"Client sync: Mobile Wallet\" on 2026-10-21 at 11:00. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting. (memory item I0394)\n2. How will the client's staff be trained before go-live? Agree who trains, when, and in what format. (memory item I0506)\n3. Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date. (memory item I0504)\n4. Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date. (memory item I0218)\n5. Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date. (memory item I0169)\n6. What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan. (memory item I0092, I0263)\n7. Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers. (memory item I0126)\n8. Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date. (memory item I0128, I0170)\n\nDecisions that changed since last time:\n- Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.\n- The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.\n\nWatch out for:\n- The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.\n- The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.\n- The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.\n- On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.\n- The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.\n- Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones.\n\nEight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer."
+     "text": "Hello Meera,\nYou are in \"Client sync: Patient Booking App\" on 2026-10-20 at 08:30. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. Which group should try Patient Booking App first? Get a named group and agree it. (memory item I0350)\n2. Do we have the final brand colours and fonts? If not, who sends them and by when? (memory item I0422)\n3. Which screens must work offline? The four-hour offline rule is decided, but the screen list is still open. (memory item I0483)\n4. Who are the people for each user role? Agree the list so access rules can be frozen. (memory item I0349)\n5. Has the marketing team reviewed the list of twelve events to track? Confirm the list is final. (memory item I0485)\n6. What is the status of the WhatsApp business account approval, and what is the new launch plan if Meta is late again? (memory item I0286)\n7. Which dates go into the shared plan now that launch has moved to 20 November? (memory item I0310)\n8. Has the client tested the latest build, and when will they send comments? This task has been open since June. (memory item I0202, I0229, I0446)\n9. When is the next review, and which demo build is ready for it? (memory item I0205, I0311, I0390)\n\nDecisions that changed since last time:\n- Changed on 2026-10-10: We decided that the first clinic launch is on 6 November \u2192 the launch will be on 20 November. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4)\n\nOpen requirements:\n- Hindi screens for patients are still open and the client says they need them. (Source: Client sync: MedBridge booking app, 2026-09-30, line 5; Sprint review: MedBridge booking app 2, 2026-08-11, line 4; Growth call 2: MedBridge proposal, 2026-05-25, line 2)\n- A weekly reports dashboard for clinic admins. (Source: Client sync: MedBridge booking app 2, 2026-10-07, line 3)\n- Lab results shown in the app, from the client's lab. (Source: Client sync: MedBridge booking app 2, 2026-10-07, line 4)\n- Patients upload an insurance claim with a photo. The client asked about progress on 30 September. (Source: Sprint review: MedBridge booking app, 2026-07-14, line 2; SOW change SC12, 2026-08-17, line 1)\n- Reminders on WhatsApp, not SMS. This depends on the WhatsApp approval. (Source: Sprint review: MedBridge booking app 2, 2026-08-11, line 2)\n\nBlockers:\n- The WhatsApp approval has not come. We are waiting for the reply from Meta. (Source: Quick catch-up: MedBridge, 2026-10-10, line 2)\n\nCommitments due:\n- DevX said it would send the estimate for the claim upload change by the next day. Check that the client received it. (Source: Sprint review: MedBridge booking app, 2026-07-14, line 6)\n\nStatements that conflict:\n- The launch moved from 6 November to 20 November. The client's first request was before Diwali, in the first week of November. A late approval is a risk to the new date. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4; Growth call: MedBridge patient app, 2026-05-22, line 7; Quick catch-up: MedBridge, 2026-10-10, line 6)\n\nRecent decisions:\n- Launch will be on 20 November. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4)\n- Reminders will go by WhatsApp only. (Source: Client sync: MedBridge booking app, 2026-09-30, line 14)\n\nWatch out for:\n- The launch date moved from 6 November to 20 November. Confirm the client accepts 20 November. Their first request was before Diwali, in the first week of November.\n- The WhatsApp approval from Meta has not come. If it is late again, the launch is at risk. Reminders are decided as WhatsApp only, so there is no SMS fallback.\n- The Hindi patient screens are still open. The client has asked for them several times, and they asked again about Hindi translations on 30 September.\n- The client asked about the insurance claim flow, the weekly reports dashboard, lab results in the app and support contacts. Agree scope and owner for each before the project moves on.\n- Early SOW changes removed the clinic admin panel from phase one. A later request asks for a weekly reports dashboard for clinic admins. Confirm whether the dashboard is in or out of phase one.\n- The label printer decision (phase two) has no linked question. Check that the client agrees.\n- One brain item is unconfirmed. Do not treat everything as settled.\n- The same tasks (test feedback, demo build, meeting notes) were logged several times since June. Close the old ones.\n- I did not read recent client Slack messages for this brief.\n\nSettle the pilot group, brand assets, offline screen list, user roles and the analytics event list. Confirm the new 20 November launch date against the WhatsApp approval risk. Close the Hindi screens, insurance claims, reports dashboard and lab results requirements, and get each one agreed and frozen.\n1 unconfirmed items."
     },
     {
-     "to": "P06",
-     "to_name": "Kabir Shah",
+     "to": "P05",
      "kind": "brief",
-     "text": "Hello Kabir,\nYou are in \"Client sync: Mobile Wallet\" on 2026-10-21 at 11:00. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting. (memory item I0394)\n2. How will the client's staff be trained before go-live? Agree who trains, when, and in what format. (memory item I0506)\n3. Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date. (memory item I0504)\n4. Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date. (memory item I0218)\n5. Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date. (memory item I0169)\n6. What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan. (memory item I0092, I0263)\n7. Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers. (memory item I0126)\n8. Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date. (memory item I0128, I0170)\n\nDecisions that changed since last time:\n- Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.\n- The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.\n\nWatch out for:\n- The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.\n- The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.\n- The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.\n- On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.\n- The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.\n- Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones.\n\nEight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer."
+     "text": "Hello Akbar,\nYou are in \"Client sync: Patient Booking App\" on 2026-10-20 at 08:30. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. Which group should try Patient Booking App first? Get a named group and agree it. (memory item I0350)\n2. Do we have the final brand colours and fonts? If not, who sends them and by when? (memory item I0422)\n3. Which screens must work offline? The four-hour offline rule is decided, but the screen list is still open. (memory item I0483)\n4. Who are the people for each user role? Agree the list so access rules can be frozen. (memory item I0349)\n5. Has the marketing team reviewed the list of twelve events to track? Confirm the list is final. (memory item I0485)\n6. What is the status of the WhatsApp business account approval, and what is the new launch plan if Meta is late again? (memory item I0286)\n7. Which dates go into the shared plan now that launch has moved to 20 November? (memory item I0310)\n8. Has the client tested the latest build, and when will they send comments? This task has been open since June. (memory item I0202, I0229, I0446)\n9. When is the next review, and which demo build is ready for it? (memory item I0205, I0311, I0390)\n\nDecisions that changed since last time:\n- Changed on 2026-10-10: We decided that the first clinic launch is on 6 November \u2192 the launch will be on 20 November. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4)\n\nOpen requirements:\n- Hindi screens for patients are still open and the client says they need them. (Source: Client sync: MedBridge booking app, 2026-09-30, line 5; Sprint review: MedBridge booking app 2, 2026-08-11, line 4; Growth call 2: MedBridge proposal, 2026-05-25, line 2)\n- A weekly reports dashboard for clinic admins. (Source: Client sync: MedBridge booking app 2, 2026-10-07, line 3)\n- Lab results shown in the app, from the client's lab. (Source: Client sync: MedBridge booking app 2, 2026-10-07, line 4)\n- Patients upload an insurance claim with a photo. The client asked about progress on 30 September. (Source: Sprint review: MedBridge booking app, 2026-07-14, line 2; SOW change SC12, 2026-08-17, line 1)\n- Reminders on WhatsApp, not SMS. This depends on the WhatsApp approval. (Source: Sprint review: MedBridge booking app 2, 2026-08-11, line 2)\n\nBlockers:\n- The WhatsApp approval has not come. We are waiting for the reply from Meta. (Source: Quick catch-up: MedBridge, 2026-10-10, line 2)\n\nCommitments due:\n- DevX said it would send the estimate for the claim upload change by the next day. Check that the client received it. (Source: Sprint review: MedBridge booking app, 2026-07-14, line 6)\n\nStatements that conflict:\n- The launch moved from 6 November to 20 November. The client's first request was before Diwali, in the first week of November. A late approval is a risk to the new date. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4; Growth call: MedBridge patient app, 2026-05-22, line 7; Quick catch-up: MedBridge, 2026-10-10, line 6)\n\nRecent decisions:\n- Launch will be on 20 November. (Source: Quick catch-up: MedBridge, 2026-10-10, line 4)\n- Reminders will go by WhatsApp only. (Source: Client sync: MedBridge booking app, 2026-09-30, line 14)\n\nWatch out for:\n- The launch date moved from 6 November to 20 November. Confirm the client accepts 20 November. Their first request was before Diwali, in the first week of November.\n- The WhatsApp approval from Meta has not come. If it is late again, the launch is at risk. Reminders are decided as WhatsApp only, so there is no SMS fallback.\n- The Hindi patient screens are still open. The client has asked for them several times, and they asked again about Hindi translations on 30 September.\n- The client asked about the insurance claim flow, the weekly reports dashboard, lab results in the app and support contacts. Agree scope and owner for each before the project moves on.\n- Early SOW changes removed the clinic admin panel from phase one. A later request asks for a weekly reports dashboard for clinic admins. Confirm whether the dashboard is in or out of phase one.\n- The label printer decision (phase two) has no linked question. Check that the client agrees.\n- One brain item is unconfirmed. Do not treat everything as settled.\n- The same tasks (test feedback, demo build, meeting notes) were logged several times since June. Close the old ones.\n- I did not read recent client Slack messages for this brief.\n\nSettle the pilot group, brand assets, offline screen list, user roles and the analytics event list. Confirm the new 20 November launch date against the WhatsApp approval risk. Close the Hindi screens, insurance claims, reports dashboard and lab results requirements, and get each one agreed and frozen.\n1 unconfirmed items."
     }
    ],
-   "approvals": [],
-   "walkthrough": {
-    "run_id": "R000001",
-    "agent": "meeting_prep",
-    "area_id": "C02",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "done",
-    "headline": "Done. The agent read, checked, told the right people and saved what it did.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.19711040000000002,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "The calendar event and who is invited",
-        "verdict": "allowed",
-        "note": "1 events"
-       },
-       {
-        "text": "Open questions and tasks from earlier meetings",
-        "verdict": "allowed",
-        "note": "12 items"
-       },
-       {
-        "text": "Decisions from recent meetings",
-        "verdict": "allowed",
-        "note": "2 decisions"
-       },
-       {
-        "text": "Recent client messages (treated as data, never as orders)",
-        "verdict": "allowed",
-        "note": "5 messages"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code collected the facts it needs from what it read (step 1) and prepared them for the model."
-      ],
-      "items": []
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [
-       "In short: Eight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer."
-      ],
-      "blocks": [
-       {
-        "title": "When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "How will the client's staff be trained before go-live? Agree who trains, when, and in what format.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date.",
-        "group": "questions",
-        "points": []
-       },
-       {
-        "title": "Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.",
-        "group": "changed decisions",
-        "points": [
-         [
-          "Item id",
-          "I0505"
-         ]
-        ]
-       },
-       {
-        "title": "The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.",
-        "group": "changed decisions",
-        "points": [
-         [
-          "Item id",
-          "I0502"
-         ]
-        ]
-       }
-      ],
-      "lists": [
-       {
-        "label": "Watch out",
-        "items": [
-         "The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.",
-         "The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.",
-         "The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.",
-         "On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.",
-         "The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.",
-         "Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones."
-        ]
-       }
-      ],
-      "meta": "2 model call(s), 87139 tokens in, 2118 tokens out, cost $0.1971, saved-prefix hits (cache): 1 of 2",
-      "cost_usd": 0.19711040000000002,
-      "cache_hits": 1,
-      "model_calls": 2
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       },
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "ok",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Liam O'Brien in private (brief)",
-        "verdict": "allowed",
-        "message": "Hello Liam,\nYou are in \"Client sync: Mobile Wallet\" on 2026-10-21 at 11:00. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting. (memory item I0394)\n2. How will the client's staff be trained before go-live? Agree who trains, when, and in what format. (memory item I0506)\n3. Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date. (memory item I0504)\n4. Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date. (memory item I0218)\n5. Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date. (memory item I0169)\n6. What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan. (memory item I0092, I0263)\n7. Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers. (memory item I0126)\n8. Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date. (memory item I0128, I0170)\n\nDecisions that changed since last time:\n- Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.\n- The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.\n\nWatch out for:\n- The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.\n- The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.\n- The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.\n- On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.\n- The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.\n- Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones.\n\nEight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer."
-       },
-       {
-        "text": "Told Kabir Shah in private (brief)",
-        "verdict": "allowed",
-        "message": "Hello Kabir,\nYou are in \"Client sync: Mobile Wallet\" on 2026-10-21 at 11:00. Here is what to settle with the client so the requirements are fixed before the work moves on.\n\nQuestions to settle:\n1. When should we freeze releases for the festive season? Ask the client for exact dates and agree them in the meeting. (memory item I0394)\n2. How will the client's staff be trained before go-live? Agree who trains, when, and in what format. (memory item I0506)\n3. Has the client sent the old data export? DevX needs it in the shared folder to run the migration. Agree a firm date. (memory item I0504)\n4. Will the client share the payment gateway sandbox keys? This task has been open since 22 June. Agree a date. (memory item I0218)\n5. Will the client send the brand guide and logo files? This task has been open since 9 June. Agree a date. (memory item I0169)\n6. What new dates go into the shared plan now that offline mode is cut? The plan update has been open since May and July. Agree the dates and who updates the plan. (memory item I0092, I0263)\n7. Which build will DevX show at the next review, and when is it? Agree the date and what the demo covers. (memory item I0126)\n8. Does the client's testing feedback count as complete? The client sent comments on the staging build in Slack (labels too small on biometric login and peer transfer). Confirm if more comments are due, and agree a cut-off date. (memory item I0128, I0170)\n\nDecisions that changed since last time:\n- Offline mode is cut from phase one to save eight weeks. Confirm the client agrees, and record it as frozen.\n- The client team will clean the old records and DevX will run the migration. This answers the earlier migration question. Confirm both sides accept their part.\n\nWatch out for:\n- The offline mode cut has no linked question, so it may not have been agreed in writing with the client. Get a clear yes in the meeting. Unverified: whether the client has already accepted it.\n- The offline mode cut saves eight weeks, so the shared plan dates must change. Do not close the meeting without new dates.\n- The data migration depends on the client sending the old data export and cleaning the records. Ask for dates for both. Without them, the migration date is a guess.\n- On 19 October the client (Naveen Prasad) asked who to contact about the wallet onboarding rollout. On 7 October the client (Alisha Dsouza) asked who to contact about the merchant QR rollout. Unverified: whether anyone answered either one. Name an owner for each rollout in the meeting.\n- The client sent label-size comments on biometric login (9 October) and peer transfer (12 October). They said the transaction history screen looks good (8 October). Confirm what DevX will change and which screens are approved.\n- Some tasks appear twice in the open list: sending meeting notes (I0125, I0462), testing the build (I0128, I0170) and the shared plan update (I0092, I0263). Some of these may be stale. Check them and close the old ones.\n\nEight points need a decision in the Mobile Wallet client sync on 21 October 2026 at 11:00 AM IST. Two are real open questions: the festive release freeze dates (I0394) and the staff training plan (I0506). Six are overdue client or DevX tasks that block the plan: data export, sandbox keys, brand files, shared plan dates, demo build and test feedback. Two recent decisions must be confirmed with the client and frozen: cutting offline mode from phase one (I0505) and the data migration split (I0502). Ask for the owner of the onboarding and merchant QR rollouts, because the client asked twice and the record shows no answer."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "Briefs sent: 2",
-       "Topics asked: branding-guidelines, data-migration, holiday-freeze, next-demo, payment-gateway, shared-plan, test-feedback, training-plan",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": []
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 38.7
-  },
-  "project_risk": {
-   "area_id": "C02",
-   "as_of": "2026-10-19",
-   "inputs": {
-    "as_of": "2026-10-19"
-   },
-   "trigger_kind": "request",
-   "status": "held",
-   "reason": "",
-   "final_text": "{\"flags\": [{\"signal\": \"hours_over_sow\", \"project_id\": \"PR03\", \"severity\": \"high\", \"evidence\": \"Mobile Wallet has 2098.2 hours logged against a signed estimate of 1586 hours. That is 132.3% of the estimate, or 512.2 hours over. The limit is 115%. 13 of 32 tasks (41%) are still open, and the limit is 30%.\", \"why_it_matters\": \"The project is well past the signed hours and more than a third of the tasks are not done. More hours will keep being logged, and no budget is left to cover them.\", \"next_step\": \"The CSM (P06) and the lead (P10) should review the 13 open tasks this week and agree on the hours needed to finish. Then raise the overrun with the client and decide whether to ask for a change request or absorb the cost.\"}, {\"signal\": \"sow_change_exceeds_remaining\", \"project_id\": \"PR03\", \"severity\": \"low\", \"evidence\": \"60 change hours are still unaccepted. 0 hours are left, because 2098.2 hours are logged against an estimate of 1586 hours.\", \"why_it_matters\": \"Even if the client accepts the 60 hours, they do not cover the 512.2 hours already over the estimate. Work done on these changes may be unpaid.\", \"next_step\": \"Ask the client to accept or reject the 60 change hours now. Do not start work on them until the client accepts.\"}], \"followups\": [{\"title\": \"PR03 Mobile Wallet: review 13 open tasks, size the hours to finish, and agree with the client on a change request for the 512.2 hours over the estimate\", \"owner_id\": \"P06\"}]}",
-   "letters": [
-    {
-     "to": "P06",
-     "to_name": "Kabir Shah",
-     "kind": "flag",
-     "text": "Project risk flags for your projects:\n\n[HIGH] Mobile Wallet (PR03)\nWhat we see: Mobile Wallet has 2098.2 hours logged against a signed estimate of 1586 hours. That is 132.3% of the estimate, or 512.2 hours over. The limit is 115%. 13 of 32 tasks (41%) are still open, and the limit is 30%.\nWhy it matters: The project is well past the signed hours and more than a third of the tasks are not done. More hours will keep being logged, and no budget is left to cover them.\nSuggested next step: The CSM (P06) and the lead (P10) should review the 13 open tasks this week and agree on the hours needed to finish. Then raise the overrun with the client and decide whether to ask for a change request or absorb the cost.\n\n[LOW] Mobile Wallet (PR03)\nWhat we see: 60 change hours are still unaccepted. 0 hours are left, because 2098.2 hours are logged against an estimate of 1586 hours.\nWhy it matters: Even if the client accepts the 60 hours, they do not cover the 512.2 hours already over the estimate. Work done on these changes may be unpaid.\nSuggested next step: Ask the client to accept or reject the 60 change hours now. Do not start work on them until the client accepts."
-    }
-   ],
-   "approvals": [
-    {
-     "tool": null,
-     "reason": null
-    }
-   ],
-   "walkthrough": {
-    "run_id": "R000002",
-    "agent": "project_risk",
-    "area_id": "C02",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "held",
-    "headline": "Done, but at least one action is waiting for a person to approve it.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.0928745,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "Each project: SOW hours against hours logged",
-        "verdict": "allowed",
-        "note": "1 projects"
-       },
-       {
-        "text": "When the client last wrote in the shared channel",
-        "verdict": "allowed",
-        "note": "1 projects"
-       },
-       {
-        "text": "Hours logged per week",
-        "verdict": "allowed",
-        "note": "12 rows"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 2 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "hours over sow: PR03",
-        "note": "Severity: high"
-       },
-       {
-        "text": "sow change exceeds remaining: PR03",
-        "note": "Severity: low"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [],
-      "blocks": [
-       {
-        "title": "hours over sow",
-        "group": "flags",
-        "points": [
-         [
-          "How serious",
-          "high"
-         ],
-         [
-          "What we see",
-          "Mobile Wallet has 2098.2 hours logged against a signed estimate of 1586 hours. That is 132.3% of the estimate, or 512.2 hours over. The limit is 115%. 13 of 32 tasks (41%) are still open, and the limit is 30%."
-         ],
-         [
-          "Why it matters",
-          "The project is well past the signed hours and more than a third of the tasks are not done. More hours will keep being logged, and no budget is left to cover them."
-         ],
-         [
-          "Next step",
-          "The CSM (P06) and the lead (P10) should review the 13 open tasks this week and agree on the hours needed to finish. Then raise the overrun with the client and decide whether to ask for a change request or absorb the cost."
-         ]
-        ]
-       },
-       {
-        "title": "sow change exceeds remaining",
-        "group": "flags",
-        "points": [
-         [
-          "How serious",
-          "low"
-         ],
-         [
-          "What we see",
-          "60 change hours are still unaccepted. 0 hours are left, because 2098.2 hours are logged against an estimate of 1586 hours."
-         ],
-         [
-          "Why it matters",
-          "Even if the client accepts the 60 hours, they do not cover the 512.2 hours already over the estimate. Work done on these changes may be unpaid."
-         ],
-         [
-          "Next step",
-          "Ask the client to accept or reject the 60 change hours now. Do not start work on them until the client accepts."
-         ]
-        ]
-       },
-       {
-        "title": "PR03 Mobile Wallet: review 13 open tasks, size the hours to finish, and agree with the client on a change request for the 512.2 hours over the estimate",
-        "group": "followups",
-        "points": [
-         [
-          "Owner id",
-          "P06"
-         ]
-        ]
-       }
-      ],
-      "lists": [],
-      "meta": "1 model call(s), 42056 tokens in, 715 tokens out, cost $0.0929, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.0928745,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found.",
-       "The every-action check held at least one action for a person."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       },
-       {
-        "what": "Write a follow-up task into company memory",
-        "verdict": "held",
-        "reason": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "held",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Kabir Shah in private (flag)",
-        "verdict": "allowed",
-        "message": "Project risk flags for your projects:\n\n[HIGH] Mobile Wallet (PR03)\nWhat we see: Mobile Wallet has 2098.2 hours logged against a signed estimate of 1586 hours. That is 132.3% of the estimate, or 512.2 hours over. The limit is 115%. 13 of 32 tasks (41%) are still open, and the limit is 30%.\nWhy it matters: The project is well past the signed hours and more than a third of the tasks are not done. More hours will keep being logged, and no budget is left to cover them.\nSuggested next step: The CSM (P06) and the lead (P10) should review the 13 open tasks this week and agree on the hours needed to finish. Then raise the overrun with the client and decide whether to ask for a change request or absorb the cost.\n\n[LOW] Mobile Wallet (PR03)\nWhat we see: 60 change hours are still unaccepted. 0 hours are left, because 2098.2 hours are logged against an estimate of 1586 hours.\nWhy it matters: Even if the client accepts the 60 hours, they do not cover the 512.2 hours already over the estimate. Work done on these changes may be unpaid.\nSuggested next step: Ask the client to accept or reject the 60 change hours now. Do not start work on them until the client accepts."
-       },
-       {
-        "text": "Follow-up waiting for approval: PR03 Mobile Wallet: review 13 open tasks, size the hours to finish, and agree with the client on a change request for the 512.2 hours over the estimate",
-        "verdict": "held",
-        "approval_id": "A000001",
-        "approval_status": "pending",
-        "note": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "2 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000001: hours over sow: PR03",
-        "note": "Severity: high"
-       },
-       {
-        "text": "CASE000002: sow change exceeds remaining: PR03",
-        "note": "Severity: low"
-       }
-      ]
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 16.9
-  },
-  "finance_watch": {
-   "area_id": "devx-internal",
-   "as_of": "2026-06-15",
-   "inputs": {
-    "as_of": "2026-06-15"
-   },
-   "trigger_kind": "request",
-   "status": "held",
-   "reason": "",
-   "final_text": "{\"findings\": [{\"kind\": \"duplicate_invoice\", \"ids\": [\"INV020\", \"INV023\"], \"amount_inr\": 86400, \"evidence\": \"Vendor PixelStock Assets has two invoices: 10-2606-020 dated 2026-06-09 and 10-2606-023 dated 2026-06-15. They are 6 days apart. Both are marked paid. The flagged amount is INR 86,400.\", \"why_it_matters\": \"Two paid invoices from one vendor in a short time can mean DevX paid the same bill twice. If so, INR 86,400 may be owed back. This is not confirmed: the books alone do not show if both invoices cover real, separate work.\", \"next_step\": \"Ask PixelStock Assets for the work or order behind each invoice. If it is a duplicate, request a refund or a credit note.\"}], \"followups\": [{\"title\": \"Check if PixelStock Assets invoices 10-2606-020 and 10-2606-023 are a duplicate payment, and ask for a refund or credit note if they are\", \"ids\": [\"INV020\", \"INV023\"]}]}",
-   "letters": [
-    {
-     "to": "P07",
-     "to_name": "Anjali Nair",
-     "kind": "finance_flag",
-     "text": "Finance watch, 2026-06-15: 1 item(s) need a look.\n1. duplicate invoice (INV020, INV023, INR 86,400)\n   Evidence: Vendor PixelStock Assets has two invoices: 10-2606-020 dated 2026-06-09 and 10-2606-023 dated 2026-06-15. They are 6 days apart. Both are marked paid. The flagged amount is INR 86,400.\n   Why it matters: Two paid invoices from one vendor in a short time can mean DevX paid the same bill twice. If so, INR 86,400 may be owed back. This is not confirmed: the books alone do not show if both invoices cover real, separate work.\n   Next step: Ask PixelStock Assets for the work or order behind each invoice. If it is a duplicate, request a refund or a credit note."
-    }
-   ],
-   "approvals": [
-    {
-     "tool": null,
-     "reason": null
-    }
-   ],
-   "walkthrough": {
-    "run_id": "R000003",
-    "agent": "finance_watch",
-    "area_id": "devx-internal",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "held",
-    "headline": "Done, but at least one action is waiting for a person to approve it.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.0913825,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "Invoices from the last weeks",
-        "verdict": "allowed",
-        "note": "9 invoices"
-       },
-       {
-        "text": "Recent payments, with how old each vendor was",
-        "verdict": "allowed",
-        "note": "0 payments"
-       },
-       {
-        "text": "Budget against spend, per team",
-        "verdict": "allowed",
-        "note": "18 rows"
-       },
-       {
-        "text": "Travel spend against team pay totals",
-        "verdict": "allowed",
-        "note": "9 rows"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 1 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "duplicate invoice:  INV020, INV023",
-        "note": "Severity: medium"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [],
-      "blocks": [
-       {
-        "title": "duplicate invoice (INV020, INV023)",
-        "group": "findings",
-        "points": [
-         [
-          "What we see",
-          "Vendor PixelStock Assets has two invoices: 10-2606-020 dated 2026-06-09 and 10-2606-023 dated 2026-06-15. They are 6 days apart. Both are marked paid. The flagged amount is INR 86,400."
-         ],
-         [
-          "Why it matters",
-          "Two paid invoices from one vendor in a short time can mean DevX paid the same bill twice. If so, INR 86,400 may be owed back. This is not confirmed: the books alone do not show if both invoices cover real, separate work."
-         ],
-         [
-          "Next step",
-          "Ask PixelStock Assets for the work or order behind each invoice. If it is a duplicate, request a refund or a credit note."
-         ]
-        ]
-       },
-       {
-        "title": "Check if PixelStock Assets invoices 10-2606-020 and 10-2606-023 are a duplicate payment, and ask for a refund or credit note if they are (INV020, INV023)",
-        "group": "followups",
-        "points": []
-       }
-      ],
-      "lists": [],
-      "meta": "1 model call(s), 41655 tokens in, 634 tokens out, cost $0.0914, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.0913825,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found.",
-       "The every-action check held at least one action for a person."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       },
-       {
-        "what": "Write a follow-up task into company memory",
-        "verdict": "held",
-        "reason": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "held",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Anjali Nair in private (finance flag)",
-        "verdict": "allowed",
-        "message": "Finance watch, 2026-06-15: 1 item(s) need a look.\n1. duplicate invoice (INV020, INV023, INR 86,400)\n   Evidence: Vendor PixelStock Assets has two invoices: 10-2606-020 dated 2026-06-09 and 10-2606-023 dated 2026-06-15. They are 6 days apart. Both are marked paid. The flagged amount is INR 86,400.\n   Why it matters: Two paid invoices from one vendor in a short time can mean DevX paid the same bill twice. If so, INR 86,400 may be owed back. This is not confirmed: the books alone do not show if both invoices cover real, separate work.\n   Next step: Ask PixelStock Assets for the work or order behind each invoice. If it is a duplicate, request a refund or a credit note."
-       },
-       {
-        "text": "Follow-up waiting for approval: Check if PixelStock Assets invoices 10-2606-020 and 10-2606-023 are a duplicate payment, and ask for a refund or credit note if they are",
-        "verdict": "held",
-        "approval_id": "A000002",
-        "approval_status": "pending",
-        "note": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "1 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000003: duplicate invoice:  INV020, INV023",
-        "note": "Severity: medium"
-       }
-      ]
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 15.6
-  },
-  "fraud_watch": {
-   "area_id": "C01",
-   "as_of": "2026-10-19",
-   "inputs": {
-    "as_of": "2026-10-19"
-   },
-   "trigger_kind": "request",
-   "status": "held",
-   "reason": "",
-   "final_text": "{\"patterns\": [{\"kind\": \"self_approved_discounts\", \"staff_id\": \"S13\", \"staff_name\": \"Bhavna Trivedi\", \"store_id\": \"ST03\", \"evidence\": \"5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19.\", \"why_it_matters\": \"Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts.\", \"next_step\": \"Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together.\"}], \"followups\": [{\"staff_id\": \"S13\", \"title\": \"Review the 5 self-approved discounts and 20 OTP retries for S13 at ST03 (2026-09-19 to 2026-10-19). Confirm the approval rules and role setup for this store.\"}]}",
-   "letters": [
-    {
-     "to": "P05",
-     "to_name": "Akbar Ali",
-     "kind": "unusual_pattern_review",
-     "text": "Unusual patterns to review at Tailorbird Menswear (last 30 days up to 2026-10-19).\n1. Bhavna Trivedi (S13), store ST03: 5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19.\n   Why it matters: Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts.\n   Next step: Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together.\nThese are unusual patterns, not conclusions. Store managers are client staff, so this note goes to you to review and to talk with the store manager."
-    }
-   ],
-   "approvals": [
-    {
-     "tool": null,
-     "reason": null
-    }
-   ],
-   "walkthrough": {
-    "run_id": "R000004",
-    "agent": "fraud_watch",
-    "area_id": "C01",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "held",
-    "headline": "Done, but at least one action is waiting for a person to approve it.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.091355,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "Refunds per staff member",
-        "verdict": "allowed",
-        "note": "11 staff, 3 stores"
-       },
-       {
-        "text": "Discounts per staff member",
-        "verdict": "allowed",
-        "note": "12 staff, 4 top approvers"
-       },
-       {
-        "text": "Remakes and alterations per staff member",
-        "verdict": "allowed",
-        "note": "2 staff"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 1 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "self approved discounts:  S13 at ST03",
-        "note": "Severity: review"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [],
-      "blocks": [
-       {
-        "title": "self approved discounts",
-        "group": "patterns",
-        "points": [
-         [
-          "Staff id",
-          "S13"
-         ],
-         [
-          "Staff name",
-          "Bhavna Trivedi"
-         ],
-         [
-          "Store id",
-          "ST03"
-         ],
-         [
-          "What we see",
-          "5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19."
-         ],
-         [
-          "Why it matters",
-          "Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts."
-         ],
-         [
-          "Next step",
-          "Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together."
-         ]
-        ]
-       },
-       {
-        "title": "Review the 5 self-approved discounts and 20 OTP retries for S13 at ST03 (2026-09-19 to 2026-10-19). Confirm the approval rules and role setup for this store.",
-        "group": "followups",
-        "points": [
-         [
-          "Staff id",
-          "S13"
-         ]
-        ]
-       }
-      ],
-      "lists": [],
-      "meta": "1 model call(s), 41645 tokens in, 651 tokens out, cost $0.0914, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.091355,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found.",
-       "The every-action check held at least one action for a person."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       },
-       {
-        "what": "Write a follow-up task into company memory",
-        "verdict": "held",
-        "reason": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "held",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Akbar Ali in private (unusual pattern review)",
-        "verdict": "allowed",
-        "message": "Unusual patterns to review at Tailorbird Menswear (last 30 days up to 2026-10-19).\n1. Bhavna Trivedi (S13), store ST03: 5 of 9 discounts (average 18.9 percent) were approved by the same person who requested them. There were 20 OTP retries on these discounts. Other staff at store ST03 average 0.0 such discounts. Window: 2026-09-19 to 2026-10-19.\n   Why it matters: Discounts are normally approved by a second person. At ST03, S13's share of self-approved discounts differs from the store's other staff. The data does not show the reason. There may be an ordinary explanation, such as a role or approval setting, a staffing gap or a store practice. The 20 OTP retries are also a high count for 9 discounts.\n   Next step: Check the approval rules and the staff role setup for S13 at ST03. Ask the store manager how approvals work at this store. Then review the 5 self-approved discounts and the OTP retry log together.\nThese are unusual patterns, not conclusions. Store managers are client staff, so this note goes to you to review and to talk with the store manager."
-       },
-       {
-        "text": "Follow-up waiting for approval: Review the 5 self-approved discounts and 20 OTP retries for S13 at ST03 (2026-09-19 to 2026-10-19). Confirm the approval rules and role setup for this store.",
-        "verdict": "held",
-        "approval_id": "A000003",
-        "approval_status": "pending",
-        "note": "This action changes something, so a person must approve it first."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "1 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000004: self approved discounts:  S13 at ST03",
-        "note": "Severity: review"
-       }
-      ]
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 17.3
-  },
-  "hiring_forecast": {
-   "area_id": "devx-internal",
-   "as_of": "2026-10-19",
-   "inputs": {
-    "as_of": "2026-10-19"
-   },
-   "trigger_kind": "request",
-   "status": "done",
-   "reason": "",
-   "final_text": "{\"short_teams\": [], \"spare_teams\": [{\"team\": \"design\", \"spare_hours_per_week\": 55.1, \"why\": \"Design has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\"}, {\"team\": \"engineering\", \"spare_hours_per_week\": 166.4, \"why\": \"Engineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\"}], \"assumptions\": [\"A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\", \"Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\", \"Those hours are split between teams in the same share as the open task estimates of the project.\", \"New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\", \"New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\", \"Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\", \"We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average.\"], \"summary\": \"No team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\"}",
-   "letters": [
-    {
-     "to": "P90",
-     "to_name": "Meera Iyer",
-     "kind": "forecast",
-     "text": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
-    },
-    {
-     "to": "P01",
-     "to_name": "Ammar Khan",
-     "kind": "forecast",
-     "text": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
-    }
-   ],
-   "approvals": [],
-   "walkthrough": {
-    "run_id": "R000005",
-    "agent": "hiring_forecast",
-    "area_id": "devx-internal",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "done",
-    "headline": "Done. The agent read, checked, told the right people and saved what it did.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.102031,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "Hours each team has and how much is booked",
-        "verdict": "allowed",
-        "note": "2 teams"
-       },
-       {
-        "text": "Won deals and proposals, and the work they bring",
-        "verdict": "allowed",
-        "note": "9 leads"
-       },
-       {
-        "text": "Hours left on each active project",
-        "verdict": "allowed",
-        "note": "6 projects"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 2 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "spare: design",
-        "note": "Severity: low"
-       },
-       {
-        "text": "spare: engineering",
-        "note": "Severity: low"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [
-       "In short: No team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast."
-      ],
-      "blocks": [
-       {
-        "title": "design",
-        "group": "spare teams",
-        "points": [
-         [
-          "Spare hours per week",
-          "55.1"
-         ],
-         [
-          "Why",
-          "Design has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design."
-         ]
-        ]
-       },
-       {
-        "title": "engineering",
-        "group": "spare teams",
-        "points": [
-         [
-          "Spare hours per week",
-          "166.4"
-         ],
-         [
-          "Why",
-          "Engineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring."
-         ]
-        ]
-       }
-      ],
-      "lists": [
-       {
-        "label": "Assumptions",
-        "items": [
-         "A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).",
-         "Work already signed: the hours left on each active project are spread evenly from today to its planned end date.",
-         "Those hours are split between teams in the same share as the open task estimates of the project.",
-         "New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.",
-         "New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.",
-         "Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.",
-         "We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
-        ]
-       }
-      ],
-      "meta": "1 model call(s), 42248 tokens in, 1642 tokens out, cost $0.1020, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.102031,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       },
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "ok",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Meera Iyer in private (forecast)",
-        "verdict": "allowed",
-        "message": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
-       },
-       {
-        "text": "Told Ammar Khan in private (forecast)",
-        "verdict": "allowed",
-        "message": "Weekly hiring forecast (team level only):\n\nNo team is short in the next 8 weeks, so HR has no hiring start date to set. Design and engineering both have spare hours. Design has about 55.1 free hours a week and engineering has about 166.4. HR should hire less in both teams. Engineering logged more hours recently (436.4 a week) than the forecast shows (up to 317.8), so check that gap first. New deals can also change the forecast.\n\n[SPARE] design: about 55.1 hours a week spare.\nDesign has 4 people and 128 usable hours a week. Forecast demand is 66.3 to 73.8 hours a week for the next 8 weeks. About 55.1 hours a week stay free, which is about 1 person. HR should hire less in design.\n\n[SPARE] engineering: about 166.4 hours a week spare.\nEngineering has 15 people and 480 usable hours a week. Forecast demand is 284.4 to 317.8 hours a week for the next 8 weeks. About 166.4 hours a week stay free, which is about 5 people. Recent logged hours were 436.4 a week, which is higher than the forecast demand. HR should check this gap before it cuts engineering hiring.\n\nAssumptions:\n- A person has 40 hours a week and we plan on 80% of that (utilisation 0.8).\n- Work already signed: the hours left on each active project are spread evenly from today to its planned end date.\n- Those hours are split between teams in the same share as the open task estimates of the project.\n- New work: a won deal that has not started counts in full, a proposal counts for 50%. Deal value becomes hours at the average signed rate, and the work is spread over 12 weeks from the expected start.\n- New work is split between teams in the same share as the signed work. The forecast counts 1 deal, with 490 weighted hours.\n- Hiring takes about 4 weeks, so the hiring start is 4 weeks before the short week.\n- We look 8 weeks ahead, from 2026-10-19 to the week of 2026-12-07. A team has spare hours when at least 15% of its usable hours are free on average."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "2 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000005: spare: design",
-        "note": "Severity: low"
-       },
-       {
-        "text": "CASE000006: spare: engineering",
-        "note": "Severity: low"
-       }
-      ]
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 23.9
-  },
-  "delivery_progress": {
-   "area_id": "C01",
-   "as_of": "2026-08-26",
-   "inputs": {
-    "as_of": "2026-08-26"
-   },
-   "trigger_kind": "request",
-   "status": "done",
-   "reason": "",
-   "final_text": "{\"headlines\": [{\"project_id\": \"PR01\", \"headline\": \"POS Rollout is at risk: 37.0% of the planned work is done with 38.9% of the time used, and at this pace it finishes on 2027-03-03, 15 days after the planned 2027-02-16.\"}, {\"project_id\": \"PR02\", \"headline\": \"Ecommerce Revamp is on track: 26.4% of the planned work is done with 26.7% of the time used, and it is forecast to finish on 2027-03-07, 3 days after the planned 2027-03-04.\"}], \"flags\": [{\"signal\": \"unbilled_work\", \"project_id\": \"PR02\", \"severity\": \"medium\", \"evidence\": \"3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed.\", \"why_it_matters\": \"Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable.\", \"next_step\": \"Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct.\"}]}",
-   "letters": [
-    {
-     "to": "P05",
-     "to_name": "Akbar Ali",
-     "kind": "flag",
-     "text": "Delivery progress flags for your projects:\n\n[MEDIUM] Ecommerce Revamp (PR02)\nWhat we see: 3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed.\nWhy it matters: Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable.\nSuggested next step: Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct."
-    }
-   ],
-   "approvals": [],
-   "walkthrough": {
-    "run_id": "R000001",
-    "agent": "delivery_progress",
-    "area_id": "C01",
-    "caller_id": "P01",
-    "trigger_kind": "request",
-    "outcome": "done",
-    "headline": "Done. The agent read, checked, told the right people and saved what it did.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.095595,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "Each SOW scope item: tasks done and whether it is live",
-        "verdict": "allowed",
-        "note": "2 projects"
-       },
-       {
-        "text": "Time used against scope done, per project",
-        "verdict": "allowed",
-        "note": "2 projects"
-       },
-       {
-        "text": "Finished work that matches no scope item",
-        "verdict": "allowed",
-        "note": "5 prs"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 1 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "unbilled work: PR02",
-        "note": "Severity: medium"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [],
-      "blocks": [
-       {
-        "title": "headlines",
-        "group": "headlines",
-        "points": [
-         [
-          "Headline",
-          "POS Rollout is at risk: 37.0% of the planned work is done with 38.9% of the time used, and at this pace it finishes on 2027-03-03, 15 days after the planned 2027-02-16."
-         ]
-        ]
-       },
-       {
-        "title": "headlines",
-        "group": "headlines",
-        "points": [
-         [
-          "Headline",
-          "Ecommerce Revamp is on track: 26.4% of the planned work is done with 26.7% of the time used, and it is forecast to finish on 2027-03-07, 3 days after the planned 2027-03-04."
-         ]
-        ]
-       },
-       {
-        "title": "unbilled work",
-        "group": "flags",
-        "points": [
-         [
-          "How serious",
-          "medium"
-         ],
-         [
-          "What we see",
-          "3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed."
-         ],
-         [
-          "Why it matters",
-          "Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable."
-         ],
-         [
-          "Next step",
-          "Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct."
-         ]
-        ]
-       }
-      ],
-      "lists": [],
-      "sentences": [
-       "POS Rollout is at risk: 37.0% of the planned work is done with 38.9% of the time used, and at this pace it finishes on 2027-03-03, 15 days after the planned 2027-02-16.",
-       "Ecommerce Revamp is on track: 26.4% of the planned work is done with 26.7% of the time used, and it is forecast to finish on 2027-03-07, 3 days after the planned 2027-03-04.",
-       "3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item."
-      ],
-      "meta": "1 model call(s), 42575 tokens in, 895 tokens out, cost $0.0956, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.095595,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "ok",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Akbar Ali in private (flag)",
-        "verdict": "allowed",
-        "message": "Delivery progress flags for your projects:\n\n[MEDIUM] Ecommerce Revamp (PR02)\nWhat we see: 3 finished pieces of work, completed between 2026-08-20 and 2026-08-26, are not linked to any task or scope item. They are a loyalty points banner on the cart, a gift wrapping option at checkout, and an Instagram shop product feed.\nWhy it matters: Work that is not tied to a signed scope item cannot be checked against the SOW. It may be extra work the client has not approved or billed. It also makes the progress figures for this project less reliable.\nSuggested next step: Ask the project lead whether each of the 3 items belongs to an existing scope item. If an item is new, agree a change request with the client before more work starts. Then link the items so progress and billing are correct."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "1 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000001: unbilled work: PR02",
-        "note": "Severity: medium"
-       }
-      ]
-     }
-    ]
-   },
    "calls": 1,
-   "seconds": 17.6
+   "seconds": 38.2
   },
-  "client_requests": {
-   "area_id": "C04",
-   "as_of": "2026-10-08",
-   "inputs": {
-    "as_of": "2026-10-08"
-   },
-   "trigger_kind": "timer",
+  "deal_brief": {
+   "what": "Deal brief for CareNest (Anthony, Growth)",
+   "asked_by": "P03",
+   "run_id": "R000114",
    "status": "done",
    "reason": "",
-   "final_text": "{\"client_message\": null, \"notes\": [{\"to\": \"P05\", \"topic\": \"escalation\", \"text\": \"Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly.\"}]}",
+   "final_text": "{\"deal_id\":\"L20\",\"similar\":[\"PB-000001\",\"PB-000004\"],\"closing_ideas\":[{\"text\":\"Give a clear, written answer on where patient data will be stored before the client asks again. Put it in the proposal.\",\"because\":\"The client already asked where their data will be stored. In a lost diagnostics deal, the unanswered data question was one of the things that went wrong.\",\"cites\":[\"I000690\",\"PB-000004\"],\"topic\":\"data-residency\"},{\"text\":\"Answer the price worry with the paid pilot the client suggested. Start with three clinics, show value, then roll out to the rest. Compare value, not only price.\",\"because\":\"The client is unhappy with the price and says another vendor is saying less. They also suggested a paid pilot, chose three clinics first, and said they like the pilot plan. A past lost deal went wrong on price. A past won healthcare deal went right with a paid pilot in one clinic.\",\"cites\":[\"I000691\",\"I000692\",\"I000693\",\"I000696\",\"PB-000004\",\"PB-000001\"],\"topic\":\"pricing\"}],\"risks\":[{\"text\":\"The client is unhappy with the price and compares us with another vendor. A past diagnostics deal was lost to another vendor mainly on price.\",\"cites\":[\"I000691\",\"PB-000004\"]},{\"text\":\"The data storage question is open. In a past lost deal, a pending data answer was a reason for the loss.\",\"cites\":[\"I000690\",\"PB-000004\"]},{\"text\":\"The budget is INR 40 lakh. The deal value is INR 42 lakh, which is above it. Plan how to close this gap, for example with the pilot scope.\",\"cites\":[\"I000700\",\"I000691\"]},{\"text\":\"The target launch is 8 November. In a past healthcare deal the launch date moved later, to 20 November. Confirm what depends on the date and how firm it is.\",\"cites\":[\"I000698\",\"PB-000001\"]},{\"text\":\"Scope can grow after the pilot. Twelve clinics need staff training at each clinic. A past healthcare project added requirements late.\",\"cites\":[\"I000688\",\"I000699\",\"PB-000001\"]}],\"kickoff_questions\":[{\"topic\":\"data-residency\",\"question\":\"Where must the data be stored?\",\"why\":\"The client asked where their data will be stored. A lost diagnostics deal went wrong on this.\",\"cites\":[\"I000690\",\"PB-000004\"]},{\"topic\":\"insurance-claims\",\"question\":\"Will users need to upload insurance claims, and who checks them?\",\"why\":\"A past healthcare project added this late.\",\"cites\":[\"PB-000001\"]},{\"topic\":\"lab-integration\",\"question\":\"Which lab or external systems must the app connect to?\",\"why\":\"A past healthcare project added this late.\",\"cites\":[\"PB-000001\"]},{\"topic\":\"language-support\",\"question\":\"Which languages must the screens support, for example Hindi?\",\"why\":\"A past healthcare project added this late.\",\"cites\":[\"PB-000001\"]},{\"topic\":\"launch-date\",\"question\":\"Is there a fixed launch date, and what depends on it?\",\"why\":\"The target launch is 8 November. A past healthcare project changed its launch date late.\",\"cites\":[\"I000698\",\"PB-000001\"]},{\"topic\":\"reminders\",\"question\":\"Which channel for reminders: SMS or WhatsApp?\",\"why\":\"A past healthcare project added this late.\",\"cites\":[\"PB-000001\"]},{\"topic\":\"reporting\",\"question\":\"Which reports or dashboards does the client need, and how often?\",\"why\":\"A past healthcare project added this late.\",\"cites\":[\"PB-000001\"]}],\"summary\":\"CareNest Clinics (healthcare, closing, INR 42 lakh) has twelve clinics in three cities and wants a patient booking app on mobile. All items for this deal are confirmed. The two objections are price and data storage. The client is unhappy with the price, and the budget of INR 40 lakh is below the deal value. Use the paid pilot at three clinics, which the client suggested and likes, to answer price. Give a clear written answer on data storage. At kickoff, ask the seven checklist questions, because past healthcare projects added these requirements late.\"}",
    "letters": [
     {
-     "to": "P05",
-     "to_name": "Akbar Ali",
-     "kind": "escalation",
-     "text": "Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly."
+     "to": "P03",
+     "kind": "deal_brief",
+     "text": "Deal brief: CareNest Clinics (closing)\nCareNest Clinics (healthcare, closing, INR 42 lakh) has twelve clinics in three cities and wants a patient booking app on mobile. All items for this deal are confirmed. The two objections are price and data storage. The client is unhappy with the price, and the budget of INR 40 lakh is below the deal value. Use the paid pilot at three clinics, which the client suggested and likes, to answer price. Give a clear written answer on data storage. At kickoff, ask the seven checklist questions, because past healthcare projects added these requirements late.\n\nIdeas to close:\n- Give a clear, written answer on where patient data will be stored before the client asks again. Put it in the proposal. (I000690, PB-000004)\n- Answer the price worry with the paid pilot the client suggested. Start with three clinics, show value, then roll out to the rest. Compare value, not only price. (I000691, I000692, I000693, I000696, PB-000004, PB-000001)\n\nRisks:\n- The client is unhappy with the price and compares us with another vendor. A past diagnostics deal was lost to another vendor mainly on price. (I000691, PB-000004)\n- The data storage question is open. In a past lost deal, a pending data answer was a reason for the loss. (I000690, PB-000004)\n- The budget is INR 40 lakh. The deal value is INR 42 lakh, which is above it. Plan how to close this gap, for example with the pilot scope. (I000700, I000691)\n- The target launch is 8 November. In a past healthcare deal the launch date moved later, to 20 November. Confirm what depends on the date and how firm it is. (I000698, PB-000001)\n- Scope can grow after the pilot. Twelve clinics need staff training at each clinic. A past healthcare project added requirements late. (I000688, I000699, PB-000001)\n\nAsk at kickoff:\n- Where must the data be stored? (I000690, PB-000004)\n- Will users need to upload insurance claims, and who checks them? (PB-000001)\n- Which lab or external systems must the app connect to? (PB-000001)\n- Which languages must the screens support, for example Hindi? (PB-000001)\n- Is there a fixed launch date, and what depends on it? (I000698, PB-000001)\n- Which channel for reminders: SMS or WhatsApp? (PB-000001)\n- Which reports or dashboards does the client need, and how often? (PB-000001)"
     }
    ],
-   "approvals": [],
-   "walkthrough": {
-    "run_id": "R000007",
-    "agent": "client_requests",
-    "area_id": "C04",
-    "caller_id": "system",
-    "trigger_kind": "timer",
-    "outcome": "done",
-    "headline": "Done. The agent read, checked, told the right people and saved what it did.",
-    "started_at": "2026-10-19T09:00",
-    "cost_usd": 0.0894175,
-    "steps": [
-     {
-      "n": 1,
-      "title": "What it read",
-      "state": "ok",
-      "lines": [
-       "Each read passed the every-action check."
-      ],
-      "items": [
-       {
-        "text": "open client requests",
-        "verdict": "allowed",
-        "note": "3 requests"
-       },
-       {
-        "text": "access check results",
-        "verdict": "allowed",
-        "note": "1 checks"
-       },
-       {
-        "text": "project profile",
-        "verdict": "allowed",
-        "note": "1 projects"
-       },
-       {
-        "text": "client contacts for",
-        "verdict": "allowed",
-        "note": "2 contacts"
-       }
-      ]
-     },
-     {
-      "n": 2,
-      "title": "What the code found",
-      "state": "ok",
-      "lines": [
-       "The code found 1 item(s). Code does the counting, so the numbers are exact."
-      ],
-      "items": [
-       {
-        "text": "request stuck: RQ044",
-        "note": "Severity: high"
-       }
-      ]
-     },
-     {
-      "n": 3,
-      "title": "What the model concluded",
-      "state": "ok",
-      "lines": [],
-      "blocks": [
-       {
-        "title": "Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly.",
-        "group": "notes",
-        "points": [
-         [
-          "To",
-          "P05"
-         ]
-        ]
-       }
-      ],
-      "lists": [],
-      "meta": "1 model call(s), 41745 tokens in, 403 tokens out, cost $0.0894, saved-prefix hits (cache): 0 of 1",
-      "cost_usd": 0.0894175,
-      "cache_hits": 0,
-      "model_calls": 1
-     },
-     {
-      "n": 4,
-      "title": "What was checked before sending",
-      "state": "ok",
-      "lines": [
-       "Way-in check: allowed.",
-       "Safety check passed: every number and id matches what the code found."
-      ],
-      "verdicts": [
-       {
-        "what": "Send a private message",
-        "verdict": "allowed",
-        "reason": ""
-       }
-      ]
-     },
-     {
-      "n": 5,
-      "title": "Who was told, or what is waiting for approval",
-      "state": "ok",
-      "lines": [],
-      "items": [
-       {
-        "text": "Told Akbar Ali in private (escalation)",
-        "verdict": "allowed",
-        "message": "Request RQ044 (Clinic API keys) for Patient Booking App (PR05) needs your help. It has been open for 9 days. We sent 2 reminders to Nandini Sethi and got no resolution. Task T290 is blocked by this request. The project has waited 31 days on the client in total. Please follow up with the client directly."
-       }
-      ]
-     },
-     {
-      "n": 6,
-      "title": "What was saved",
-      "state": "ok",
-      "lines": [
-       "1 case(s) saved to company memory so the team can look back.",
-       "The run log (every step you see here) is saved and cannot be changed."
-      ],
-      "items": [
-       {
-        "text": "CASE000008: request stuck: RQ044",
-        "note": "Severity: high"
-       }
-      ]
-     }
-    ]
-   },
-   "calls": 0,
-   "seconds": 14.6
+   "calls": 1,
+   "seconds": 23.3
+  },
+  "cleaner_hinglish": {
+   "what": "Cleaner on a Hinglish MedBridge source (SRC25)",
+   "asked_by": "system",
+   "run_id": "R000001",
+   "status": "done",
+   "reason": "",
+   "final_text": "{\"translations\": [{\"line_no\": 1, \"clean_text\": \"Hi everyone, shall we begin? Nandini ji, can you hear us?\"}, {\"line_no\": 2, \"clean_text\": \"Yes Akbar, absolutely. First, an update: the doctors tried the beta app, and the feedback is good.\"}, {\"line_no\": 3, \"clean_text\": \"Great. Next, shall we finalize the launch date?\"}, {\"line_no\": 4, \"clean_text\": \"We want the clinic launch to happen first, on 6 November.\"}, {\"line_no\": 5, \"clean_text\": \"And yes, the Hindi screens are still pending. We definitely need those.\"}, {\"line_no\": 6, \"clean_text\": \"Will you send the translations for Hindi?\"}, {\"line_no\": 7, \"clean_text\": \"Yes, we will send them.\"}, {\"line_no\": 8, \"clean_text\": \"Okay, one more thing: how is the insurance claim flow going?\"}, {\"line_no\": 9, \"clean_text\": \"It is fine. It is in testing right now.\"}, {\"line_no\": 10, \"clean_text\": \"And what should we do about reminders, I mean, which channel?\"}, {\"line_no\": 11, \"clean_text\": \"I mean, patients use WhatsApp more.\"}, {\"line_no\": 12, \"clean_text\": \"Yes, nobody looks at SMS at all.\"}, {\"line_no\": 13, \"clean_text\": \"So what should we finalize?\"}, {\"line_no\": 14, \"clean_text\": \"We decide: reminders will go only by WhatsApp.\"}, {\"line_no\": 15, \"clean_text\": \"Done, noted. Thanks everyone.\"}]}",
+   "letters": [],
+   "calls": 1,
+   "seconds": 18.1,
+   "lines": [
+    {
+     "line_no": 1,
+     "raw": "Hi everyone, shall we begin? Nandini ji, aap sun rahe ho?",
+     "clean": "Hi everyone, shall we begin? Nandini ji, can you hear us?"
+    },
+    {
+     "line_no": 2,
+     "raw": "Haan Akbar, bilkul. Pehle ek update, doctors ne beta app try kiya, feedback achha hai.",
+     "clean": "Yes Akbar, absolutely. First, an update: the doctors tried the beta app, and the feedback is good."
+    },
+    {
+     "line_no": 3,
+     "raw": "Great. Next kya hum launch ki date finalize karein?",
+     "clean": "Great. Next, shall we finalize the launch date?"
+    },
+    {
+     "line_no": 4,
+     "raw": "Hum chahte hain ki pehle clinic ka launch six November ko ho.",
+     "clean": "We want the clinic launch to happen first, on 6 November."
+    },
+    {
+     "line_no": 5,
+     "raw": "Aur haan, Hindi screens abhi bhi baaki hain, woh to chahiye hi.",
+     "clean": "And yes, the Hindi screens are still pending. We definitely need those."
+    },
+    {
+     "line_no": 6,
+     "raw": "Hindi ke liye translations aap bhejoge?",
+     "clean": "Will you send the translations for Hindi?"
+    },
+    {
+     "line_no": 7,
+     "raw": "Haan, hum bhej denge.",
+     "clean": "Yes, we will send them."
+    },
+    {
+     "line_no": 8,
+     "raw": "Achha, ek aur cheez, insurance claim wala flow kaisa chal raha hai?",
+     "clean": "Okay, one more thing: how is the insurance claim flow going?"
+    },
+    {
+     "line_no": 9,
+     "raw": "Wo theek hai, uh, test mein hai abhi.",
+     "clean": "It is fine. It is in testing right now."
+    },
+    {
+     "line_no": 10,
+     "raw": "Aur reminders ka kya karna hai, matlab kaunsa channel?",
+     "clean": "And what should we do about reminders, I mean, which channel?"
+    },
+    {
+     "line_no": 11,
+     "raw": "Matlab patients WhatsApp use karte hain zyada.",
+     "clean": "I mean, patients use WhatsApp more."
+    },
+    {
+     "line_no": 12,
+     "raw": "Haan, SMS toh koi dekhta hi nahi.",
+     "clean": "Yes, nobody looks at SMS at all."
+    },
+    {
+     "line_no": 13,
+     "raw": "Toh kya final karein?",
+     "clean": "So what should we finalize?"
+    },
+    {
+     "line_no": 14,
+     "raw": "Hum decide karte hain: WhatsApp se hi reminders jayenge.",
+     "clean": "We decide: reminders will go only by WhatsApp."
+    },
+    {
+     "line_no": 15,
+     "raw": "Done, note kar liya. Thanks everyone.",
+     "clean": "Done, noted. Thanks everyone."
+    }
+   ]
+  },
+  "live_call_summary": {
+   "what": "End summary of live call LC02 (Akbar, CSM)",
+   "asked_by": "P05",
+   "run_id": "R000115",
+   "status": "done",
+   "reason": "",
+   "final_text": "Akbar Ali spoke with Nandini of MedBridge Clinics. Nandini said all is going fine and the doctors like the app. She raised one open point: the WhatsApp approval has not come, so the clinic wants to send reminders by SMS instead. Akbar said he will think about it and come back after the sync. Nandini said there is no hurry. Until then, the clinic will show the demo to the doctors. One conflict to note: on Sep 30 Akbar agreed in a call that reminders go by WhatsApp only. The SMS idea changes that decision. No new decision was made on this call.",
+   "letters": [],
+   "calls": 1,
+   "seconds": 13.9,
+   "next_steps": [
+    "Akbar: after the sync, reply to Nandini on whether reminders move from WhatsApp to SMS.",
+    "Akbar: check the Sep 30 decision (reminders by WhatsApp only) and ask the client directly if that decision changes.",
+    "Akbar: find out the status of the WhatsApp approval and when it might come.",
+    "Do not record SMS as the new decision until Akbar and the client confirm it.",
+    "Nandini's team: continue to show the demo to the doctors."
+   ],
+   "suggestions": 1
+  },
+  "finance_trip_card": {
+   "what": "Finance trip card for TR005 (Ammar, Admin)",
+   "asked_by": "P01",
+   "run_id": "R000113",
+   "status": "failed",
+   "reason": "the saving on TR005 (INR 4,450) is not shown",
+   "final_text": "{\"answer\": \"Trip totals: trip TR005 left on 2026-08-08 for Pune (customer success). It cost 9150 INR. The trip check lists its cost as 8700 INR, and the books do not say why the two differ. This is 1 trip, and it had a cheaper option.\\nSavings: yes, TR005 was too expensive. The rule is same city trips. Trip TR004 also went to Pune on 2026-08-05. The cheaper option cost 4700 INR. The saving is 4450 INR.\\nPolicy suggestions:\\n1. Before booking a trip, check for another trip to the same city in the same week.\\n2. Ask teams to combine same city trips, or share the booking, when dates are close.\\n3. Ask for a short reason when two trips to one city happen within a few days.\"}",
+   "letters": [],
+   "calls": 1,
+   "seconds": 17.2
   }
  },
  "model": "claude-cli (sonnet)",
- "generated_at": "2026-10-18"
+ "generated_at": "2026-10-19"
 }

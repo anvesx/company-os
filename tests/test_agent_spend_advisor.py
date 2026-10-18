@@ -116,7 +116,7 @@ class SpendAdvisorTests(unittest.TestCase):
         _, text = self.ask("Travel", **{"from": "2026-09-01", "to": "2026-09-30"})
         self.assertIn("From 2026-09-01 to 2026-09-30", text)
 
-    def break_answer(self, edit):
+    def break_answer(self, edit, status="failed"):
         brains = self.cos.gateway._backends["fake"].brains
         real = brains["spend_advisor"]
 
@@ -124,12 +124,16 @@ class SpendAdvisorTests(unittest.TestCase):
             return ModelReply(text=json.dumps({"answer": edit(json.loads(real(request).text)["answer"])}))
         brains["spend_advisor"] = broken
         result, _ = self.ask("Where can we save on travel?")
-        self.assertEqual(result.status, "failed")
-        self.assertEqual(self.cos.outbox.messages(), [])
+        self.assertEqual(result.status, status)
+        if status == "failed":
+            self.assertEqual(self.cos.outbox.messages(), [])
         return result.reason
 
     def test_wrong_amount_is_stopped_by_check(self):
         self.assertIn("does not match", self.break_answer(lambda t: t + " It also cost INR 12,345."))
+
+    def test_a_stray_comma_after_inr_is_not_a_crash(self):
+        self.assertEqual(self.break_answer(lambda t: t + " Costs ran INR , more than planned.", status="done"), "")
 
     def test_wrong_percentage_date_and_trip_are_stopped_by_check(self):
         self.assertIn("percentage 99.9%", self.break_answer(lambda t: t + " That is 99.9% of cost."))
