@@ -19,6 +19,10 @@ Read `README.md` for what this repo is, `TRACKER.md` for the current state, and 
 - **Keep the suite green.** Run `python3 -m unittest discover -s tests -t .` and `python3 -m evaluation.run_all_exams` before a commit.
 - **Work by ticket.** Follow `TICKETS_v2.md`. When several agents work in parallel, each edits only the files its ticket owns.
 
+## Research
+
+All research goes in `docs/research/`, one file per topic, listed in `docs/research/README.md`. Mark each claim confirmed or unverified, with a source.
+
 ## The web console
 
 `web_console/` is only for experiments: to see progress visually and try things out. It is not the final product. Do not treat its pages or layout as product decisions.

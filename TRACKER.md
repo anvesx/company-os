@@ -8,6 +8,7 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
+| Research: how Grok Bot works inside, compared with Company OS | (research) | Running; note goes to `docs/research/` |
 | Integration: one full run through the real brain pipeline, compaction hook in the agent loop, real-Sonnet samples, fixes found in Wave 2 | I1 | Started Oct 19 |
 
 ## Next
@@ -37,6 +38,7 @@ Last updated: Oct 19, 2026.
 
 | Date | Decision | Why |
 |---|---|---|
+| Oct 19 | All research goes in the repo, in `docs/research/` | One place for the team to read why decisions were made |
 | Oct 19 | Keep Python for the core (brain, agents, guardrails, document readers). If we need dsh features later, run dsh as a separate TypeScript service behind our contract. | Python was inherited from the first prototype, not chosen on purpose; checked Oct 19. Python needs no packages and is strong for documents (Excel, PDF, OCR). dsh is TypeScript, so we rewrite its ideas in Python. Revisit if the maintaining team mostly writes TypeScript |
 | Oct 19 | The web console is only for experiments: to see progress visually and try things out. It is not the final product. | How people will reach the agents (Slack, email or another tool) is still open |
 | Oct 19 | Every Fathom recording goes into the brain automatically. Nobody approves anything. Unsure facts are stored as "unconfirmed". When two statements conflict, the newer one wins and the older one is marked "superseded". | A required review step would be a hassle, and people would stop doing it |
