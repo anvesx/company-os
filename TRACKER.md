@@ -2,7 +2,7 @@
 
 What is done, what is in progress, what is next, and the decisions made. Update this file with every change. Newest first in each section. Times are IST.
 
-Last updated: Oct 21, 2026.
+Last updated: Oct 22, 2026.
 
 ## In progress
 
@@ -18,6 +18,7 @@ Last updated: Oct 21, 2026.
 | 24/7 step 3: release gate (exams pass 3 times in a row, then a shadow run), planted-problem test and planted-secret test | (planned) | See `PLAN_24x7.md`, idea 7 and section 5 |
 | 24/7 step 4: mark every action undoable or not, and autonomy levels (Shadow, Suggest, Act) | (planned) | See `PLAN_24x7.md`, ideas 5 and 6 |
 | 24/7 step 5: every correction or failed run becomes a rule and an exam case | (planned) | See `PLAN_24x7.md`, idea 8. Comes before the learning loop |
+| One cloud VM per user: VM provider interface, VM daemon, one box per agent (Linux user, Chrome profile, allowlist), live-view sign-in, snapshots, pause and wake | (planned) | See `docs/research/per-user-vms.md`. Needs the password broker and the stop switch first |
 | Check the console at phone width (390 px) and in dark mode | (follow-up) | Not checked in I2 |
 | Finance trip card: the real-Sonnet sample was refused twice by our own checks; fix the prompt so it passes | (follow-up) | Found in I1 |
 | Control plane server, to run for real: a scheduler for timers, a webhook for new Fathom recordings, a job queue with retries, approvals and letters through Slack or email, hosting | (planned) | After the demo. Today the control-plane logic runs on a simulated clock with dummy data |
@@ -28,6 +29,7 @@ Last updated: Oct 21, 2026.
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 22 | Research and design: one cloud VM per user, agent boxes inside it, sign-in through a live view, hosting options and cost | `docs/research/per-user-vms.md`, `README.md` |
 | Oct 21 | Plan for running agents 24/7: eight control-plane ideas, autonomy levels, rules that never change, and a build order | `PLAN_24x7.md` |
 | Oct 19 | Browser-check fixes: a CSM no longer sees deal-stage sources (sales calls before the signed SOW), enforced on the data; only real changed decisions show "Changed on"; Home cost total matches the runs. 551 tests, 10 exams pass | (fix) |
 | Oct 19 | Browser check of each role: all pages work for Ammar, Akbar and Anthony; forbidden pages refused (403); 4 bugs fixed; screenshots in `evaluation/browser_check/` | I2 |
@@ -50,6 +52,8 @@ Last updated: Oct 21, 2026.
 
 | Date | Decision | Why |
 |---|---|---|
+| Oct 22 | Each user gets one cloud VM. All of that user's agents work inside it, each as its own Linux user with its own browser profile and allowlist. Finance gets its own VM. Company agents run in a company service VM | The user signs in once and every agent can work, without using the user's Mac. Boxes keep agents apart at a fraction of the cost of one VM per agent |
+| Oct 22 | The agent never sees a password: a broker fills logins from 1Password after the user approves each fill | A leaked password in a browser snapshot is a known failure in a similar product |
 | Oct 21 | Running agents 24/7 is a control-plane job. The core harness does not change | The core and the brain work. What unattended runs lack is cost control, a stop switch, crash resume, an always-on server and release gates |
 | Oct 21 | Autonomy is earned: every new agent starts in shadow, moves up only on measured results, and drops a level by itself after a serious mistake. Actions that cannot be undone always wait for a named person | Trust should follow results. Undo is a safer test than which agent acts |
 | Oct 21 | An agent can never change its own exams, budget, level or stop switch | An agent that grades itself cannot be trusted |
@@ -74,6 +78,7 @@ Last updated: Oct 21, 2026.
 
 | Question | Owner |
 |---|---|
+| Which host runs the user VMs: E2B, Daytona or EC2 in Mumbai? Must client data stay in India? Suggestion: E2B or Daytona to start; EC2 in Mumbai if data must stay in India | Pratham |
 | Which actions count as undoable? Suggestion: create a task, send an internal reminder | Pratham |
 | What result lets an agent move up a level? Suggestion: no worse than a trained person, over at least 50 reviewed runs | Pratham |
 | Which language does the team that will maintain Company OS mostly write? If TypeScript, revisit the Python decision | Pratham |

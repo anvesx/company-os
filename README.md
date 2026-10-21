@@ -37,6 +37,22 @@ Every fact links back to the exact line it came from. Nobody has to approve anyt
 - **Check before act.** Every action passes the guardrails before it reaches a person.
 - **A fake model by default.** Tests and exams use a deterministic fake model. Real Claude (Sonnet) is an option through the `claude` CLI.
 
+## Where agents run: one cloud VM per user
+
+Agents run in the cloud, never on the user's Mac. On a Mac they would use the user's CPU and memory, and stop when the lid closes. This is planned, not built.
+
+- **One VM per user.** A VM (virtual machine) is a full computer on a cloud server. All of a user's agents work inside that user's VM, with a real browser. So they can use websites and apps that have no API.
+- **One box per agent inside the VM.** Each agent runs as its own Linux user, with its own Chrome profile, files and network allowlist. One agent cannot read another agent's cookies or files, or reach a site that is not on its list.
+- **Finance gets its own VM.** Money is high risk, so it never shares a VM.
+- **Company agents run in a company service VM.** An infra monitor acts for the team and reads APIs, so it needs no browser and no user VM.
+- **Sign in once, then hand back.** When a site needs a login, the agent pauses and the user gets a link. The user signs in through a live view of the VM (noVNC or WebRTC), including any 2FA code. The view turns read-only, the VM is snapshotted, and the agent resumes.
+- **The agent never sees a password.** A password broker fills logins from 1Password after the user approves each fill. A scrubber removes secrets from every snapshot, screenshot and log line.
+- **The VM calls out, nothing calls in.** A small daemon in the VM pulls jobs from the control plane over outbound HTTPS. No inbound port is open.
+- **Pause when idle, wake on a job.** An idle VM pauses with its memory and disk kept, and wakes when the scheduler has a job for it. The stop switch stops the VM, revokes its daemon token and its broker path.
+- **Host:** start on a managed sandbox (E2B or Daytona) behind one small VM provider interface. Move to AWS EC2 in Mumbai if data must stay in India or cost matters at scale. Estimated cost: about $10 to $19 per user per month.
+
+The full design, the hosting options with prices, the sign-in flow and the sources are in `docs/research/per-user-vms.md`.
+
 ## Folders
 
 | Folder | What it holds |
@@ -82,4 +98,4 @@ Both results are saved in `evaluation/latest_scores.json`. The pass bars are the
 
 ## Status
 
-Work in progress. See `TRACKER.md` for what is done, what is in progress, what is next, and the decisions made. The full plan is in `PLAN_v2.md`, and the build tickets are in `TICKETS_v2.md`. The plan for running agents 24/7 is in `PLAN_24x7.md`.
+Work in progress. See `TRACKER.md` for what is done, what is in progress, what is next, and the decisions made. The full plan is in `PLAN_v2.md`, and the build tickets are in `TICKETS_v2.md`. The plan for running agents 24/7 is in `PLAN_24x7.md`, and the design for one cloud VM per user is in `docs/research/per-user-vms.md`.
