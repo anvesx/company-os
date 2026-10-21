@@ -2,7 +2,7 @@
 
 What is done, what is in progress, what is next, and the decisions made. Update this file with every change. Newest first in each section. Times are IST.
 
-Last updated: Oct 19, 2026.
+Last updated: Oct 21, 2026.
 
 ## In progress
 
@@ -13,16 +13,22 @@ Last updated: Oct 19, 2026.
 
 | What | Ticket | Notes |
 |---|---|---|
+| 24/7 step 1: check the stop switch before every action, add a pause for each agent, and cheap-first models (Haiku first, Sonnet when needed, never Opus) | (planned) | See `PLAN_24x7.md`, ideas 1 and 2 |
+| 24/7 step 2: crash resume (save after each step), one effect per repeated write, and a watchdog that alerts a person | (planned) | See `PLAN_24x7.md`, idea 3. Part of the control plane server below |
+| 24/7 step 3: release gate (exams pass 3 times in a row, then a shadow run), planted-problem test and planted-secret test | (planned) | See `PLAN_24x7.md`, idea 7 and section 5 |
+| 24/7 step 4: mark every action undoable or not, and autonomy levels (Shadow, Suggest, Act) | (planned) | See `PLAN_24x7.md`, ideas 5 and 6 |
+| 24/7 step 5: every correction or failed run becomes a rule and an exam case | (planned) | See `PLAN_24x7.md`, idea 8. Comes before the learning loop |
 | Check the console at phone width (390 px) and in dark mode | (follow-up) | Not checked in I2 |
 | Finance trip card: the real-Sonnet sample was refused twice by our own checks; fix the prompt so it passes | (follow-up) | Found in I1 |
 | Control plane server, to run for real: a scheduler for timers, a webhook for new Fathom recordings, a job queue with retries, approvals and letters through Slack or email, hosting | (planned) | After the demo. Today the control-plane logic runs on a simulated clock with dummy data |
-| Approvals that expire after a set time (idea from Grok Bot) | (idea) | Not planned yet |
+| Approvals that expire after a set time (idea from Grok Bot) | (planned) | Now part of `PLAN_24x7.md`, idea 6 |
 | Brain inbox reads any document type: Excel and CSV, PDF (with OCR for scans), PowerPoint, Google exports, images. Each fact still links to its exact place (sheet and cell, page and line, slide) | (planned) | Owner's plan, Oct 19. Today: Fathom, Word, email, chat, live calls |
 
 ## Done
 
 | Date | What | Ticket |
 |---|---|---|
+| Oct 21 | Plan for running agents 24/7: eight control-plane ideas, autonomy levels, rules that never change, and a build order | `PLAN_24x7.md` |
 | Oct 19 | Browser-check fixes: a CSM no longer sees deal-stage sources (sales calls before the signed SOW), enforced on the data; only real changed decisions show "Changed on"; Home cost total matches the runs. 551 tests, 10 exams pass | (fix) |
 | Oct 19 | Browser check of each role: all pages work for Ammar, Akbar and Anthony; forbidden pages refused (403); 4 bugs fixed; screenshots in `evaluation/browser_check/` | I2 |
 | Oct 19 | Code split into `core/` (core harness) and `control_plane/`, with `contract/` between them. Boundary tests check both directions. 545 tests and all 10 exams pass | R2 |
@@ -44,6 +50,9 @@ Last updated: Oct 19, 2026.
 
 | Date | Decision | Why |
 |---|---|---|
+| Oct 21 | Running agents 24/7 is a control-plane job. The core harness does not change | The core and the brain work. What unattended runs lack is cost control, a stop switch, crash resume, an always-on server and release gates |
+| Oct 21 | Autonomy is earned: every new agent starts in shadow, moves up only on measured results, and drops a level by itself after a serious mistake. Actions that cannot be undone always wait for a named person | Trust should follow results. Undo is a safer test than which agent acts |
+| Oct 21 | An agent can never change its own exams, budget, level or stop switch | An agent that grades itself cannot be trusted |
 | Oct 19 | Split the code into `core/` (core harness) and `control_plane/`, with `contract/` between them and a test that the core never imports the control plane | Makes the two layers visible and keeps the core swappable (for dsh or another harness) |
 | Oct 19 | Explain Company OS as two layers: the core harness (how one agent thinks and acts during a run) and the control plane (how the company runs many agents safely, always on) | The core harness is small; most of the value is in the control plane |
 | Oct 19 | All research goes in the repo, in `docs/research/` | One place for the team to read why decisions were made |
@@ -65,6 +74,8 @@ Last updated: Oct 19, 2026.
 
 | Question | Owner |
 |---|---|
+| Which actions count as undoable? Suggestion: create a task, send an internal reminder | Pratham |
+| What result lets an agent move up a level? Suggestion: no worse than a trained person, over at least 50 reviewed runs | Pratham |
 | Which language does the team that will maintain Company OS mostly write? If TypeScript, revisit the Python decision | Pratham |
 | How will people reach the agents in the final product (Slack, email or another tool)? The web console is only an experiment | Pratham |
 | Confirm the rule for which recordings go into the brain | Pratham |

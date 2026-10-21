@@ -1,6 +1,6 @@
 # Claude Code: Company OS
 
-Read `README.md` for what this repo is, `TRACKER.md` for the current state, and `PLAN_v2.md` for the design.
+Read `README.md` for what this repo is, `TRACKER.md` for the current state, `PLAN_v2.md` for the design, and `PLAN_24x7.md` for the plan to run agents 24/7.
 
 ## Keep the tracker current
 

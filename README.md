@@ -82,4 +82,4 @@ Both results are saved in `evaluation/latest_scores.json`. The pass bars are the
 
 ## Status
 
-Work in progress. See `TRACKER.md` for what is done, what is in progress, what is next, and the decisions made. The full plan is in `PLAN_v2.md`, and the build tickets are in `TICKETS_v2.md`.
+Work in progress. See `TRACKER.md` for what is done, what is in progress, what is next, and the decisions made. The full plan is in `PLAN_v2.md`, and the build tickets are in `TICKETS_v2.md`. The plan for running agents 24/7 is in `PLAN_24x7.md`.
